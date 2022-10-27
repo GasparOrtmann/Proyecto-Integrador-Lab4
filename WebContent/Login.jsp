@@ -8,8 +8,9 @@
 </head>
 <body>
 
-<h1>Ingresá tus datos para operar</h1>
 
+<div align="center">
+<h1>Ingresá tus datos para operar</h1>
 DNI: <input type="text" name="txtDNI"><br>
 <br>
 Usuario: <input type="text" name="txtUsuario"><br>
@@ -19,6 +20,6 @@ Contraseña: <input type="text" name="txtPassword"><br>
 <input type="submit" name="btnIngresar" value="Ingresar"><br>
 <br>
 <a href="">Crear cuenta</a>
-
+</div>
 </body>
 </html>
