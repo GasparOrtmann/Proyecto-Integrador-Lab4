@@ -10,6 +10,10 @@
 <div align="center">
 
 <h1>Autorizacion de Prestamos</h1>
+<br/>
+<br/>
+		Filtrar por cliente: <input type="text" name="txtFiltro"> <input type="submit" name="btnFiltrar" value="Filtrar"><br/>
+		<br>
 		<table border="1">
 				<tr>
 					<th>Ciente</th>
