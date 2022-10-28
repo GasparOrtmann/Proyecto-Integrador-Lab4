@@ -4,9 +4,47 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Autorizacion de Prestamos</title>
 </head>
 <body>
+<div align="center">
 
+<h1>Autorizacion de Prestamos</h1>
+		<table border="1">
+				<tr>
+					<th>Ciente</th>
+					<th>Cuenta</th>
+					<th>Monto</th>
+					<th>Cuotas</th>
+					<th></th>
+					<th></th>
+				</tr>
+				<tr>
+					<td>Cliente x</td>
+					<td>Cuenta 1</td>
+					<td>$150000</td>
+					<td>72</td>
+					<td><input type="submit" value="autorizar"></td>
+					<td><input type="submit" value="rechazar"></td>
+				</tr>
+					<tr>
+					<td>Cliente 2</td>
+					<td>Cuenta 2</td>
+					<td>$150000</td>
+					<td>12</td>
+					<td><input type="submit" value="autorizar"></td>
+					<td><input type="submit" value="rechazar"></td>
+				</tr>
+					<tr>
+					<td>Cliente 3</td>
+					<td>Cuenta 2</td>
+					<td>$12000</td>
+					<td>18</td>
+					<td><input type="submit" value="autorizar"></td>
+					<td><input type="submit" value="rechazar"></td>
+				</tr>
+</table>
+</div>
 </body>
+
 </html>
