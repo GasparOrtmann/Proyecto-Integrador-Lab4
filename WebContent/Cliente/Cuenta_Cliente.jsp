@@ -5,8 +5,20 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+<link href="../styles.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-
+<form class="centrar-column">
+<h1>Datos de Usuario</h1>
+<div class="centrar-row">
+	<div>
+		<label>Nombre de Usuario: usuarioPrueba</label> <br>
+		<label>Mail: usuarioPrueba@gmail.com</label> <br>
+		<label>Nombre: Usuario</label> <br>
+		<label>Apellido: Prueba</label> <br>
+		<label>Domicilio: Calle 1234</label> <br>
+	</div>
+</div>
+</form>
 </body>
 </html>
