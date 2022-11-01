@@ -5,21 +5,23 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Insert title here</title>
+<link href="../styles.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 
-
-<div align="center">
-<h1>Ingresá tus datos para operar</h1>
-DNI: <input type="text" name="txtDNI"><br>
-<br>
-Usuario: <input type="text" name="txtUsuario"><br>
-<br>
-Contraseña: <input type="text" name="txtPassword"><br>
-<br>
-<input type="submit" name="btnIngresar" value="Ingresar"><br>
-<br>
-<a href="">Crear cuenta</a>
-</div>
+<form class="centrar-column">
+	<h1>Ingresá tus datos para operar</h1>
+	<div class="centrar-row">
+		<label>DNI:</label><input type="text" name="txtDNI"><br>
+		<br>
+		<label>Usuario:</label><input type="text" name="txtUsuario"><br>
+		<br>
+		<label>Contraseña:</label><input type="text" name="txtPassword"><br>
+		<br>
+		<input type="submit" name="btnIngresar" value="Ingresar"><br>
+		<br>
+		<a href="">Recuperar Contraseña</a>
+	</div>
+</form>
 </body>
 </html>
