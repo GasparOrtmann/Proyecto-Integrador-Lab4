@@ -1,17 +1,12 @@
 @charset "ISO-8859-1";
+
 body{
 	width:100%;
 	height:100vh;
 	background-color:#e6e6e6;
 }
 
-.navbar{
-	width:100%;
-	background-color:#FF0000;
-	display:flex;
-	flex-direction:row-reverse;
-	gap:1rem;
-}
+
 .containerContent{
 	display:flex;
 	height:92%;
@@ -115,21 +110,45 @@ body{
 	width:90%;
 	height:40px;
 }
-.buttonLogout{
-	margin:10px 10px;
-	background-color:#FF881A;
-	border:none;
-	color:white;
-	height:40px;
-	width:100px;
-	font-weight:bolder;
+
+
+/*-------------MASTERPAGE CLIENTE--------------------------------------------*/
+
+.navbarSuperior{
+	width:100%;
+	background-color:#363062;
+	display:flex; 
+	flex-direction: row;
+	gap:1rem;
+	padding:0.5rem;
+	justify-content: space-between;
+	color: white;
+	height:60px;
 }
-.buttonAdmin{
-	margin:10px 0;
-	background-color:#FFF500;
-	border:none;
-	color:gray;
-	height:40px;
-	width:100px;
-	font-weight:bolder;
+
+.navbarLateral{
+	display:inline-block;
 }
+
+.navbarLateral span{
+	color:#F7F7FC;
+}
+
+.navbarLateral button{
+	color:#F7F7FC;
+}
+
+.btnUser{
+	width:100px;
+	height:100px;
+	margin-left:65px;
+	border-radius:50px;
+	border-color:#F7F7FC;
+	border-style:solid;
+	font-size:30px;
+	background-color:#363062;
+}
+
+/*-------------------------------------------------------------------------------*/
+
+
