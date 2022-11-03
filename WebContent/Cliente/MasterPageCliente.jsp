@@ -13,68 +13,79 @@
 
 <body>
 
+<div class="container-fluid">
+
 	<div class="navbarSuperior">
 		<h1>BANCO DE LA NACION</h1>
 		<button type="submit" class="btn btn-secondary ">
 			<i class="fa-solid fa-arrow-right-from-bracket"></i> Cerrar Sesión
 		</button>
 	</div>
-	<div class="navbarLateral">
-		<div class="flex-shrink-0 p-3"
-			style="width: 280px; background-color: #B4B1C4; height: 100rem">
-			<button type="submit" class="btnUser">JP</button>
-			<br> <br> <a href="/"
-				class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
-				<span class="fs-5 fw-semibold">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Juan
-					Perez</span>
-			</a>
-
-			<ul class="list-unstyled ps-0">
-				<li class="mb-1">
-					<button
-						class="btn btn-toggle d-inline-flex align-items-center rounded border-0">
-						INICIO</button>
-				</li>
-				<li class="border-top my-3"></li>
-				<li class="mb-1">
-					<button
-						class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
-						data-bs-toggle="collapse" data-bs-target="#orders-collapse"
-						aria-expanded="false">PRESTAMOS</button>
-					<div class="collapse" id="orders-collapse" style="">
-						<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-							<li><a href="#"
-								class="link-dark d-inline-flex text-decoration-none rounded">Mis
-									Prestamos</a></li>
-							<li><a href="#"
-								class="link-dark d-inline-flex text-decoration-none rounded">Solicitar
-									Prestamo</a></li>
-						</ul>
-					</div>
-				</li>
-				<li class="border-top my-3"></li>
-				<li class="mb-1">
-					<button
-						class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
-						data-bs-toggle="collapse" data-bs-target="#account-collapse"
-						aria-expanded="false">TRANSFERENCIAS</button>
-					<div class="collapse" id="account-collapse" style="">
-						<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-							<li><a href="#"
-								class="link-dark d-inline-flex text-decoration-none rounded">A
-									Cuenta Propia</a></li>
-							<li><a href="#"
-								class="link-dark d-inline-flex text-decoration-none rounded">A
-									Otras Cuentas</a></li>
-						</ul>
-					</div>
-				</li>
-				<li class="border-top my-3"></li>
-			</ul>
+	
+	<div class="row">
+		<div class="col-3">
+					<div class="navbarLateral">
+				<div class="flex-shrink-0 p-3"
+					style="width: 280px; background-color: #B4B1C4; height: 100rem">
+					<button type="submit" class="btnUser">JP</button>
+					<br> <br> <a href="/"
+						class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
+						<span class="fs-5 fw-semibold">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Juan
+							Perez</span>
+					</a>
+		
+					<ul class="list-unstyled ps-0">
+						<li class="mb-1">
+							<button
+								class="btn btn-toggle d-inline-flex align-items-center rounded border-0">
+								INICIO</button>
+						</li>
+						<li class="border-top my-3"></li>
+						<li class="mb-1">
+							<button
+								class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+								data-bs-toggle="collapse" data-bs-target="#orders-collapse"
+								aria-expanded="false">PRESTAMOS</button>
+							<div class="collapse" id="orders-collapse" style="">
+								<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+									<li><a href="#"
+										class="link-dark d-inline-flex text-decoration-none rounded">Mis
+											Prestamos</a></li>
+									<li><a href="#"
+										class="link-dark d-inline-flex text-decoration-none rounded">Solicitar
+											Prestamo</a></li>
+								</ul>
+							</div>
+						</li>
+						<li class="border-top my-3"></li>
+						<li class="mb-1">
+							<button
+								class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
+								data-bs-toggle="collapse" data-bs-target="#account-collapse"
+								aria-expanded="false">TRANSFERENCIAS</button>
+							<div class="collapse" id="account-collapse" style="">
+								<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+									<li><a href="#"
+										class="link-dark d-inline-flex text-decoration-none rounded">A
+											Cuenta Propia</a></li>
+									<li><a href="#"
+										class="link-dark d-inline-flex text-decoration-none rounded">A
+											Otras Cuentas</a></li>
+								</ul>
+							</div>
+						</li>
+						<li class="border-top my-3"></li>
+					</ul>
+				</div>
+			</div>
 		</div>
 	</div>
+</div>
 
-	<!-- JavaScript Bundle with Popper -->
+
+	
+
+<!-- JavaScript Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>
 </body>
 </html>

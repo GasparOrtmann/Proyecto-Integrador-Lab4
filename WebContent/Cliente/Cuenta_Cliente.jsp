@@ -8,17 +8,23 @@
 <link href="../styles.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-<form class="centrar-column">
-<h1>Datos de Usuario</h1>
-<div class="centrar-row">
-	<div>
-		<label>Nombre de Usuario: usuarioPrueba</label> <br>
-		<label>Mail: usuarioPrueba@gmail.com</label> <br>
-		<label>Nombre: Usuario</label> <br>
-		<label>Apellido: Prueba</label> <br>
-		<label>Domicilio: Calle 1234</label> <br>
+
+<%@include file="MasterPageCliente.jsp"%>
+
+<div style="position: absolute;top:150px;left:400px;">
+
+	<form class="centrar-column">
+	<h1>Datos de Usuario</h1>
+	<div class="centrar-row">
+		<div>
+			<label>Nombre de Usuario: usuarioPrueba</label> <br>
+			<label>Mail: usuarioPrueba@gmail.com</label> <br>
+			<label>Nombre: Usuario</label> <br>
+			<label>Apellido: Prueba</label> <br>
+			<label>Domicilio: Calle 1234</label> <br>
+		</div>
 	</div>
+	</form>
 </div>
-</form>
 </body>
 </html>
