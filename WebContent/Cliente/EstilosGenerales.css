@@ -9,7 +9,8 @@ body{
 	width:100%;
 	background-color:#FF0000;
 	display:flex;
-	flex-direction:row-reverse;
+	flex-direction:row;
+	justify-content:space-between;
 	gap:1rem;
 }
 .containerContent{
