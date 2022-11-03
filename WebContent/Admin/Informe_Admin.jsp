@@ -75,7 +75,7 @@
 		<br> <input type="submit" name="btnCalcularIntereses"
 			value="Calcular" style="width: 70px; height: 30px"> <br>
 		<br> <label>Dinero prestado por el banco segun el mes:</label> <br>
-		<input type="text">
+		<input type="text" placeholder="Digite un año">
 		 <input type="submit" name="btnCalcularIntereses" value="Calcular"
 			style="width: 70px; height: 30px">
 		<canvas id="myChart" width="400" height="200"></canvas>
