@@ -8,6 +8,11 @@
 <link href="../styles.css" rel="stylesheet" type="text/css">
 </head>
 <body>
+
+<%@include file="MasterPageCliente.jsp"%>
+
+<div style="position: absolute;top:150px;left:400px;">
+	
 <form class="centrar-column">
 <h1>Tranferencias Locales</h1>
 <div class="centrar-row">
@@ -21,6 +26,7 @@
 			</select>
 		</div>
 	</div>
+	<br>
 	<div>
 		<div>
 		<label>A:</label>
@@ -31,11 +37,18 @@
 			</select>
 		</div>
 	</div>
+	<br>
 	<div>
-		<input type="text" name="txtMonto"> <br>
+		<input type="text" name="txtMonto">
+		<br><br>
 		<input type="submit" name="btnEnviar">
 	</div>
 </div>
 </form>
+</div>
+	
+
+
+
 </body>
 </html>
