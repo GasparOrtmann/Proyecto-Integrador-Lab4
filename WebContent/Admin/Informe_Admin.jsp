@@ -75,20 +75,8 @@
 		<br> <input type="submit" name="btnCalcularIntereses"
 			value="Calcular" style="width: 70px; height: 30px"> <br>
 		<br> <label>Dinero prestado por el banco segun el mes:</label> <br>
-		<select>
-			<option>Enero</option>
-			<option>Febrero</option>
-			<option>Marzo</option>
-			<option>Abril</option>
-			<option>Mayo</option>
-			<option>Junio</option>
-			<option>Julio</option>
-			<option>Agosto</option>
-			<option>Septiembre</option>
-			<option>Octubre</option>
-			<option>Noviembre</option>
-			<option>Diciembre</option>
-		</select> <input type="submit" name="btnCalcularIntereses" value="Calcular"
+		<input type="text">
+		 <input type="submit" name="btnCalcularIntereses" value="Calcular"
 			style="width: 70px; height: 30px">
 		<canvas id="myChart" width="400" height="200"></canvas>
 	</div>
