@@ -28,49 +28,32 @@
 				<div class="flex-shrink-0 p-3"
 					style="width: 280px; background-color: #B4B1C4; height: 100rem">
 					<button type="submit" class="btnUser">JP</button>
-					<br> <br> <a href="/"
-						class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
-						<span class="fs-5 fw-semibold">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Juan
-							Perez</span>
+					<br> <br> <a href="/" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
+						<span class="fs-5 fw-semibold">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Juan Perez</span>
 					</a>
-		
 					<ul class="list-unstyled ps-0">
 						<li class="mb-1">
-							<button
-								class="btn btn-toggle d-inline-flex align-items-center rounded border-0">
-								INICIO</button>
+							<button class="btn btn-toggle d-inline-flex align-items-center rounded border-0">INICIO</button>
 						</li>
 						<li class="border-top my-3"></li>
 						<li class="mb-1">
-							<button
-								class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
-								data-bs-toggle="collapse" data-bs-target="#orders-collapse"
-								aria-expanded="false">PRESTAMOS</button>
+							<button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">PRESTAMOS</button>
 							<div class="collapse" id="orders-collapse" style="">
 								<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-									<li><a href="#"
-										class="link-dark d-inline-flex text-decoration-none rounded">Mis
-											Prestamos</a></li>
-									<li><a href="#"
-										class="link-dark d-inline-flex text-decoration-none rounded">Solicitar
-											Prestamo</a></li>
+									<li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Mis Prestamos</a></li>
+									<li><a href="#"class="link-dark d-inline-flex text-decoration-none rounded">Solicitar Prestamo</a></li>
 								</ul>
 							</div>
 						</li>
 						<li class="border-top my-3"></li>
 						<li class="mb-1">
-							<button
-								class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"
-								data-bs-toggle="collapse" data-bs-target="#account-collapse"
-								aria-expanded="false">TRANSFERENCIAS</button>
+							<button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false">TRANSFERENCIAS</button>
 							<div class="collapse" id="account-collapse" style="">
 								<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
 									<li><a href="#"
 										class="link-dark d-inline-flex text-decoration-none rounded">A
 											Cuenta Propia</a></li>
-									<li><a href="#"
-										class="link-dark d-inline-flex text-decoration-none rounded">A
-											Otras Cuentas</a></li>
+									<li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">A Otras Cuentas</a></li>
 								</ul>
 							</div>
 						</li>

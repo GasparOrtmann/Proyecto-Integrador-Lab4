@@ -56,7 +56,7 @@ body{
 	flex-direction:column;
 	width:90%;
 	height:150px;
-	background-color:#EFB3B3;
+	background-color:#E9D5CA;
 	justify-content:space-around;
 }
 .containerCuentaPrincipal{
@@ -75,7 +75,7 @@ body{
 	align-self:center;
 	width:50%;
 	height:80%;
-	background-color:#EFB3B3;
+	background-color:#B4B1C4;
 	display:flex;
 	justify-content:start;
 	align-items:center;
@@ -87,7 +87,7 @@ body{
 .containerActividadIndividual{
 	height:100px;
 	width:90%;
-	background-color:#D9D9D9;
+	background-color:#827397;
 	padding:20px;
 	border-radius:5px;
 }
