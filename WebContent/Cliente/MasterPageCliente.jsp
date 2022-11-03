@@ -16,7 +16,7 @@
 <div class="container-fluid">
 
 	<div class="navbarSuperior">
-		<h1>BANCO DE LA NACION</h1>
+		<img src="../logo.png" alt="logo" style="height: 50px" />
 		<button type="submit" class="btn btn-secondary ">
 			<i class="fa-solid fa-arrow-right-from-bracket"></i> Cerrar Sesión
 		</button>
