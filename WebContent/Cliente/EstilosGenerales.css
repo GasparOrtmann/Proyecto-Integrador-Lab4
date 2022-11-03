@@ -5,15 +5,6 @@ body{
 	background-color:#e6e6e6;
 }
 
-.navbar{
-	width:100%;
-	background-color:#FF0000;
-	display:flex;
-	flex-direction:row;
-	justify-content:space-between;
-	align-items:center;
-	gap:1rem;
-}
 .containerContent{
 	display:flex;
 	height:92%;
@@ -134,4 +125,59 @@ body{
 	height:40px;
 	width:100px;
 	font-weight:bolder;
+}
+
+/*-------------MASTERPAGE CLIENTE--------------------------------------------*/
+
+.navbarSuperior{
+	width:100%;
+	background-color:#363062;
+	display:flex; 
+	flex-direction: row;
+	gap:1rem;
+	padding:0.5rem;
+	justify-content: space-between;
+	color: white;
+	height:100px;
+}
+
+.btn-secondary{
+	margin-top:35px;
+	height:40px;
+}
+
+.navbarLateral{
+	display:inline-block;
+}
+
+.navbarLateral span{
+	color:#F7F7FC;
+}
+
+.navbarLateral button{
+	color:#F7F7FC;
+	
+}
+
+.navbarLateral{
+	display:inline-block;
+}
+
+.navbarLateral span{
+	color:#F7F7FC;
+}
+
+.navbarLateral button{
+	color:#F7F7FC;
+}
+
+.btnUser{
+	width:100px;
+	height:100px;
+	margin-left:65px;
+	border-radius:50px;
+	border-color:#F7F7FC;
+	border-style:solid;
+	font-size:30px;
+	background-color:#363062;
 }

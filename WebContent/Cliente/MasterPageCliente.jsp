@@ -16,7 +16,7 @@
 <div class="container-fluid">
 
 	<div class="navbarSuperior">
-		<img src="../logo.png" alt="logo" style="height: 50px" />
+		<img src="../Logo_Banco_Credicoop.svg" alt="logo" style="height: 90px ; width:200px; margin-left:35px;" />
 		<button type="submit" class="btn btn-secondary ">
 			<i class="fa-solid fa-arrow-right-from-bracket"></i> Cerrar Sesión
 		</button>

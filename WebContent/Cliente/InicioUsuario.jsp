@@ -10,11 +10,8 @@
 </head>
 <body>
 	<div class="navbar">
-		<img src="../logo.png" alt="logo" style="height: 50px" />
-		<div>
-			<button class="buttonLogout">LOGOUT</button>
-			<button class="buttonAdmin">ADMIN</button>
-		</div>
+		<button class="buttonLogout">LOGOUT</button>
+		<button class="buttonAdmin">ADMIN</button>
 	</div>
 	<div class="containerContent">
 		<div class="navbarLateral">
