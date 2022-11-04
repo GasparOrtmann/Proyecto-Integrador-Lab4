@@ -7,6 +7,11 @@
 <title>Autorizacion de Prestamos</title>
 </head>
 <body>
+
+<%@include file="MasterPageAdmin.jsp"%>
+
+<div style="position: absolute;top:150px;left:400px;">
+
 <div align="center">
 
 <h1>Autorizacion de Prestamos</h1>
@@ -48,6 +53,7 @@
 					<td><input type="submit" value="rechazar"></td>
 				</tr>
 </table>
+</div>
 </div>
 </body>
 

@@ -8,6 +8,9 @@
 <link href="../styles.css" rel="stylesheet" type="text/css">
 </head>
 <body>
+<%@include file="MasterPageAdmin.jsp"%>
+
+<div style="position: absolute;top:150px;left:400px;">
 	<form class="centrar-column">
 		<h1>Gestion Cuentas</h1>
 		<div class="centrar-row">
@@ -71,5 +74,6 @@
 		</div>
 		<input type="submit" value="Enviar!">
 	</form>
+		</div>
 </body>
 </html>

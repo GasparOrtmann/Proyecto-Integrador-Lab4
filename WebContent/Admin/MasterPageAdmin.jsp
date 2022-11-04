@@ -44,7 +44,6 @@
 							<div class="collapse" id="orders-collapse" style="">
 								<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
 									<li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Prestamos Pendientes</a></li>
-									<li><a href="#"class="link-dark d-inline-flex text-decoration-none rounded">Prestamos en Curso</a></li>
 								</ul>
 							</div>
 						</li>
@@ -56,7 +55,6 @@
 									<li><a href="#"
 										class="link-dark d-inline-flex text-decoration-none rounded">
 											Alta de Cliente</a></li>
-									<li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Listado de Clientes</a></li>
 								</ul>
 							</div>
 						</li>
@@ -68,7 +66,6 @@
 									<li><a href="#"
 										class="link-dark d-inline-flex text-decoration-none rounded">
 											Alta de Cuentas</a></li>
-									<li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Listado de Cuentas</a></li>
 								</ul>
 							</div>
 						</li>

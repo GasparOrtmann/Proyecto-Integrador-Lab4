@@ -4,29 +4,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
-<link href="../styles.css" rel="stylesheet" type="text/css">
+<title>Dashboard</title>
 </head>
 <body>
-	<div
-		style="background-color: white; height: 50px; width: 100%; margin: 0; padding: 0">
-		<label>Logo y nombre del banco</label> <input type="submit"
-			value="Cerrar Sesion" Name="btnCerrarSesion"
-			style="w: 55px; h: 25px; float: right"> <input type="submit"
-			value="Cliente" style="w: 55px; h: 25px; float: right">
-	</div>
 
-	<div align="center"
-		style="background-color: white; height: 500px; width: 25%; margin: 0px; float: left; margin: 0; padding: 0">
+<%@include file="MasterPageAdmin.jsp"%>
 
-		<label>Admin</label> <br> <br>
-		<ul>
-			<li><a href="Inicio.aspx ">Inicio</a><br></li>
-			<li><a href="Clientes.aspx">Clientes</a><br></li>
-			<li><a href="Cuentas.aspx">Cuentas</a><br></li>
-			<li><a href="Prestamos.aspx">Prestamos</a><br></li>
-		</ul>
-	</div>
+<div style="position: absolute;top:150px;left:400px;">
 
 	<div align="center"
 		style="background-color: white; height: 250px; width: 50%; float: left">
@@ -57,7 +41,7 @@
 			type="text" placeholder="50860" name="txtTransferenciasGeneradas">
 	</div>
 	<div align="center"
-		style="background-color: white; height: 250px; width: 75%; float: left">
+		style="background-color: white; height: 250px; width: 45%; float: left">
 		<label>Calcular Ganancias por Interes</label><br> <br> <select>
 			<option value="1">Enero</option>
 			<option value="2">Febrero</option>
@@ -117,5 +101,6 @@
 			}
 		});
 	</script>
+	</div>
 </body>
 </html>
