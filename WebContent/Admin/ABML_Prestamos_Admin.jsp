@@ -31,8 +31,6 @@
 					<td>Cuotas pagas</td>
 					<td>Fecha Alta.</td>
 					<td>Estado</td>
-					<td></td>
-					<td></td>
 				</tr>
 				<%
 				for (int i = 0; i < 5; i++) {
@@ -48,8 +46,6 @@
 					<td>7</td>
 					<td>10/10/2000</td>
 					<td>activo</td>
-					<td><input type="submit" value="Editar"></td>
-					<td><input type="submit" value="Eliminar"></td>
 				</tr>
 				<%
 				}
