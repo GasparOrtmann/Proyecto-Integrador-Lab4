@@ -14,10 +14,38 @@
 
 <%@include file="MasterPageCliente.jsp"%>
 
-<div style="position: absolute;top:150px;left:400px;">
-	<h1>aca va todo lo demas</h1>
-</div>
+<div style="position: absolute;top:150px;left:400px; width:1500px;">
 
+<h1>SOLICITAR PRESTAMO</h1><br><br>
+  <div class="conteiner-fluid">
+	  <div class="row">
+		  <div class="col-6">
+		   <label>Ingrese el Monto a solicitar:</label> <input type="text" name="txtMontoPrestamo"> <br><br>
+		   <label>Seleccione la cantidad de Cuotas</label> <select name=ddlCuotas>
+								<option value="1">12</option>
+								<option value="2">24</option>
+								<option value="3">48</option>
+								<option value="4">36</option>
+								</select><br><br>
+		   <label>Cuenta donde se acreditara el Prestamo</label>  <select name=ddlCuenta>
+								<option value="1">Caja de Ahorro CBU 123654789</option>
+								<option value="2">Caja de Ahorro CBU 456987123</option>
+								<option value="3">Caja de Ahorro CBU 112223336</option>
+								</select><br><br><br>
+		   <input type="submit" value="Simular" name="btnSimularPrestamo"  class="btnSimularPrestamo">
+		   </div>
+		   <div class="col-6" style="color:white; background-color:#B4B1C4;width:600px; height:206px;border-radius:5px;">
+		   <br>
+			   <p>Monto solicitado $150000<p>
+			   <p>Cuota fija: $10596<p>
+			   <p>Cantidad de cuotas: 48<p>
+			   <p>Interes: 45% anual</p>
+			   <p>Monto total a devolver: $270000<p>
+			    <input type="submit" value="Aceptar" name="btnAceptarPrestamo"  class="btnAceptarPrestamo">
+		   </div>
+		 </div>
+	</div>
+</div>
 
 <!-- JavaScript Bundle with Popper -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>

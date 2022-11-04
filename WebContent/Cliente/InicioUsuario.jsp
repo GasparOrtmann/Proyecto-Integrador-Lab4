@@ -9,20 +9,12 @@
 <link href="./EstilosGenerales.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-	<div class="navbar">
-		<button class="buttonLogout">LOGOUT</button>
-		<button class="buttonAdmin">ADMIN</button>
-	</div>
-	<div class="containerContent">
-		<div class="navbarLateral">
-			<div class="containerData">
-				<button>L</button>
-				<label>Lautaro Roa</label>
-			</div>
-			<button class="buttonMenu">INICIO</button>
-			<button class="buttonMenu">PRESTAMO</button>
-			<button class="buttonMenu">TRANSFERENCIA</button>
-		</div>
+
+
+<%@include file="MasterPageCliente.jsp"%>
+
+<div style="position: absolute;top:150px;left:400px; width:1400px;">
+	
 		<div class="containerContentData">
 			<div class="containerCuentas">
 				<div class="containerCuenta">
@@ -79,5 +71,6 @@
 			</div>
 		</div>
 	</div>
+	
 </body>
 </html>

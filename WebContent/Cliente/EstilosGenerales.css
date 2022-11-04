@@ -47,7 +47,7 @@ body{
 	flex-direction:column;
 	width:90%;
 	height:150px;
-	background-color:#E9D5CA;
+	background-color:#B4B1C4;
 	justify-content:space-around;
 }
 .containerCuentaPrincipal{
@@ -56,17 +56,21 @@ body{
 }
 .containerCuentaPrincipal > button{
 	border:none;
-	background-color:#FD7878;
+	background-color:#827397;
+	color:white;
 	padding:5px;
 	color:white;
 	border-radius:5px;
+	height:30px;
+	font-size:15px;
+	
 }
 .containerActividad{
 	justify-self:center;
 	align-self:center;
 	width:50%;
 	height:80%;
-	background-color:#B4B1C4;
+	background-color:#827397;
 	display:flex;
 	justify-content:start;
 	align-items:center;
@@ -78,7 +82,7 @@ body{
 .containerActividadIndividual{
 	height:100px;
 	width:90%;
-	background-color:#827397;
+	background-color:#E9D5CA;
 	padding:20px;
 	border-radius:5px;
 }
@@ -99,33 +103,8 @@ body{
 	height:75px;
 	border-radius:100%;
 }
-.buttonMenu{
-	color:white;
-	font-weight:bold;
-	background-color:#FD7878;
-	border:none;
-	border-radius:5px;
-	width:90%;
-	height:40px;
-}
-.buttonLogout{
-	margin:10px 10px;
-	background-color:#FF881A;
-	border:none;
-	color:white;
-	height:40px;
-	width:100px;
-	font-weight:bolder;
-}
-.buttonAdmin{
-	margin:10px 0;
-	background-color:#FFF500;
-	border:none;
-	color:gray;
-	height:40px;
-	width:100px;
-	font-weight:bolder;
-}
+
+
 
 /*-------------MASTERPAGE CLIENTE--------------------------------------------*/
 
@@ -180,4 +159,26 @@ body{
 	border-style:solid;
 	font-size:30px;
 	background-color:#363062;
+}
+
+
+/*-------------Mis Prestamos------------*/
+.btnSimularPrestamo{
+	color:white;
+	border-radius:5px;
+	background-color:#363062;
+	margin-left:200px;
+	
+}
+
+.btnAceptarPrestamo{
+	color:white;
+	border-radius:5px;
+	background-color:#363062;
+	margin-left:250px;
+	margin-top:10px;
+}
+
+p {
+	margin-bottom:2px !important; 
 }
