@@ -1,21 +1,21 @@
 package Entidades;
 
 public class Localidad {
-	String codLocalidad;
-	String codProvincia;
+	int idLocalidad;
+	int idProvincia;
 	String localidad;
 	
-	public String getCodLocalidad() {
-		return codLocalidad;
+	public int getIdLocalidad() {
+		return idLocalidad;
 	}
-	public void setCodLocalidad(String codLocalidad) {
-		this.codLocalidad = codLocalidad;
+	public void setIdLocalidad(int idLocalidad) {
+		idLocalidad = idLocalidad;
 	}
-	public String getCodProvincia() {
-		return codProvincia;
+	public int getIdProvincia() {
+		return idProvincia;
 	}
-	public void setCodProvincia(String codProvincia) {
-		this.codProvincia = codProvincia;
+	public void setIdProvincia(int idProvincia) {
+		idProvincia = idProvincia;
 	}
 	public String getLocalidad() {
 		return localidad;
@@ -23,4 +23,5 @@ public class Localidad {
 	public void setLocalidad(String localidad) {
 		this.localidad = localidad;
 	}
+	
 }

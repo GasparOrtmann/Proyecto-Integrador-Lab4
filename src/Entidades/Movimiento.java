@@ -1,30 +1,30 @@
 package Entidades;
 
 public class Movimiento {
-	String codMovimiento;
-	String codTipoMovimiento;
-	String codCuenta;
+	int idMovimiento;
+	int idTipoMovimiento;
+	int idCuenta;
 	String fecha;
-	String importe;
+	float importe;
 	String detalle;
 	
-	public String getCodMovimiento() {
-		return codMovimiento;
+	public int getIdMovimiento() {
+		return idMovimiento;
 	}
-	public void setCodMovimiento(String codMovimiento) {
-		this.codMovimiento = codMovimiento;
+	public void setIdMovimiento(int idMovimiento) {
+		this.idMovimiento = idMovimiento;
 	}
-	public String getCodTipoMovimiento() {
-		return codTipoMovimiento;
+	public int getIdTipoMovimiento() {
+		return idTipoMovimiento;
 	}
-	public void setCodTipoMovimiento(String codTipoMovimiento) {
-		this.codTipoMovimiento = codTipoMovimiento;
+	public void setIdTipoMovimiento(int idTipoMovimiento) {
+		this.idTipoMovimiento = idTipoMovimiento;
 	}
-	public String getCodCuenta() {
-		return codCuenta;
+	public int getIdCuenta() {
+		return idCuenta;
 	}
-	public void setCodCuenta(String codCuenta) {
-		this.codCuenta = codCuenta;
+	public void setIdCuenta(int idCuenta) {
+		this.idCuenta = idCuenta;
 	}
 	public String getFecha() {
 		return fecha;
@@ -32,10 +32,10 @@ public class Movimiento {
 	public void setFecha(String fecha) {
 		this.fecha = fecha;
 	}
-	public String getImporte() {
+	public float getImporte() {
 		return importe;
 	}
-	public void setImporte(String importe) {
+	public void setImporte(float importe) {
 		this.importe = importe;
 	}
 	public String getDetalle() {
@@ -44,5 +44,7 @@ public class Movimiento {
 	public void setDetalle(String detalle) {
 		this.detalle = detalle;
 	}
+	
+	
 	
 }

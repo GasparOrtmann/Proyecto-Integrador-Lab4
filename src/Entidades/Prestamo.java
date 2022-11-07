@@ -1,44 +1,45 @@
 package Entidades;
 
 public class Prestamo {
-	String codPrestamo;
-	String codUsuario;
-	String montoPrestamo;
-	String montoTotalAdeudado;
-	String importeCuotaFija;
+	int idPrestamo;
+	int idUsuario;
+	float montoPrestamo;
+	float montoTotalAdeudado;
+	float importeCuotaFija;
 	int cantidadCuotas;
 	int cuotasAdeudadas;
 	int cuotasPagas;
 	String fechaAlta;
 	boolean estado;
-	public String getCodPrestamo() {
-		return codPrestamo;
+	
+	public int getIdPrestamo() {
+		return idPrestamo;
 	}
-	public void setCodPrestamo(String codPrestamo) {
-		this.codPrestamo = codPrestamo;
+	public void setIdPrestamo(int idPrestamo) {
+		this.idPrestamo = idPrestamo;
 	}
-	public String getCodUsuario() {
-		return codUsuario;
+	public int getIdUsuario() {
+		return idUsuario;
 	}
-	public void setCodUsuario(String codUsuario) {
-		this.codUsuario = codUsuario;
+	public void setIdUsuario(int idUsuario) {
+		this.idUsuario = idUsuario;
 	}
-	public String getMontoPrestamo() {
+	public float getMontoPrestamo() {
 		return montoPrestamo;
 	}
-	public void setMontoPrestamo(String montoPrestamo) {
+	public void setMontoPrestamo(float montoPrestamo) {
 		this.montoPrestamo = montoPrestamo;
 	}
-	public String getMontoTotalAdeudado() {
+	public float getMontoTotalAdeudado() {
 		return montoTotalAdeudado;
 	}
-	public void setMontoTotalAdeudado(String montoTotalAdeudado) {
+	public void setMontoTotalAdeudado(float montoTotalAdeudado) {
 		this.montoTotalAdeudado = montoTotalAdeudado;
 	}
-	public String getImporteCuotaFija() {
+	public float getImporteCuotaFija() {
 		return importeCuotaFija;
 	}
-	public void setImporteCuotaFija(String importeCuotaFija) {
+	public void setImporteCuotaFija(float importeCuotaFija) {
 		this.importeCuotaFija = importeCuotaFija;
 	}
 	public int getCantidadCuotas() {
@@ -71,6 +72,5 @@ public class Prestamo {
 	public void setEstado(boolean estado) {
 		this.estado = estado;
 	}
-	
 	
 }
