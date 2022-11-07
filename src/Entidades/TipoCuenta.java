@@ -1,13 +1,15 @@
 package Entidades;
 
 public class TipoCuenta {
-	String codTipoCuenta;
+	
+	int idTipoCuenta;
 	String tipoCuenta;
-	public String getCodTipoCuenta() {
-		return codTipoCuenta;
+	
+	public int getIdTipoCuenta() {
+		return idTipoCuenta;
 	}
-	public void setCodTipoCuenta(String codTipoCuenta) {
-		this.codTipoCuenta = codTipoCuenta;
+	public void setIdTipoCuenta(int idTipoCuenta) {
+		this.idTipoCuenta = idTipoCuenta;
 	}
 	public String getTipoCuenta() {
 		return tipoCuenta;
@@ -15,5 +17,7 @@ public class TipoCuenta {
 	public void setTipoCuenta(String tipoCuenta) {
 		this.tipoCuenta = tipoCuenta;
 	}
+	
+
 	
 }

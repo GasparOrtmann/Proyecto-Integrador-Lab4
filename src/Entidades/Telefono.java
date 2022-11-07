@@ -1,20 +1,23 @@
 package Entidades;
 
 public class Telefono {
+	
 	String nroTelefono;
-	String codUsuario;
+	int idUsuario;
 	boolean Estado;
+	
+	
 	public String getNroTelefono() {
 		return nroTelefono;
 	}
 	public void setNroTelefono(String nroTelefono) {
 		this.nroTelefono = nroTelefono;
 	}
-	public String getCodUsuario() {
-		return codUsuario;
+	public int getIdUsuario() {
+		return idUsuario;
 	}
-	public void setCodUsuario(String codUsuario) {
-		this.codUsuario = codUsuario;
+	public void setIdUsuario(int idUsuario) {
+		this.idUsuario = idUsuario;
 	}
 	public boolean isEstado() {
 		return Estado;
@@ -23,5 +26,6 @@ public class Telefono {
 		Estado = estado;
 	}
 	
+
 	
 }

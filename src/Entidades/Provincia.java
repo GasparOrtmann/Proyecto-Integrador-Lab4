@@ -1,20 +1,22 @@
 package Entidades;
 
 public class Provincia {
-	String codProvincia;
-	String descripcion;
+	
+	int idProvincia;
+	String provincia;
+	
+	public int getIdProvincia() {
+		return idProvincia;
+	}
+	public void setIdProvincia(int idProvincia) {
+		this.idProvincia = idProvincia;
+	}
+	public String getProvincia() {
+		return provincia;
+	}
+	public void setProvincia(String provincia) {
+		this.provincia = provincia;
+	}
 
-	public String getCodProvincia() {
-		return codProvincia;
-	}
-	public void setCodProvincia(String codProvincia) {
-		this.codProvincia = codProvincia;
-	}
-	public String getDescripcion() {
-		return descripcion;
-	}
-	public void setDescripcion(String descripcion) {
-		this.descripcion = descripcion;
-	}
 	
 }

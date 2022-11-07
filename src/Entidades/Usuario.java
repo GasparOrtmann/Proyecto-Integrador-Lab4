@@ -1,29 +1,32 @@
 package Entidades;
 
 public class Usuario {
-	String codUsuario;
+	
+	int idUsuario;
 	boolean esAdmin;
-	int DNI;
-	int CUIL;
+	String nroCuil;
+	String nroDni;
+	String fechaNacimiento;
 	String usuario;
 	String password;
 	String nombre;
 	String apellido;
 	String sexo;
 	String fechaNac;
-	Localidad codLocalidad;
+	Localidad idLocalidad;
 	String calle;
 	int altura;
-	Nacionalidad codNacionalidad;
+	Nacionalidad idNacionalidad;
 	String email;
 	int cantCuentas;
 	boolean estado;
 	
-	public String getCodUsuario() {
-		return codUsuario;
+	
+	public int getIdUsuario() {
+		return idUsuario;
 	}
-	public void setCodUsuario(String codUsuario) {
-		this.codUsuario = codUsuario;
+	public void setIdUsuario(int idUsuario) {
+		this.idUsuario = idUsuario;
 	}
 	public boolean isEsAdmin() {
 		return esAdmin;
@@ -31,17 +34,23 @@ public class Usuario {
 	public void setEsAdmin(boolean esAdmin) {
 		this.esAdmin = esAdmin;
 	}
-	public int getDNI() {
-		return DNI;
+	public String getNroCuil() {
+		return nroCuil;
 	}
-	public void setDNI(int dNI) {
-		DNI = dNI;
+	public void setNroCuil(String nroCuil) {
+		this.nroCuil = nroCuil;
 	}
-	public int getCUIL() {
-		return CUIL;
+	public String getNroDni() {
+		return nroDni;
 	}
-	public void setCUIL(int cUIL) {
-		CUIL = cUIL;
+	public void setNroDni(String nroDni) {
+		this.nroDni = nroDni;
+	}
+	public String getFechaNacimiento() {
+		return fechaNacimiento;
+	}
+	public void setFechaNacimiento(String fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
 	}
 	public String getUsuario() {
 		return usuario;
@@ -79,11 +88,11 @@ public class Usuario {
 	public void setFechaNac(String fechaNac) {
 		this.fechaNac = fechaNac;
 	}
-	public Localidad getCodLocalidad() {
-		return codLocalidad;
+	public Localidad getIdLocalidad() {
+		return idLocalidad;
 	}
-	public void setCodLocalidad(Localidad codLocalidad) {
-		this.codLocalidad = codLocalidad;
+	public void setIdLocalidad(Localidad idLocalidad) {
+		this.idLocalidad = idLocalidad;
 	}
 	public String getCalle() {
 		return calle;
@@ -97,11 +106,11 @@ public class Usuario {
 	public void setAltura(int altura) {
 		this.altura = altura;
 	}
-	public Nacionalidad getCodNacionalidad() {
-		return codNacionalidad;
+	public Nacionalidad getIdNacionalidad() {
+		return idNacionalidad;
 	}
-	public void setCodNacionalidad(Nacionalidad codNacionalidad) {
-		this.codNacionalidad = codNacionalidad;
+	public void setIdNacionalidad(Nacionalidad idNacionalidad) {
+		this.idNacionalidad = idNacionalidad;
 	}
 	public String getEmail() {
 		return email;
@@ -121,5 +130,7 @@ public class Usuario {
 	public void setEstado(boolean estado) {
 		this.estado = estado;
 	}
-
+	
+	
+	
 }

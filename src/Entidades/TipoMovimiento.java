@@ -1,14 +1,15 @@
 package Entidades;
 
 public class TipoMovimiento {
-	String codTipoMovimiento;
+	
+	int idTipoMovimiento;
 	String tipoMovimiento;
 	
-	public String getCodTipoMovimiento() {
-		return codTipoMovimiento;
+	public int getIdTipoMovimiento() {
+		return idTipoMovimiento;
 	}
-	public void setCodTipoMovimiento(String codTipoMovimiento) {
-		this.codTipoMovimiento = codTipoMovimiento;
+	public void setIdTipoMovimiento(int idTipoMovimiento) {
+		this.idTipoMovimiento = idTipoMovimiento;
 	}
 	public String getTipoMovimiento() {
 		return tipoMovimiento;
@@ -16,6 +17,8 @@ public class TipoMovimiento {
 	public void setTipoMovimiento(String tipoMovimiento) {
 		this.tipoMovimiento = tipoMovimiento;
 	}
+	
+	
 	
 	
 }
