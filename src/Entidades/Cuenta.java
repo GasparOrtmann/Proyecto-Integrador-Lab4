@@ -1,31 +1,33 @@
 package Entidades;
 
+import java.math.BigInteger;
+
 public class Cuenta {
-	String codCuenta;
-	String codUsuario;
-	String codTipoCuenta;
+	int IdCuenta;
+	int IdUsuario;
+	int IdTipoCuenta;
 	String CBU;
-	String saldo;
+	float saldo;
 	String fechaAlta;
 	boolean estado;
 	
-	public String getCodCuenta() {
-		return codCuenta;
+	public int getIdCuenta() {
+		return IdCuenta;
 	}
-	public void setCodCuenta(String codCuenta) {
-		this.codCuenta = codCuenta;
+	public void setIdCuenta(int idCuenta) {
+		IdCuenta = idCuenta;
 	}
-	public String getCodUsuario() {
-		return codUsuario;
+	public int getIdUsuario() {
+		return IdUsuario;
 	}
-	public void setCodUsuario(String codUsuario) {
-		this.codUsuario = codUsuario;
+	public void setIdUsuario(int idUsuario) {
+		IdUsuario = idUsuario;
 	}
-	public String getCodTipoCuenta() {
-		return codTipoCuenta;
+	public int getIdTipoCuenta() {
+		return IdTipoCuenta;
 	}
-	public void setCodTipoCuenta(String codTipoCuenta) {
-		this.codTipoCuenta = codTipoCuenta;
+	public void setIdTipoCuenta(int idTipoCuenta) {
+		IdTipoCuenta = idTipoCuenta;
 	}
 	public String getCBU() {
 		return CBU;
@@ -33,10 +35,10 @@ public class Cuenta {
 	public void setCBU(String cBU) {
 		CBU = cBU;
 	}
-	public String getSaldo() {
+	public float getSaldo() {
 		return saldo;
 	}
-	public void setSaldo(String saldo) {
+	public void setSaldo(float saldo) {
 		this.saldo = saldo;
 	}
 	public String getFechaAlta() {
@@ -51,4 +53,6 @@ public class Cuenta {
 	public void setEstado(boolean estado) {
 		this.estado = estado;
 	}
+	
+	
 }

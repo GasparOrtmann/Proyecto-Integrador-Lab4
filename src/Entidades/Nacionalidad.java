@@ -1,14 +1,14 @@
 package Entidades;
 
 public class Nacionalidad {
-	String codNacionalidad;
+	int idNacionalidad;
 	String nacionalidad;
 	
-	public String getCodNacionalidad() {
-		return codNacionalidad;
+	public int getIdNacionalidad() {
+		return idNacionalidad;
 	}
-	public void setCodNacionalidad(String codNacionalidad) {
-		this.codNacionalidad = codNacionalidad;
+	public void setIdNacionalidad(int idNacionalidad) {
+		this.idNacionalidad = idNacionalidad;
 	}
 	public String getNacionalidad() {
 		return nacionalidad;
@@ -16,4 +16,5 @@ public class Nacionalidad {
 	public void setNacionalidad(String nacionalidad) {
 		this.nacionalidad = nacionalidad;
 	}
+	
 }
