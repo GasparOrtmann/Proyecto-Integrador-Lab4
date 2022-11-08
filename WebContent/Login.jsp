@@ -20,7 +20,7 @@
           class="img-fluid" alt="Phone image" style="border-radius:10px;">
       </div>
       <div class="col-md-7 col-lg-5 col-xl-5 ">
-        <form method="get" action="/TPINT_GRUPO_6_LAB4/ServeletClientes">
+        <form method="post" action="/TPINT_GRUPO_6_LAB4/ServeletClientes">
          <img src="login.png" style="heigh:250px;width:150px;margin-left:35%;margin-bottom:10px;"
           class="img-fluid" alt="Phone image">
           <div class="form-outline mb-2">

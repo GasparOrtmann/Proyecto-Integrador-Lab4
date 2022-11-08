@@ -31,6 +31,11 @@ public class ServeletClientes extends HttpServlet {
 			RequestDispatcher rd =  request.getRequestDispatcher("/Admin/ABML_Clientes_Admin.jsp");  
 			rd.forward(request, response);
 		}
+	
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		
 		
 	if(request.getParameter("btnIniciarSesion")!=null) {
@@ -47,17 +52,13 @@ public class ServeletClientes extends HttpServlet {
 				rd.forward(request, response);	
 			} else {
 				request.setAttribute("usuarioIngresado",usuarioIngresado);
-				RequestDispatcher rd=request.getRequestDispatcher("/Cliente/MasterPageCliente.jsp");  
+				RequestDispatcher rd=request.getRequestDispatcher("/Cliente/InicioUsuario.jsp");  
 				rd.forward(request, response);	
 				
 			}
 
 		}
 		
-		
-	}
-
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		if(request.getParameter("btnEliminar")!=null) {
 			NegocioClientes negCli = new NegocioClientes();
