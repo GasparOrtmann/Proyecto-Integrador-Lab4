@@ -7,4 +7,5 @@ import Entidades.Usuario;
 public interface iNegocioClientes {
 	List<Usuario> traerLista ();
 	boolean eliminarCliente (String id);
+	Usuario traerCliente (String id);
 }

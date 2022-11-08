@@ -67,6 +67,15 @@ public class ServeletClientes extends HttpServlet {
 			RequestDispatcher rd =  request.getRequestDispatcher("/Admin/ABML_Clientes_Admin.jsp");  
 			rd.forward(request, response);
 		}
+		if(request.getParameter("btnEditar")!=null) {
+			NegocioClientes negCli = new NegocioClientes();
+			Usuario traerCliente = negCli.traerCliente(request.getParameter("codUsuarioCambios"));
+			List<Usuario> lista=negCli.traerLista();
+			request.setAttribute("listaClientes", lista);
+			request.setAttribute("clienteEditar", traerCliente);
+			RequestDispatcher rd =  request.getRequestDispatcher("/Admin/ABML_Clientes_Admin.jsp");  
+			rd.forward(request, response);
+		}
 	}
 
 }

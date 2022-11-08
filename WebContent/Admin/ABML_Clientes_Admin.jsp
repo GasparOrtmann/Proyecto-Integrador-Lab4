@@ -1,6 +1,9 @@
 <%@page import="java.io.Console"%>
 <%@page import="Entidades.Usuario"%>
 <%@page import="java.util.List"%>
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.text.ParsePosition"%>
+<%@page import="java.sql.Date"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -23,7 +26,8 @@
 	<%@include file="MasterPageAdmin.jsp"%>
 
 	<div style="position: absolute; top: 150px; left: 400px;">
-		<form method="POST" action="/TPINT_GRUPO_6_LAB4/ServeletClientes" class="centrar-column">
+		<form method="POST" action="/TPINT_GRUPO_6_LAB4/ServeletClientes"
+			class="centrar-column">
 			<h1>Gestion Clientes</h1>
 			<div class="centrar-row">
 				<label>Filtros:</label> <input /> <input type="submit"
@@ -31,8 +35,12 @@
 			</div>
 			<%
 			List<Usuario> listaCli = null;
+			Usuario clienteEditar = null;
 			if (request.getAttribute("listaClientes") != null) {
 				listaCli = (List<Usuario>) request.getAttribute("listaClientes");
+			}
+			if (request.getAttribute("listaClientes") != null) {
+				clienteEditar = (Usuario) request.getAttribute("clienteEditar");
 			}
 			%>
 			<table class="table table-striped">
@@ -54,29 +62,34 @@
 				</thead>
 				<tbody>
 					<%
-					if(listaCli!=null){
-					for (Usuario s : listaCli) {
+					if (listaCli != null) {
+						for (Usuario s : listaCli) {
 					%>
 					<tr>
-						<td><input name="codUsuarioCambios" value="<%=s.getIdUsuario() %>" ></td>
-						<td><%=s.isEsAdmin() %></td>
-						<td><%=s.getUsuario() %></td>
-						<td><%=s.getNombre() %></td>
-						<td><%=s.getApellido() %></td>
-						<td><%=s.getSexo() %></td>
+						<td><input class="border-0 bg-transparent pe-none"
+							name="codUsuarioCambios" value="<%=s.getIdUsuario()%>"></td>
+						<td><%=s.isEsAdmin()%></td>
+						<td><%=s.getUsuario()%></td>
+						<td><%=s.getNombre()%></td>
+						<td><%=s.getApellido()%></td>
+						<td><%=s.getSexo()%></td>
 						<td><%=s.getFechaNacimiento()%></td>
-						<td><%=s.getIdNacionalidad().getIdNacionalidad() %></td>
-						<td><%=s.getIdLocalidad().getIdLocalidad() %></td>
-						<td><%=s.isEstado() %></td>
+						<td><%=s.getIdNacionalidad().getIdNacionalidad()%></td>
+						<td><%=s.getIdLocalidad().getIdLocalidad()%></td>
+						<td><%=s.isEstado()%></td>
 						<td><input type="submit" name="btnEditar" value="Editar"></td>
 						<td><input type="submit" name="btnEliminar" value="Eliminar"></td>
 					</tr>
 					<%
-					}}
+					}
+					}
 					%>
 				</tbody>
 			</table>
-			<h2>Creacion/Edicion de Usuario</h2>
+			<%
+			if (clienteEditar == null) {
+			%>
+			<h2>Creacion de Usuario</h2>
 			<div class="centrar-row">
 				<div class="centrar-column container-fields">
 					<div>
@@ -130,7 +143,97 @@
 					</div>
 				</div>
 			</div>
-			<input type="submit" value="Enviar!">
+			<input type="submit" name="btnCrearUsuario" value="Enviar!">
+			<%
+			} else {
+			%>
+			<h2>Edicion de Usuario</h2>
+			<div class="centrar-row">
+				<div class="centrar-column container-fields">
+					<div>
+						<b>ID</b> <input class="pe-none border-0 bg-transparent"
+							name="txtDni" type="text"
+							value="<%=clienteEditar.getIdUsuario()%>">
+					</div>
+					<div>
+						<b>DNI</b> <input name="txtDni" type="text"
+							value="<%=clienteEditar.getNroDni()%>">
+					</div>
+					<div>
+						<b>CUIL</b> <input name=txtCuil type="text"
+							value="<%=clienteEditar.getNroCuil()%>">
+					</div>
+					<div>
+						<b>Usuario</b> <input name="txtUsuario" type="text"
+							value="<%=clienteEditar.getUsuario()%>">
+					</div>
+					<div>
+						<b>Contraseña</b> <input type="password" name="txtContrasenia"
+							value="<%=clienteEditar.getPassword()%>">
+					</div>
+					<div>
+						<b>Nombre</b> <input name="txtNombre" type="text"
+							value="<%=clienteEditar.getNombre()%>">
+					</div>
+					<div>
+						<b>Apellido</b> <input name="txtApellido" type="text"
+							value="<%=clienteEditar.getApellido()%>">
+					</div>
+				</div>
+				<div class="centrar-column container-fields">
+					<div>
+						<b>Sexo</b> <select name="txtSexo">
+							<option <%String sexoMasculino="";if(clienteEditar.getSexo().equals("Masculino")){sexoMasculino="selected";}%> <%=sexoMasculino %> value="Masculino">Masculino</option>
+							<option <%String sexoFemenino="";if(clienteEditar.getSexo().equals("Femenino")){sexoFemenino="selected";}%> <%=sexoFemenino %> value="Femenino">Femenino</option>
+							<option <%String sexoOtro="";if(clienteEditar.getSexo().equals("Otro")){sexoOtro="selected";}%> <%=sexoOtro %> value="Otro">Otro</option>
+						</select>
+					</div>
+					<div>
+						<%
+						long date=new SimpleDateFormat("dd/MM/yyyy").parse(clienteEditar.getFechaNacimiento(),new ParsePosition(0)).getTime();
+						Date dbDate=new Date(date);
+						%>
+						<b>Fecha de Nacimiento</b> <input type="date" name="txtFechaNac"
+							value="<%=dbDate%>">
+					</div>
+					<div>
+						<b>Nacionalidad</b> <select name="txtNacionalidad"
+							value="<%=clienteEditar.getIdNacionalidad()%>">
+							<option>Seleccione nacionalidad</option>
+						</select>
+					</div>
+					<div>
+						<b>Localidad</b> <select name="txtLocalidad"
+							value="<%=clienteEditar.getIdLocalidad()%>">
+							<option>Seleccione Localidad</option>
+						</select>
+					</div>
+					<div>
+						<b>Email</b> <input name="txtEmail" type="email"
+							value="<%=clienteEditar.getEmail()%>">
+					</div>
+					<div>
+						<b>Estado</b> <input type="checkbox" name="txtEstado"
+							<%String checkedEstado = "";
+							if (clienteEditar.isEstado()) {
+								checkedEstado = "checked";
+							}%>
+							<%=checkedEstado%>>
+					</div>
+					<div>
+						<b>Admin?</b> <input type="checkbox" name="txtAdmin"
+							<%String checkedAdmin = "";
+							if (clienteEditar.isEsAdmin()) {
+								checkedAdmin = "checked";
+							}%>
+							<%=checkedAdmin%>>
+					</div>
+				</div>
+			</div>
+			<input type="submit" name="btnEditarUsuario" value="Enviar!">
+			<%
+			}
+			%>
 		</form>
 	</div>
 	<script

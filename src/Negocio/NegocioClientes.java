@@ -20,4 +20,10 @@ public class NegocioClientes implements iNegocioClientes {
 		return daoCli.eliminarCliente(id);
 	}
 
+	@Override
+	public Usuario traerCliente(String id) {
+		DaoClientes daoCli = new DaoClientes();
+		return daoCli.traerCliente(id);
+	}
+
 }

@@ -1,14 +1,12 @@
 package Dao;
 
-import java.sql.ResultSet;
+import java.sql.ResultSet; 
 
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.sql.CallableStatement;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 
 import Entidades.Localidad;
@@ -71,6 +69,43 @@ public class DaoClientes implements iDaoClientes {
 			return false;
 		}
 		return true;
+	}
+
+	@Override
+	public Usuario traerCliente(String id) {
+		Connection cnn = Conexion.getConexion().getSQLConexion();
+		Usuario usuario = new Usuario();
+		String query = "SELECT * FROM usuarios WHERE IdUsuario=" + Integer.valueOf(id);
+		PreparedStatement pst;
+		try {
+
+			pst = cnn.prepareStatement(query);
+			ResultSet rs = pst.executeQuery();
+
+			while (rs.next()) {
+				usuario.setIdUsuario(rs.getInt(1));
+				usuario.setEsAdmin(rs.getBoolean(2));
+				usuario.setUsuario(rs.getString(3));
+				usuario.setPassword(rs.getString(4));
+				usuario.setNombre(rs.getString(5));
+				usuario.setApellido(rs.getString(6));
+				usuario.setSexo(rs.getString(7));
+				usuario.setFechaNacimiento(rs.getString(8));
+				usuario.setCalle(rs.getString(9));
+				usuario.setAltura(rs.getInt(10));
+				usuario.setEmail(rs.getString(11));
+				usuario.setNroCuil(rs.getString(12));
+				usuario.setNroDni(rs.getString(13));
+				usuario.setEstado(rs.getBoolean(14));
+				usuario.setCantCuentas(rs.getInt(15));
+				usuario.setIdNacionalidad( new Nacionalidad(rs.getInt(16)));
+				usuario.setIdLocalidad( new Localidad(rs.getInt(17)));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return usuario;
 	}
 
 }

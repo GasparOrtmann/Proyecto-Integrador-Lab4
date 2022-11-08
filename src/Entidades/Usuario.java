@@ -48,6 +48,12 @@ public class Usuario {
 		
 	}
 	
+	public Usuario() {
+		// TODO Auto-generated constructor stub
+	}
+
+
+
 	public int getIdUsuario() {
 		return idUsuario;
 	}
@@ -149,6 +155,17 @@ public class Usuario {
 	}
 	public void setEstado(boolean estado) {
 		this.estado = estado;
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "Usuario [idUsuario=" + idUsuario + ", esAdmin=" + esAdmin + ", nroCuil=" + nroCuil + ", nroDni="
+				+ nroDni + ", fechaNacimiento=" + fechaNacimiento + ", usuario=" + usuario + ", password=" + password
+				+ ", nombre=" + nombre + ", apellido=" + apellido + ", sexo=" + sexo + ", idLocalidad=" + idLocalidad.getIdLocalidad()
+				+ ", calle=" + calle + ", altura=" + altura + ", idNacionalidad=" + idNacionalidad.getIdNacionalidad() + ", email=" + email
+				+ ", cantCuentas=" + cantCuentas + ", estado=" + estado + "]";
 	}
 	
 	
