@@ -99,65 +99,66 @@
 			<%
 			if (clienteEditar == null) {
 			%>
-			<h2>Creacion de Usuario</h2>
+			<h2>Creacion de Cliente</h2>
 			<div class="centrar-row">
 				<div class="centrar-column container-fields">
 					<div>
-						<label>DNI</label> <input>
+						<b>DNI</b> <input>
 					</div>
 					<div>
-						<label>CUIL</label> <input>
+						<b>CUIL</b> <input>
 					</div>
 					<div>
-						<label>Usuario</label> <input>
+						<b>Usuario</b> <input>
 					</div>
 					<div>
-						<label>Contraseña</label> <input type="password">
+						<b>Contraseña</b> <input type="password">
 					</div>
 					<div>
-						<label>Nombre</label> <input>
+						<b>Nombre</b> <input>
 					</div>
 					<div>
-						<label>Apellido</label> <input>
+						<b>Apellido</b> <input>
 					</div>
 				</div>
 				<div class="centrar-column container-fields">
 					<div>
-						<label>Sexo</label> <select>
+						<b>Sexo</b> <select>
 							<option value="Masculino">Masculino</option>
 							<option value="Femenino">Femenino</option>
 							<option value="Otro">Otro</option>
 						</select>
 					</div>
 					<div>
-						<label>Fecha de Nacimiento</label> <input type="date">
+						<b>Fecha de Nacimiento</b> <input type="date">
 					</div>
 					<div>
-						<label>Nacionalidad</label> <select>
+						<b>Nacionalidad</b> <select>
 							<option>Seleccione nacionalidad</option>
 						</select>
 					</div>
 					<div>
-						<label>Localidad</label> <select>
+						<b>Localidad</b> <select>
 							<option>Seleccione Localidad</option>
 						</select>
 					</div>
 					<div>
-						<label>Email</label> <input>
+						<b>Email</b> <input>
 					</div>
 					<div>
-						<label>Estado</label> <input type="checkbox">
+						<b>Estado</b> <input type="checkbox">
 					</div>
 					<div>
-						<label>Admin?</label> <input type="checkbox">
+						<b>Admin?</b> <input type="checkbox">
 					</div>
+					<input type="text" hidden name="txtCantCuentas" >
 				</div>
 			</div>
-			<input type="submit" name="btnCrearUsuario" value="Enviar!">
+			<input type="submit" name="btnCrearUsuario" value="Crear!">
 			<%
 			} else {
 			%>
-			<h2>Edicion de Usuario</h2>
+			<h2>Edicion de Cliente</h2>
 			<div class="centrar-row">
 				<div class="centrar-column container-fields">
 					<div>
@@ -287,7 +288,7 @@ if (clienteEditar.isEsAdmin()) {
 					<input type="text" hidden name="txtCantCuentas" value="<%=clienteEditar.getCantCuentas()%>">
 				</div>
 			</div>
-			<input type="submit" name="btnEditarUsuario" value="Enviar!">
+			<input type="submit" name="btnEditarUsuario" value="Editar!">
 			<%
 			}
 			%>

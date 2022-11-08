@@ -7,3 +7,4 @@ import Entidades.Localidad;
 public interface iNegocioLocalidad {
 	List<Localidad> traerLista();
 }
+ 

@@ -34,7 +34,7 @@ public class DaoLocalidad implements iDaoLocalidad{
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return lstLoc;
+		return lstLoc; 
 	}
 
 }
