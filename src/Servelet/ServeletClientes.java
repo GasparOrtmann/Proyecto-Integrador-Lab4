@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Entidades.Usuario;
+import Negocio.IUsuarioNegocio;
 import Negocio.NegocioClientes;
+import Negocio.UsuarioNegocio;
 
 @WebServlet("/ServeletClientes")
 public class ServeletClientes extends HttpServlet {
@@ -21,6 +23,7 @@ public class ServeletClientes extends HttpServlet {
         super();
     }
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		if(request.getParameter("TraerListadoClientes")!=null) {
 			NegocioClientes negCli = new NegocioClientes();
 			List<Usuario> lista=negCli.traerLista();
@@ -28,9 +31,34 @@ public class ServeletClientes extends HttpServlet {
 			RequestDispatcher rd =  request.getRequestDispatcher("/Admin/ABML_Clientes_Admin.jsp");  
 			rd.forward(request, response);
 		}
+		
+		
+	if(request.getParameter("btnIniciarSesion")!=null) {
+			
+			String usuario = request.getParameter("txtUsuario");
+			String contrasenia  = request.getParameter("txtContrasenia");
+			
+			IUsuarioNegocio uneg = new UsuarioNegocio();
+			Usuario usuarioIngresado = uneg.traerUsuario(usuario, contrasenia);
+			
+			if(usuarioIngresado.isEsAdmin()) {
+				request.setAttribute("usuarioIngresado",usuarioIngresado);
+				RequestDispatcher rd=request.getRequestDispatcher("/Admin/Informe_Admin.jsp");  
+				rd.forward(request, response);	
+			} else {
+				request.setAttribute("usuarioIngresado",usuarioIngresado);
+				RequestDispatcher rd=request.getRequestDispatcher("/Cliente/MasterPageCliente.jsp");  
+				rd.forward(request, response);	
+				
+			}
+
+		}
+		
+		
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		if(request.getParameter("btnEliminar")!=null) {
 			NegocioClientes negCli = new NegocioClientes();
 			negCli.eliminarCliente(request.getParameter("codUsuarioCambios"));

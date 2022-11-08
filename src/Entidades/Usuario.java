@@ -44,7 +44,9 @@ public class Usuario {
 		this.estado = estado;
 	}
 
-	
+	public Usuario() {
+		
+	}
 	
 	public int getIdUsuario() {
 		return idUsuario;

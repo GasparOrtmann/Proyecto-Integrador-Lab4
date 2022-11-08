@@ -1,6 +1,5 @@
 package Entidades;
 
-import java.math.BigInteger;
 
 public class Cuenta {
 	int IdCuenta;

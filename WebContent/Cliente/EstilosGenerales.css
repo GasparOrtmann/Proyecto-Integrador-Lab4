@@ -182,3 +182,13 @@ body{
 p {
 	margin-bottom:2px !important; 
 }
+
+/*-------------Login------------*/
+
+.divider:after,
+.divider:before {
+content: "";
+flex: 1;
+height: 1px;
+background: #eee;
+}
