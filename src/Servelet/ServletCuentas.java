@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Entidades.Cuenta;
+import Entidades.Usuario;
+import Negocio.NegocioClientes;
 import Negocio.NegocioCuentas;
 import iNegocio.iNegocioCuentas;
 
@@ -47,7 +49,7 @@ public class ServletCuentas extends HttpServlet {
 			String CBU = request.getParameter("txtCBU");
 			float saldo = Float.parseFloat(request.getParameter("txtSaldo"));
 			String fechaAlta =  request.getParameter("inputFecha");
-			boolean estado = Boolean.parseBoolean(request.getParameter("chkEstado"));
+			boolean estado = request.getParameter("chkEstado") != null;
 			
 			Cuenta c = new Cuenta(IdC, IdU, IdTC, CBU, saldo, fechaAlta, estado);		
 			negCu.agregarCuenta(c);
@@ -56,6 +58,14 @@ public class ServletCuentas extends HttpServlet {
 			request.setAttribute("idActual", idActual);
 			RequestDispatcher rd=request.getRequestDispatcher("/Admin/ABML_Cuentas_Admin.jsp");  
 			rd.forward(request, response);	
+		}
+		
+		if(request.getParameter("btnEliminar")!=null) {
+			negCu.eliminarCuenta(request.getParameter("getIdCuenta"));
+			List<Cuenta> lista=negCu.traerLista();
+			request.setAttribute("listaCuentas", lista);
+			RequestDispatcher rd =  request.getRequestDispatcher("/Admin/ABML_Cuentas_Admin.jsp");  
+			rd.forward(request, response);
 		}
 	}
 

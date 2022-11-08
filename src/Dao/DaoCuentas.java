@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -82,6 +83,23 @@ public class DaoCuentas implements iDaoCuentas{
 	return true;
 	}
 	
+	@Override
+	public boolean eliminarCuenta(String id) {
+		String query = "UPDATE cuentas SET Estado = false WHERE IdCuenta=" + Integer.valueOf(id);
+
+		Connection cnn = Conexion.getConexion().getSQLConexion();
+
+		try {
+			Statement st = (Statement) cnn.createStatement();
+			st.executeUpdate(query);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
+	
+	@Override
 	public Integer traerProxId() {
 		Connection cnn = Conexion.getConexion().getSQLConexion();
 		

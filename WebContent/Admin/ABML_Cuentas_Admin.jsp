@@ -57,7 +57,8 @@
 					for (Cuenta c : listaCu) {
 					%>
 					<tr>
-						<td><%=c.getIdCuenta() %></td>
+						<td><input class="border-0 bg-transparent pe-none"
+							name="getIdCuenta" value="<%=c.getIdCuenta()%>"></td>
 						<td><%=c.getIdUsuario() %></td>
 						<td><%=c.getIdTipoCuenta() %></td>
 						<td><%=c.getCBU() %></td>

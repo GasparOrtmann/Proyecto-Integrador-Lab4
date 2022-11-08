@@ -68,6 +68,12 @@ public class Cuenta {
 	public void setEstado(boolean estado) {
 		this.estado = estado;
 	}
+
+	@Override
+	public String toString() {
+		return "Cuenta [IdCuenta=" + IdCuenta + ", IdUsuario=" + IdUsuario + ", IdTipoCuenta=" + IdTipoCuenta + ", CBU="
+				+ CBU + ", saldo=" + saldo + ", fechaAlta=" + fechaAlta + ", estado=" + estado + "]";
+	}
 	
 	
 }
