@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import Entidades.Localidad;
 import Entidades.Nacionalidad;
 import Entidades.Usuario;
+import iDao.IUsuarioDao;
 
 public class UsuarioDao implements IUsuarioDao {
 

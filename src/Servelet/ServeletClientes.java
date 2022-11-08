@@ -13,11 +13,11 @@ import javax.servlet.http.HttpServletResponse;
 import Entidades.Localidad;
 import Entidades.Nacionalidad;
 import Entidades.Usuario;
-import Negocio.IUsuarioNegocio;
 import Negocio.NegocioClientes;
 import Negocio.NegocioLocalidad;
 import Negocio.NegocioNacionalidad;
 import Negocio.UsuarioNegocio;
+import iNegocio.IUsuarioNegocio;
 
 @WebServlet("/ServeletClientes")
 public class ServeletClientes extends HttpServlet {
@@ -55,18 +55,24 @@ public class ServeletClientes extends HttpServlet {
 			
 			IUsuarioNegocio uneg = new UsuarioNegocio();
 			Usuario usuarioIngresado = uneg.traerUsuario(usuario, contrasenia);
-			
-			if(usuarioIngresado.isEsAdmin()) {
-				request.setAttribute("usuarioIngresado",usuarioIngresado);
-				RequestDispatcher rd=request.getRequestDispatcher("/Admin/Informe_Admin.jsp");  
-				rd.forward(request, response);	
-			} else {
-				request.setAttribute("usuarioIngresado",usuarioIngresado);
-				RequestDispatcher rd=request.getRequestDispatcher("/Cliente/InicioUsuario.jsp");  
-				rd.forward(request, response);	
 				
-			}
-
+			if(usuarioIngresado.getIdUsuario()!= 0) {
+				
+				if(usuarioIngresado.isEsAdmin()) {
+					request.setAttribute("usuarioIngresado",usuarioIngresado);
+					RequestDispatcher rd=request.getRequestDispatcher("/Admin/Informe_Admin.jsp");  
+					rd.forward(request, response);	
+				} 
+				if(!usuarioIngresado.isEsAdmin()){
+					request.setAttribute("usuarioIngresado",usuarioIngresado);
+					RequestDispatcher rd=request.getRequestDispatcher("/Cliente/InicioUsuario.jsp");  
+					rd.forward(request, response);	
+				} 
+				
+			}else {
+				RequestDispatcher rd=request.getRequestDispatcher("Login.jsp");  
+				rd.forward(request, response);	
+				}
 		}
 		
 		

@@ -1,8 +1,9 @@
 package Negocio;
 
-import Dao.IUsuarioDao;
 import Dao.UsuarioDao;
 import Entidades.Usuario;
+import iDao.IUsuarioDao;
+import iNegocio.IUsuarioNegocio;
 
 public class UsuarioNegocio implements IUsuarioNegocio {
 
