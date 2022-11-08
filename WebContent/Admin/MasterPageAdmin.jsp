@@ -14,7 +14,7 @@
 
 <div class="container-fluid">
 	<div class="navbarSuperior">
-		<img src="../Logo_Banco_Credicoop.svg" alt="logo" style="height: 90px ; width:200px; margin-left:35px;" />
+		<img src="/TPINT_GRUPO_6_LAB4/Logo_Banco_Credicoop.svg" alt="logo" style="height: 90px ; width:200px; margin-left:35px;" />
 		<div>
 		<button type="submit" class="btn btn-secondary ">
 			 Admin
@@ -52,7 +52,7 @@
 							<button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">CLIENTES</button>
 							<div class="collapse" id="dashboard-collapse" >
 								<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-									<li><a href="#"
+									<li><a href="/TPINT_GRUPO_6_LAB4/ServeletClientes?TraerListadoClientes=1"
 										class="link-dark d-inline-flex text-decoration-none rounded">
 											Alta de Cliente</a></li>
 								</ul>
