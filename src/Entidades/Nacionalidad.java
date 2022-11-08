@@ -4,14 +4,6 @@ public class Nacionalidad {
 	int idNacionalidad;
 	String nacionalidad;
 	
-	public Nacionalidad(int idNacionalidad, String nacionalidad) {
-		this.idNacionalidad=idNacionalidad;
-		this.nacionalidad=nacionalidad;
-	}
-	public Nacionalidad(int idNacionalidad) {
-		this.idNacionalidad=idNacionalidad;
-	}
-	
 	public int getIdNacionalidad() {
 		return idNacionalidad;
 	}

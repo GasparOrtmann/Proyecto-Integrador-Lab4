@@ -5,10 +5,6 @@ public class Localidad {
 	int idProvincia;
 	String localidad;
 	
-	public Localidad(int idLocalidad) {
-		this.idLocalidad=idLocalidad;
-	}
-	
 	public int getIdLocalidad() {
 		return idLocalidad;
 	}
