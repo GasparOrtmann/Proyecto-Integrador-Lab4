@@ -12,7 +12,6 @@ public class Usuario {
 	String nombre;
 	String apellido;
 	String sexo;
-	String fechaNac;
 	Localidad idLocalidad;
 	String calle;
 	int altura;
@@ -20,6 +19,31 @@ public class Usuario {
 	String email;
 	int cantCuentas;
 	boolean estado;
+	
+	public Usuario(int idUsuario, boolean esAdmin, String nroCuil, String nroDni, String fechaNacimiento,
+			String usuario, String password, String nombre, String apellido, String sexo,
+			Localidad idLocalidad, String calle, int altura, Nacionalidad idNacionalidad, String email, int cantCuentas,
+			boolean estado) {
+		super();
+		this.idUsuario = idUsuario;
+		this.esAdmin = esAdmin;
+		this.nroCuil = nroCuil;
+		this.nroDni = nroDni;
+		this.fechaNacimiento = fechaNacimiento;
+		this.usuario = usuario;
+		this.password = password;
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.sexo = sexo;
+		this.idLocalidad = idLocalidad;
+		this.calle = calle;
+		this.altura = altura;
+		this.idNacionalidad = idNacionalidad;
+		this.email = email;
+		this.cantCuentas = cantCuentas;
+		this.estado = estado;
+	}
+
 	
 	
 	public int getIdUsuario() {
@@ -81,12 +105,6 @@ public class Usuario {
 	}
 	public void setSexo(String sexo) {
 		this.sexo = sexo;
-	}
-	public String getFechaNac() {
-		return fechaNac;
-	}
-	public void setFechaNac(String fechaNac) {
-		this.fechaNac = fechaNac;
 	}
 	public Localidad getIdLocalidad() {
 		return idLocalidad;
