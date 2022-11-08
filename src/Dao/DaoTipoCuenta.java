@@ -18,7 +18,6 @@ public class DaoTipoCuenta implements iDaoTipoCuenta {
 		PreparedStatement pst;
 		
 		try {
-			System.out.println("At this point, the value of conn is  "+cnn);
 			pst = cnn.prepareStatement("Select * from tipos_cuenta");
 			ResultSet rs = pst.executeQuery();
 			

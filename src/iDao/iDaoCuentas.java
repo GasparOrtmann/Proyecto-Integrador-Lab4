@@ -6,4 +6,6 @@ import Entidades.Cuenta;
 
 public interface iDaoCuentas {
 	List<Cuenta> traerLista();
+	Boolean agregarCuenta(Cuenta c);
+	Integer traerProxId();
 }

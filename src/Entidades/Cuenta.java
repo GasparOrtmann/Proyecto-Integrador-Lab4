@@ -10,6 +10,22 @@ public class Cuenta {
 	String fechaAlta;
 	boolean estado;
 	
+	public Cuenta() {
+		
+	}
+	
+	public Cuenta(int idCuenta, int idUsuario, int idTipoCuenta, String cBU, float saldo, String fechaAlta,
+			boolean estado) {
+		super();
+		IdCuenta = idCuenta;
+		IdUsuario = idUsuario;
+		IdTipoCuenta = idTipoCuenta;
+		CBU = cBU;
+		this.saldo = saldo;
+		this.fechaAlta = fechaAlta;
+		this.estado = estado;
+	}
+
 	public int getIdCuenta() {
 		return IdCuenta;
 	}

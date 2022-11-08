@@ -25,7 +25,7 @@
 	<%@include file="MasterPageAdmin.jsp"%>
 
 <div style="position: absolute;top:150px;left:400px;">
-	<form method="POST" action="/TPINT_GRUPO_6_LAB4/ServletCuentas" class="centrar-column">
+	<form method="post" action="/TPINT_GRUPO_6_LAB4/ServletCuentas" class="centrar-column">
 		<h1>Gestion Cuentas</h1>
 		<div class="centrar-row">
 			<label>Filtros:</label> <input /> <input type="submit"
@@ -75,6 +75,9 @@
 		<h2>Creación de Cuenta</h2>
 		<div class="centrar-row">
 			<div class="centrar-column container-fields">
+			<div>
+					<label>Cod Usuario</label> <input type="text" name="txtCodUsuario">
+				</div>
 				<div>
 					<label>CBU</label> <input type="text" name="txtCBU">
 				</div>
