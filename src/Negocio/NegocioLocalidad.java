@@ -11,7 +11,7 @@ public class NegocioLocalidad implements iNegocioLocalidad{
 	@Override
 	public List<Localidad> traerLista() {
 		DaoLocalidad daoLoc = new DaoLocalidad();
-		return daoLoc.traerLista();
+		return daoLoc.traerLista(); 
 	}
 
 }

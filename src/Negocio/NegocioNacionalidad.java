@@ -1,6 +1,6 @@
 package Negocio;
 
-import java.util.List;
+import java.util.List; 
 
 import Dao.DaoNacionalidad;
 import Entidades.Nacionalidad;
@@ -13,5 +13,6 @@ public class NegocioNacionalidad implements iNegocioNacionalidad{
 		DaoNacionalidad daoNac = new DaoNacionalidad();
 		return daoNac.traerLista();
 	}
+	
 
 }

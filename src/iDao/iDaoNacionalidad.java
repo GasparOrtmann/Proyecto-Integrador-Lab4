@@ -6,4 +6,4 @@ import Entidades.Nacionalidad;
 
 public interface iDaoNacionalidad {
 	List<Nacionalidad> traerLista();
-}
+} 
