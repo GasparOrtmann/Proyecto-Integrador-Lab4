@@ -177,4 +177,52 @@ public class DaoClientes implements iDaoClientes {
 		return filas;
 	}
 
+	@Override
+	public int agregar(Usuario usuario) {
+		String anio = usuario.getFechaNacimiento().substring(0,4);
+		String mes = usuario.getFechaNacimiento().substring(5,7);
+		String dia = usuario.getFechaNacimiento().substring(8,10);
+		String esAdmin = "";
+		String estado = "";
+		if(usuario.isEsAdmin()) {
+			esAdmin="True";
+		}else {
+			esAdmin="False";
+		}
+		if(usuario.isEstado()) {
+			estado="True";
+		}else {
+			estado="False";
+		}
+		String query = "INSERT INTO usuarios (IdUsuario,EsAdmin,Usuario,Contrasenia, Nombre,Apellido,Sexo,FechaNacimiento,Calle,Altura,Email,NroCuil,NroDni,Estado,IdNacionalidad,IdLocalidad) VALUES ("+
+						"'"+usuario.getIdUsuario()+"'"+
+						","+esAdmin+
+						",'"+usuario.getNombre()+"'"+
+						",'"+usuario.getPassword()+"'"+
+						",'"+usuario.getNombre()+"'"+
+						",'"+usuario.getApellido()+"'"+
+						",'"+usuario.getSexo()+"'"+
+						",'"+dia+"/"+mes+"/"+anio+"'"+
+						",'"+usuario.getCalle()+"'"+
+						",'"+usuario.getAltura()+"'"+
+						",'"+usuario.getEmail()+"'"+
+						",'"+usuario.getNroCuil()+"'"+
+						",'"+usuario.getNroDni()+"'"+
+						","+estado+
+						",'"+usuario.getIdNacionalidad().getIdNacionalidad()+"'"+
+						",'"+usuario.getIdLocalidad().getIdLocalidad()+"')";
+
+		Connection cn = Conexion.getConexion().getSQLConexion();
+		int filas = 0;
+
+		try {
+			Statement st = (Statement) cn.createStatement();
+			filas = st.executeUpdate(query);
+		} catch (Exception e) {
+			e.printStackTrace();
+			;
+		}
+		return filas;
+	}
+
 }

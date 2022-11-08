@@ -9,4 +9,6 @@ public interface iNegocioClientes {
 	boolean eliminarCliente (String id);
 	Usuario traerCliente (String id);
 	int modificar(Usuario usuario);
+	int agregar(Usuario usuario);
+	int traerProxId();
 }

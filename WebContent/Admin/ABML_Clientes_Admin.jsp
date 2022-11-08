@@ -40,6 +40,7 @@
 			Usuario clienteEditar = null;
 			List<Nacionalidad> listaNac = null;
 			List<Localidad> listaLoc = null;
+			int proximoId = 0;
 			if (request.getAttribute("listaClientes") != null) {
 				listaCli = (List<Usuario>) request.getAttribute("listaClientes");
 			}
@@ -51,6 +52,9 @@
 			}
 			if (request.getAttribute("listaLocalidades") != null) {
 				listaLoc = (List<Localidad>) request.getAttribute("listaLocalidades");
+			}
+			if (request.getAttribute("proximoId") != null) {
+				proximoId = Integer.valueOf(request.getAttribute("proximoId").toString());
 			}
 			%>
 			<table class="table table-striped">
@@ -103,55 +107,79 @@
 			<div class="centrar-row">
 				<div class="centrar-column container-fields">
 					<div>
-						<b>DNI</b> <input>
+						<b>ID</b> <input class="pe-none border-0 bg-transparent"
+							name="txtId" type="text" value="<%=proximoId%>">
 					</div>
 					<div>
-						<b>CUIL</b> <input>
+						<b>DNI</b> <input type="text" name="txtDni">
 					</div>
 					<div>
-						<b>Usuario</b> <input>
+						<b>CUIL</b> <input type="text" name="txtCuil">
 					</div>
 					<div>
-						<b>Contraseña</b> <input type="password">
+						<b>Usuario</b> <input type="text" name="txtUsuario">
 					</div>
 					<div>
-						<b>Nombre</b> <input>
+						<b>Contraseña</b> <input type="password" name="txtContrasenia">
 					</div>
 					<div>
-						<b>Apellido</b> <input>
+						<b>Nombre</b> <input type="text" name="txtNombre">
+					</div>
+					<div>
+						<b>Apellido</b> <input type="text" name="txtApellido">
 					</div>
 				</div>
 				<div class="centrar-column container-fields">
 					<div>
-						<b>Sexo</b> <select>
+						<b>Sexo</b> <select name="txtSexo">
 							<option value="Masculino">Masculino</option>
 							<option value="Femenino">Femenino</option>
 							<option value="Otro">Otro</option>
 						</select>
 					</div>
 					<div>
-						<b>Fecha de Nacimiento</b> <input type="date">
+						<b>Fecha de Nacimiento</b> <input type="date" name="txtFechaNac">
 					</div>
 					<div>
-						<b>Nacionalidad</b> <select>
-							<option>Seleccione nacionalidad</option>
+						<b>Nacionalidad</b> <select name="txtNacionalidad">
+							<%
+							for (Nacionalidad n : listaNac) {
+							%>
+							<option value="<%=n.getIdNacionalidad()%>">
+								<%=n.getNacionalidad()%></option>
+							<%
+							}
+							%>
 						</select>
 					</div>
 					<div>
-						<b>Localidad</b> <select>
-							<option>Seleccione Localidad</option>
+						<b>Localidad</b> <select name="txtLocalidad">
+							<%
+							for (Localidad l : listaLoc) {
+							%>
+							<option value="<%=l.getIdLocalidad()%>">
+								<%=l.getLocalidad()%></option>
+							<%
+							}
+							%>
 						</select>
 					</div>
 					<div>
-						<b>Email</b> <input>
+						<b>Calle</b> <input name="txtCalle" type="text">
 					</div>
 					<div>
-						<b>Estado</b> <input type="checkbox">
+						<b>Altura</b> <input name="txtAltura" type="number">
 					</div>
 					<div>
-						<b>Admin?</b> <input type="checkbox">
+						<b>Email</b> <input type="email" name="txtEmail">
 					</div>
-					<input type="text" hidden name="txtCantCuentas" >
+					<div>
+						<b>Estado</b> <input type="checkbox" name="txtEstado">
+					</div>
+					<div>
+						<b>Admin?</b> <input type="checkbox" name="txtAdmin">
+					</div>
+					<input type="text" hidden name="txtCantCuentas" value="0">
 				</div>
 			</div>
 			<input type="submit" name="btnCrearUsuario" value="Crear!">
@@ -285,7 +313,8 @@ if (clienteEditar.isEsAdmin()) {
 }%>
 							<%=checkedAdmin%>>
 					</div>
-					<input type="text" hidden name="txtCantCuentas" value="<%=clienteEditar.getCantCuentas()%>">
+					<input type="text" hidden name="txtCantCuentas"
+						value="<%=clienteEditar.getCantCuentas()%>">
 				</div>
 			</div>
 			<input type="submit" name="btnEditarUsuario" value="Editar!">

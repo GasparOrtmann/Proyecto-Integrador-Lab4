@@ -32,4 +32,16 @@ public class NegocioClientes implements iNegocioClientes {
 		return daoCli.modificar(usuario);
 	}
 
+	@Override
+	public int traerProxId() {
+		DaoClientes daoCli = new DaoClientes();
+		return daoCli.traerProximoId();
+	}
+
+	@Override
+	public int agregar(Usuario usuario) {
+		DaoClientes daoCli = new DaoClientes();
+		return daoCli.agregar(usuario);
+	}
+
 }

@@ -30,6 +30,7 @@ public class ServeletClientes extends HttpServlet {
 		
 		if(request.getParameter("TraerListadoClientes")!=null) {
 			NegocioClientes negCli = new NegocioClientes();
+			int proximoId = negCli.traerProxId();
 			List<Usuario> lista=negCli.traerLista();
 			NegocioNacionalidad negNac = new NegocioNacionalidad();
 			List<Nacionalidad> listaNac=negNac.traerLista();
@@ -37,6 +38,7 @@ public class ServeletClientes extends HttpServlet {
 			NegocioLocalidad negLoc = new NegocioLocalidad();
 			List<Localidad> listaLoc=negLoc.traerLista();
 			request.setAttribute("listaLocalidades", listaLoc);
+			request.setAttribute("proximoId", proximoId);
 			request.setAttribute("listaClientes", lista);
 			RequestDispatcher rd =  request.getRequestDispatcher("/Admin/ABML_Clientes_Admin.jsp");  
 			rd.forward(request, response);
@@ -78,6 +80,7 @@ public class ServeletClientes extends HttpServlet {
 		
 		if(request.getParameter("btnEliminar")!=null) {
 			NegocioClientes negCli = new NegocioClientes();
+			int proximoId = negCli.traerProxId();
 			negCli.eliminarCliente(request.getParameter("codUsuarioCambios"));
 			List<Usuario> lista=negCli.traerLista();
 			request.setAttribute("listaClientes", lista);
@@ -87,11 +90,13 @@ public class ServeletClientes extends HttpServlet {
 			NegocioLocalidad negLoc = new NegocioLocalidad();
 			List<Localidad> listaLoc=negLoc.traerLista();
 			request.setAttribute("listaLocalidades", listaLoc);
+			request.setAttribute("proximoId", proximoId);
 			RequestDispatcher rd =  request.getRequestDispatcher("/Admin/ABML_Clientes_Admin.jsp");  
 			rd.forward(request, response);
 		}
 		if(request.getParameter("btnEditar")!=null) {
 			NegocioClientes negCli = new NegocioClientes();
+			int proximoId = negCli.traerProxId();
 			Usuario traerCliente = negCli.traerCliente(request.getParameter("codUsuarioCambios"));
 			List<Usuario> lista=negCli.traerLista();
 			request.setAttribute("listaClientes", lista);
@@ -102,11 +107,13 @@ public class ServeletClientes extends HttpServlet {
 			List<Localidad> listaLoc=negLoc.traerLista();
 			request.setAttribute("listaLocalidades", listaLoc);
 			request.setAttribute("clienteEditar", traerCliente);
+			request.setAttribute("proximoId", proximoId);
 			RequestDispatcher rd =  request.getRequestDispatcher("/Admin/ABML_Clientes_Admin.jsp");  
 			rd.forward(request, response);
 		}
 		if(request.getParameter("btnEditarUsuario")!=null) {
 			NegocioClientes negCli = new NegocioClientes();
+			int proximoId = negCli.traerProxId();
 			boolean estadoEsAdmin = false;
 			boolean estadoEstado = false;
 			if(request.getParameter("txtAdmin")!=null) {
@@ -149,7 +156,56 @@ public class ServeletClientes extends HttpServlet {
 			List<Localidad> listaLoc=negLoc.traerLista();
 			request.setAttribute("listaLocalidades", listaLoc);
 			request.setAttribute("listaClientes", lista);
+			request.setAttribute("proximoId", proximoId);
+			RequestDispatcher rd=request.getRequestDispatcher("/Admin/ABML_Clientes_Admin.jsp");  
+			rd.forward(request, response);
+		}
+		if(request.getParameter("btnCrearUsuario")!=null) {
+			NegocioClientes negCli = new NegocioClientes();
+			boolean estadoEsAdmin = false;
+			boolean estadoEstado = false;
+			if(request.getParameter("txtAdmin")!=null) {
+				estadoEsAdmin=true;
+			}else{
+				estadoEsAdmin=false;
+			}
+			if(request.getParameter("txtEstado")!=null) {
+				estadoEstado=true;
+			}else{
+				estadoEstado=false;
+			}
+			System.out.println(request.getParameter("txtCantCuentas"));
+			int id = Integer.valueOf(request.getParameter("txtId"));
+			String dni = request.getParameter("txtDni");
+			String cuil = request.getParameter("txtCuil");
+			String usuario = request.getParameter("txtUsuario");
+			String contrasenia = request.getParameter("txtContrasenia");
+			String nombre = request.getParameter("txtNombre");
+			String apellido = request.getParameter("txtApellido");
+			String sexo = request.getParameter("txtSexo");
+			String fechaNac = request.getParameter("txtFechaNac");
+			int nacionalidad = Integer.valueOf(request.getParameter("txtNacionalidad"));
+			int localidad = Integer.valueOf(request.getParameter("txtLocalidad"));
+			String email = request.getParameter("txtEmail");
+			boolean estado = estadoEstado;
+			boolean admin = estadoEsAdmin;
+			String calle = request.getParameter("txtCalle");
+			int altura = Integer.valueOf(request.getParameter("txtAltura"));
+			int cantCuentas = Integer.valueOf(request.getParameter("txtCantCuentas"));
 			
+			Usuario u = new Usuario(id,admin,cuil,dni,fechaNac,usuario,contrasenia,nombre,apellido,sexo,new Localidad(localidad),calle,altura,new Nacionalidad(nacionalidad),email, cantCuentas,estado);		
+			int filasAfectadas = negCli.agregar(u);
+			int proximoId = negCli.traerProxId();
+			request.setAttribute("idActual", filasAfectadas);
+			List<Usuario> lista=negCli.traerLista();
+			NegocioNacionalidad negNac = new NegocioNacionalidad();
+			List<Nacionalidad> listaNac=negNac.traerLista();
+			request.setAttribute("listaNacionalidades", listaNac);
+			NegocioLocalidad negLoc = new NegocioLocalidad();
+			List<Localidad> listaLoc=negLoc.traerLista();
+			request.setAttribute("listaLocalidades", listaLoc);
+			request.setAttribute("listaClientes", lista);
+			request.setAttribute("proximoId", proximoId);
 			RequestDispatcher rd=request.getRequestDispatcher("/Admin/ABML_Clientes_Admin.jsp");  
 			rd.forward(request, response);
 		}
