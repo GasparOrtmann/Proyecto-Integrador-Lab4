@@ -8,7 +8,12 @@ public class Localidad {
 	public Localidad(int idLocalidad) {
 		this.idLocalidad=idLocalidad;
 	}
-	
+	public Localidad(int idLocalidad, int idProvincia, String localidad) {
+		super();
+		this.idLocalidad = idLocalidad;
+		this.idProvincia = idProvincia;
+		this.localidad = localidad;
+	}
 	public int getIdLocalidad() {
 		return idLocalidad;
 	}

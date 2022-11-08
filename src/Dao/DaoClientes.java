@@ -1,12 +1,13 @@
 package Dao;
 
-import java.sql.ResultSet; 
+import java.sql.ResultSet;
 
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 
 import Entidades.Localidad;
@@ -44,7 +45,7 @@ public class DaoClientes implements iDaoClientes {
 				boolean estado = rs.getBoolean(14);
 				int cantCuentas = rs.getInt(15);
 				Nacionalidad nacionalidad = new Nacionalidad(rs.getInt(16));
-				Localidad localidad = new Localidad(rs.getInt(16));
+				Localidad localidad = new Localidad(rs.getInt(17));
 				lstUsuario.add(new Usuario(id, esAdmin, cuil, dni, fechaNac, usuario, contrasenia, nombre, apellido,
 						sexo, localidad, calle, altura, nacionalidad, email, cantCuentas, estado));
 			}
@@ -98,14 +99,82 @@ public class DaoClientes implements iDaoClientes {
 				usuario.setNroDni(rs.getString(13));
 				usuario.setEstado(rs.getBoolean(14));
 				usuario.setCantCuentas(rs.getInt(15));
-				usuario.setIdNacionalidad( new Nacionalidad(rs.getInt(16)));
-				usuario.setIdLocalidad( new Localidad(rs.getInt(17)));
+				usuario.setIdNacionalidad(new Nacionalidad(rs.getInt(16)));
+				usuario.setIdLocalidad(new Localidad(rs.getInt(17)));
 			}
 
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return usuario;
+	}
+
+	@Override
+	public int traerProximoId() {
+		Connection cnn = Conexion.getConexion().getSQLConexion();
+		String query = "Select MAX(IdUsuario) AS id from usuarios";
+		Integer id = 0;
+
+		PreparedStatement pst;
+		try {
+			pst = cnn.prepareStatement(query);
+			ResultSet rs = pst.executeQuery();
+			rs.next();
+			id = rs.getInt("id");
+		}
+
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return id + 1;
+	}
+
+	@Override
+	public int modificar(Usuario usuario) {
+		String anio = usuario.getFechaNacimiento().substring(0,4);
+		String mes = usuario.getFechaNacimiento().substring(5,7);
+		String dia = usuario.getFechaNacimiento().substring(8,10);
+		String esAdmin = "";
+		String estado = "";
+		if(usuario.isEsAdmin()) {
+			esAdmin="True";
+		}else {
+			esAdmin="False";
+		}
+		if(usuario.isEstado()) {
+			estado="True";
+		}else {
+			estado="False";
+		}
+		String query = "UPDATE usuarios SET"+
+						"  EsAdmin="+esAdmin+
+						", Usuario='"+usuario.getNombre()+"'"+
+						", Contrasenia='"+usuario.getPassword()+"'"+
+						", Nombre='"+usuario.getNombre()+"'"+
+						", Apellido='"+usuario.getApellido()+"'"+
+						", Sexo='"+usuario.getSexo()+"'"+
+						", FechaNacimiento='"+dia+"/"+mes+"/"+anio+"'"+
+						", Calle='"+usuario.getCalle()+"'"+
+						", Altura='"+usuario.getAltura()+"'"+
+						", Email='"+usuario.getEmail()+"'"+
+						", NroCuil='"+usuario.getNroCuil()+"'"+
+						", NroDni='"+usuario.getNroDni()+"'"+
+						", Estado="+estado+
+						", IdNacionalidad='"+usuario.getIdNacionalidad().getIdNacionalidad()+"'"+
+						", IdLocalidad='"+usuario.getIdLocalidad().getIdLocalidad()+"'"+
+						" WHERE IdUsuario='"+usuario.getIdUsuario()+"'";
+
+		Connection cn = Conexion.getConexion().getSQLConexion();
+		int filas = 0;
+
+		try {
+			Statement st = (Statement) cn.createStatement();
+			filas = st.executeUpdate(query);
+		} catch (Exception e) {
+			e.printStackTrace();
+			;
+		}
+		return filas;
 	}
 
 }

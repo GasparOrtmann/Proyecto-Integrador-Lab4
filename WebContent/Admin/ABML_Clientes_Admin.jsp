@@ -1,5 +1,7 @@
 <%@page import="java.io.Console"%>
 <%@page import="Entidades.Usuario"%>
+<%@page import="Entidades.Nacionalidad"%>
+<%@page import="Entidades.Localidad"%>
 <%@page import="java.util.List"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.text.ParsePosition"%>
@@ -36,11 +38,19 @@
 			<%
 			List<Usuario> listaCli = null;
 			Usuario clienteEditar = null;
+			List<Nacionalidad> listaNac = null;
+			List<Localidad> listaLoc = null;
 			if (request.getAttribute("listaClientes") != null) {
 				listaCli = (List<Usuario>) request.getAttribute("listaClientes");
 			}
-			if (request.getAttribute("listaClientes") != null) {
+			if (request.getAttribute("listaNacionalidades") != null) {
+				listaNac = (List<Nacionalidad>) request.getAttribute("listaNacionalidades");
+			}
+			if (request.getAttribute("clienteEditar") != null) {
 				clienteEditar = (Usuario) request.getAttribute("clienteEditar");
+			}
+			if (request.getAttribute("listaLocalidades") != null) {
+				listaLoc = (List<Localidad>) request.getAttribute("listaLocalidades");
 			}
 			%>
 			<table class="table table-striped">
@@ -152,7 +162,7 @@
 				<div class="centrar-column container-fields">
 					<div>
 						<b>ID</b> <input class="pe-none border-0 bg-transparent"
-							name="txtDni" type="text"
+							name="txtId" type="text"
 							value="<%=clienteEditar.getIdUsuario()%>">
 					</div>
 					<div>
@@ -183,30 +193,76 @@
 				<div class="centrar-column container-fields">
 					<div>
 						<b>Sexo</b> <select name="txtSexo">
-							<option <%String sexoMasculino="";if(clienteEditar.getSexo().equals("Masculino")){sexoMasculino="selected";}%> <%=sexoMasculino %> value="Masculino">Masculino</option>
-							<option <%String sexoFemenino="";if(clienteEditar.getSexo().equals("Femenino")){sexoFemenino="selected";}%> <%=sexoFemenino %> value="Femenino">Femenino</option>
-							<option <%String sexoOtro="";if(clienteEditar.getSexo().equals("Otro")){sexoOtro="selected";}%> <%=sexoOtro %> value="Otro">Otro</option>
+							<option
+								<%String sexoMasculino = "";
+if (clienteEditar.getSexo().equals("Masculino")) {
+	sexoMasculino = "selected";
+}%>
+								<%=sexoMasculino%> value="Masculino">Masculino</option>
+							<option
+								<%String sexoFemenino = "";
+if (clienteEditar.getSexo().equals("Femenino")) {
+	sexoFemenino = "selected";
+}%>
+								<%=sexoFemenino%> value="Femenino">Femenino</option>
+							<option
+								<%String sexoOtro = "";
+if (clienteEditar.getSexo().equals("Otro")) {
+	sexoOtro = "selected";
+}%>
+								<%=sexoOtro%> value="Otro">Otro</option>
 						</select>
 					</div>
 					<div>
 						<%
-						long date=new SimpleDateFormat("dd/MM/yyyy").parse(clienteEditar.getFechaNacimiento(),new ParsePosition(0)).getTime();
-						Date dbDate=new Date(date);
+						long date = new SimpleDateFormat("dd/MM/yyyy").parse(clienteEditar.getFechaNacimiento(), new ParsePosition(0))
+								.getTime();
+						Date dbDate = new Date(date);
 						%>
 						<b>Fecha de Nacimiento</b> <input type="date" name="txtFechaNac"
 							value="<%=dbDate%>">
 					</div>
 					<div>
-						<b>Nacionalidad</b> <select name="txtNacionalidad"
-							value="<%=clienteEditar.getIdNacionalidad()%>">
-							<option>Seleccione nacionalidad</option>
+						<b>Nacionalidad</b> <select name="txtNacionalidad">
+							<%
+							for (Nacionalidad n : listaNac) {
+							%>
+							<option value="<%=n.getIdNacionalidad()%>"
+								<%String nacionalidad = "";
+if (clienteEditar.getIdNacionalidad().getIdNacionalidad() == n.getIdNacionalidad()) {
+	nacionalidad = "selected";
+}%>
+								<%=nacionalidad%>>
+								<%=n.getNacionalidad()%></option>
+							<%
+							}
+							%>
 						</select>
 					</div>
 					<div>
-						<b>Localidad</b> <select name="txtLocalidad"
-							value="<%=clienteEditar.getIdLocalidad()%>">
-							<option>Seleccione Localidad</option>
+						<b>Localidad</b> <select name="txtLocalidad">
+							<%
+							for (Localidad l : listaLoc) {
+							%>
+							<option value="<%=l.getIdLocalidad()%>"
+								<%String localidad = "";
+if (clienteEditar.getIdLocalidad().getIdLocalidad() == l.getIdLocalidad()) {
+	localidad = "selected";
+}%>
+								<%=localidad%>>
+								<%=l.getLocalidad()%></option>
+							<%
+							}
+							%>
 						</select>
+					</div>
+					<div>
+						<b>Calle</b> <input name="txtCalle" type="text"
+							value="<%=clienteEditar.getCalle()%>">
+					</div>
+					<div>
+						<b>Altura</b> <input name="txtAltura" type="number"
+							value="<%=clienteEditar.getAltura()%>">
 					</div>
 					<div>
 						<b>Email</b> <input name="txtEmail" type="email"
@@ -215,19 +271,20 @@
 					<div>
 						<b>Estado</b> <input type="checkbox" name="txtEstado"
 							<%String checkedEstado = "";
-							if (clienteEditar.isEstado()) {
-								checkedEstado = "checked";
-							}%>
+if (clienteEditar.isEstado()) {
+	checkedEstado = "checked";
+}%>
 							<%=checkedEstado%>>
 					</div>
 					<div>
 						<b>Admin?</b> <input type="checkbox" name="txtAdmin"
 							<%String checkedAdmin = "";
-							if (clienteEditar.isEsAdmin()) {
-								checkedAdmin = "checked";
-							}%>
+if (clienteEditar.isEsAdmin()) {
+	checkedAdmin = "checked";
+}%>
 							<%=checkedAdmin%>>
 					</div>
+					<input type="text" hidden name="txtCantCuentas" value="<%=clienteEditar.getCantCuentas()%>">
 				</div>
 			</div>
 			<input type="submit" name="btnEditarUsuario" value="Enviar!">

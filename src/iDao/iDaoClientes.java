@@ -9,4 +9,6 @@ public interface iDaoClientes {
 	List<Usuario> traerLista ();
 	boolean eliminarCliente (String id);
 	Usuario traerCliente (String id);
+	int traerProximoId ();
+	int modificar (Usuario usuario);
 }

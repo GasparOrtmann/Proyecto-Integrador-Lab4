@@ -5,6 +5,12 @@ public class Provincia {
 	int idProvincia;
 	String provincia;
 	
+	public Provincia(int idProvincia, String provincia) {
+		super();
+		this.idProvincia = idProvincia;
+		this.provincia = provincia;
+	}
+	
 	public int getIdProvincia() {
 		return idProvincia;
 	}

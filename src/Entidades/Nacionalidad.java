@@ -24,5 +24,9 @@ public class Nacionalidad {
 	public void setNacionalidad(String nacionalidad) {
 		this.nacionalidad = nacionalidad;
 	}
+	@Override
+	public String toString() {
+		return "Nacionalidad [idNacionalidad=" + idNacionalidad + ", nacionalidad=" + nacionalidad + "]";
+	}
 	
 }

@@ -26,4 +26,10 @@ public class NegocioClientes implements iNegocioClientes {
 		return daoCli.traerCliente(id);
 	}
 
+	@Override
+	public int modificar(Usuario usuario) {
+		DaoClientes daoCli = new DaoClientes();
+		return daoCli.modificar(usuario);
+	}
+
 }
