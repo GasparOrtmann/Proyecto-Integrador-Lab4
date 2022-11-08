@@ -47,14 +47,7 @@ public class Usuario {
 	public Usuario() {
 		
 	}
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
 
-
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 
 	public int getIdUsuario() {
 		return idUsuario;
