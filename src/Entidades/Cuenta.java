@@ -1,7 +1,5 @@
 package Entidades;
 
-import java.math.BigInteger;
-
 public class Cuenta {
 	int IdCuenta;
 	int IdUsuario;
@@ -10,6 +8,16 @@ public class Cuenta {
 	float saldo;
 	String fechaAlta;
 	boolean estado;
+	
+	public Cuenta(int IdC, int IdU, int IdTC, String CBU, float saldo, String fechaAlta, boolean estado) {
+		this.IdCuenta=IdC;
+		this.IdUsuario=IdU;
+		this.IdTipoCuenta=IdTC;
+		this.CBU=CBU;
+		this.saldo=saldo;
+		this.fechaAlta=fechaAlta;
+		this.estado=estado;
+	}
 	
 	public int getIdCuenta() {
 		return IdCuenta;
