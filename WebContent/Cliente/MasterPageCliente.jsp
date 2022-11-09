@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@page import="Entidades.Usuario"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -25,12 +26,21 @@
 	<div class="row">
 		<div class="col-3">
 					<div class="navbarLateral">
-				<div class="flex-shrink-0 p-3"
-					style="width: 280px; background-color: #B4B1C4; height: 100rem">
-					<button type="submit" class="btnUser">JP</button>
-					<br> <br> <a href="/" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
-						<span class="fs-5 fw-semibold">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Juan Perez</span>
+				<div class="flex-shrink-0 p-3"style="width: 280px; background-color: #B4B1C4; height: 100rem">
+					<%  if(request.getAttribute("usuarioIngresado")!=null){
+						Usuario usuarioLogin = (Usuario)request.getAttribute("usuarioIngresado");
+						String nombre = usuarioLogin.getNombre().toUpperCase();
+						String apellido = usuarioLogin.getApellido().toUpperCase();
+						char inicialNombre = nombre.charAt(0);
+						char inicialApellido = apellido.charAt(0);	
+					%>
+					<form method="get" action="Cliente/Cuenta_Cliente.jsp">
+					<input type="submit" class="btnUser" style="color:white" value="<%=inicialNombre+" "+inicialApellido%>"></input>
+					<br> <br> <a href="#" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
+						<span class="fs-5 fw-semibold">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=usuarioLogin.getNombre()+" "+usuarioLogin.getApellido()%></span>
 					</a>
+					<% } %>
+					</form>
 					<ul class="list-unstyled ps-0">
 						<li class="mb-1">
 							<button class="btn btn-toggle d-inline-flex align-items-center rounded border-0">INICIO</button>
