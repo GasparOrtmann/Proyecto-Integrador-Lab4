@@ -6,6 +6,7 @@ import Entidades.Usuario;
 
 public interface iNegocioClientes {
 	List<Usuario> traerLista ();
+	List<Usuario> traerListaConFiltro (String filtroAplicar);
 	boolean eliminarCliente (String id);
 	Usuario traerCliente (String id);
 	int modificar(Usuario usuario);

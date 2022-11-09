@@ -225,4 +225,43 @@ public class DaoClientes implements iDaoClientes {
 		return filas;
 	}
 
+	@Override
+	public List<Usuario> traerListaConFiltro(String filtroAplicar) {
+		Connection cnn = Conexion.getConexion().getSQLConexion();
+		List<Usuario> lstUsuario = new ArrayList<Usuario>();
+		String query = "SELECT * FROM usuarios "+filtroAplicar;
+		PreparedStatement pst;
+		try {
+
+			pst = cnn.prepareStatement(query);
+			ResultSet rs = pst.executeQuery();
+
+			while (rs.next()) {
+				int id = rs.getInt(1);
+				boolean esAdmin = rs.getBoolean(2);
+				String usuario = rs.getString(3);
+				String contrasenia = rs.getString(4);
+				String nombre = rs.getString(5);
+				String apellido = rs.getString(6);
+				String sexo = rs.getString(7);
+				String fechaNac = rs.getString(8);
+				String calle = rs.getString(9);
+				int altura = rs.getInt(10);
+				String email = rs.getString(11);
+				String cuil = rs.getString(12);
+				String dni = rs.getString(13);
+				boolean estado = rs.getBoolean(14);
+				int cantCuentas = rs.getInt(15);
+				Nacionalidad nacionalidad = new Nacionalidad(rs.getInt(16));
+				Localidad localidad = new Localidad(rs.getInt(17));
+				lstUsuario.add(new Usuario(id, esAdmin, cuil, dni, fechaNac, usuario, contrasenia, nombre, apellido,
+						sexo, localidad, calle, altura, nacionalidad, email, cantCuentas, estado));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return lstUsuario;
+	}
+
 }

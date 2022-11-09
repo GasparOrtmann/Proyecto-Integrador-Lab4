@@ -44,4 +44,10 @@ public class NegocioClientes implements iNegocioClientes {
 		return daoCli.agregar(usuario);
 	}
 
+	@Override
+	public List<Usuario> traerListaConFiltro(String filtroAplicar) {
+		DaoClientes daoCli = new DaoClientes();
+		return daoCli.traerListaConFiltro(filtroAplicar);
+	}
+
 }

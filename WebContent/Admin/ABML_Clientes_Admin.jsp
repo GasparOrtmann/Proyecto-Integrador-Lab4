@@ -91,9 +91,111 @@
 			</div>
 			<%} %>
 			<h1>Gestion Clientes</h1>
+			
 			<div class="centrar-row">
-				<label>Filtros:</label> <input /> <input type="submit"
-					value="Filtrar">
+				<select name="ddlFiltro" id="filtro">
+					<option value="todos">TODOS</option>
+					<option value="filtrarPorId">ID</option>
+					<option value="filtrarPorUsuario">Usuario</option>
+					<option value="filtrarPorNombre">Nombre</option>
+					<option value="filtrarPorApellido">Apellido</option>
+				</select>
+				<label id="tituloFiltro"></label> <input id="inputFiltro" name="inputFiltro"/> <input type="submit" name="filtrar" value="Filtrar">
+				<script>
+					function getCookie(cookieName) {
+						  let cookie = {};
+						  document.cookie.split(';').forEach(function(el) {
+						    let [key,value] = el.split('=');
+						    cookie[key.trim()] = value;
+						  })
+						  return cookie[cookieName];
+						}
+					
+					let ddl = document.querySelector('#filtro');
+					let input = document.getElementById('inputFiltro');
+					let tituloFiltro = document.getElementById('tituloFiltro');
+					
+					
+					document.addEventListener("DOMContentLoaded",(e)=>{
+						let filtroSeleccionado = "";
+						let filtroAplicado = getCookie("filtro");
+						let filtroInputAplicado = getCookie("filtroInput");
+						switch(filtroAplicado) {
+							case "todos":
+								filtroSeleccionado = "TODO";
+								break;
+							case "filtrarPorId":
+								filtroSeleccionado = "ID";
+								break;
+							case "filtrarPorUsuario":
+								filtroSeleccionado = "Usuario";
+								break;
+							case "filtrarPorNombre":
+								filtroSeleccionado = "Nombre";
+								break;
+							case "filtrarPorApellido":
+								filtroSeleccionado = "Apellido";
+								break;
+							default:
+								filtroSeleccionado = "TODO";
+								break;
+						}
+						tituloFiltro.innerHTML  = "Filtro <b>"+filtroSeleccionado+"</b>:"+filtroInputAplicado;
+					})
+					ddl.addEventListener("change",(e)=>{
+						document.cookie = "filtro="+e.target.value;
+						let filtroSeleccionado = "";
+						let filtroAplicado = e.target.value;
+						let filtroInputAplicado = getCookie("filtroInput");
+						switch(filtroAplicado) {
+							case "todos":
+								filtroSeleccionado = "TODO";
+								break;
+							case "filtrarPorId":
+								filtroSeleccionado = "ID";
+								break;
+							case "filtrarPorUsuario":
+								filtroSeleccionado = "Usuario";
+								break;
+							case "filtrarPorNombre":
+								filtroSeleccionado = "Nombre";
+								break;
+							case "filtrarPorApellido":
+								filtroSeleccionado = "Apellido";
+								break;
+							default:
+								filtroSeleccionado = "";
+								break;
+						}
+						tituloFiltro.innerHTML  = "Filtro <b>"+filtroSeleccionado+"</b>:"+filtroInputAplicado;
+					})
+					input.addEventListener("change",(e)=>{
+						let filtroAplicado = getCookie("filtro");
+						let filtroSeleccionado = "";
+						document.cookie = "filtroInput="+e.target.value;
+						switch(filtroAplicado) {
+						case "todos":
+							filtroSeleccionado = "TODO";
+							break;
+						case "filtrarPorId":
+							filtroSeleccionado = "ID";
+							break;
+						case "filtrarPorUsuario":
+							filtroSeleccionado = "Usuario";
+							break;
+						case "filtrarPorNombre":
+							filtroSeleccionado = "Nombre";
+							break;
+						case "filtrarPorApellido":
+							filtroSeleccionado = "Apellido";
+							break;
+						default:
+							filtroSeleccionado = "";
+							break;
+					}
+						tituloFiltro.innerHTML  = "Filtro <b>"+filtroSeleccionado+"</b>:"+e.target.value;
+					})
+				</script>
 			</div>
 
 			<table class="table table-striped">

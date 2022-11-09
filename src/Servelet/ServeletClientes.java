@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.tomcat.util.http.parser.Cookie;
+
 import Entidades.Localidad;
 import Entidades.Nacionalidad;
 import Entidades.Usuario;
@@ -47,7 +49,31 @@ public class ServeletClientes extends HttpServlet {
 			int pagina=Integer.valueOf(request.getParameter("paginar").toString());
 			NegocioClientes negCli = new NegocioClientes();
 			int proximoId = negCli.traerProxId();
-			List<Usuario> lista=negCli.traerLista();
+			javax.servlet.http.Cookie[] cookies = request.getCookies();
+			String textoFiltro = cookies[2].getValue();
+			String filtro = cookies[1].getValue();;
+			String filtroAplicar = "";
+			switch(filtro) {
+				case "todos":
+					filtroAplicar = "";
+					break;
+				case "filtrarPorId":
+					filtroAplicar = "WHERE IdUsuario LIKE '%"+textoFiltro+"%'";
+					break;
+				case "filtrarPorUsuario":
+					filtroAplicar = "WHERE Usuario LIKE '%"+textoFiltro+"%'";
+					break;
+				case "filtrarPorNombre":
+					filtroAplicar = "WHERE Nombre LIKE '%"+textoFiltro+"%'";
+					break;
+				case "filtrarPorApellido":
+					filtroAplicar = "WHERE Apellido LIKE '%"+textoFiltro+"%'";
+					break;
+				default:
+					filtroAplicar = "";
+					break;
+			}
+			List<Usuario> lista=negCli.traerListaConFiltro(filtroAplicar);
 			NegocioNacionalidad negNac = new NegocioNacionalidad();
 			List<Nacionalidad> listaNac=negNac.traerLista();
 			request.setAttribute("listaNacionalidades", listaNac);
@@ -99,7 +125,31 @@ public class ServeletClientes extends HttpServlet {
 			NegocioClientes negCli = new NegocioClientes();
 			int proximoId = negCli.traerProxId();
 			boolean filasAfectadas= negCli.eliminarCliente(request.getParameter("idModificar"));
-			List<Usuario> lista=negCli.traerLista();
+			javax.servlet.http.Cookie[] cookies = request.getCookies();
+			String textoFiltro = cookies[2].getValue();
+			String filtro = cookies[1].getValue();;
+			String filtroAplicar = "";
+			switch(filtro) {
+				case "todos":
+					filtroAplicar = "";
+					break;
+				case "filtrarPorId":
+					filtroAplicar = "WHERE IdUsuario LIKE '%"+textoFiltro+"%'";
+					break;
+				case "filtrarPorUsuario":
+					filtroAplicar = "WHERE Usuario LIKE '%"+textoFiltro+"%'";
+					break;
+				case "filtrarPorNombre":
+					filtroAplicar = "WHERE Nombre LIKE '%"+textoFiltro+"%'";
+					break;
+				case "filtrarPorApellido":
+					filtroAplicar = "WHERE Apellido LIKE '%"+textoFiltro+"%'";
+					break;
+				default:
+					filtroAplicar = "";
+					break;
+			}
+			List<Usuario> lista=negCli.traerListaConFiltro(filtroAplicar);
 			request.setAttribute("listaClientes", lista);
 			NegocioNacionalidad negNac = new NegocioNacionalidad();
 			List<Nacionalidad> listaNac=negNac.traerLista();
@@ -116,7 +166,31 @@ public class ServeletClientes extends HttpServlet {
 			NegocioClientes negCli = new NegocioClientes();
 			int proximoId = negCli.traerProxId();
 			Usuario traerCliente = negCli.traerCliente(request.getParameter("idModificar"));
-			List<Usuario> lista=negCli.traerLista();
+			javax.servlet.http.Cookie[] cookies = request.getCookies();
+			String textoFiltro = cookies[2].getValue();
+			String filtro = cookies[1].getValue();;
+			String filtroAplicar = "";
+			switch(filtro) {
+				case "todos":
+					filtroAplicar = "";
+					break;
+				case "filtrarPorId":
+					filtroAplicar = "WHERE IdUsuario LIKE '%"+textoFiltro+"%'";
+					break;
+				case "filtrarPorUsuario":
+					filtroAplicar = "WHERE Usuario LIKE '%"+textoFiltro+"%'";
+					break;
+				case "filtrarPorNombre":
+					filtroAplicar = "WHERE Nombre LIKE '%"+textoFiltro+"%'";
+					break;
+				case "filtrarPorApellido":
+					filtroAplicar = "WHERE Apellido LIKE '%"+textoFiltro+"%'";
+					break;
+				default:
+					filtroAplicar = "";
+					break;
+			}
+			List<Usuario> lista=negCli.traerListaConFiltro(filtroAplicar);
 			request.setAttribute("listaClientes", lista);
 			NegocioNacionalidad negNac = new NegocioNacionalidad();
 			List<Nacionalidad> listaNac=negNac.traerLista();
@@ -166,7 +240,31 @@ public class ServeletClientes extends HttpServlet {
 			Usuario u = new Usuario(id,admin,cuil,dni,fechaNac,usuario,contrasenia,nombre,apellido,sexo,new Localidad(localidad),calle,altura,new Nacionalidad(nacionalidad),email, cantCuentas,estado);		
 			int filasAfectadas = negCli.modificar(u);
 			request.setAttribute("filasAfectadasEditar", filasAfectadas);
-			List<Usuario> lista=negCli.traerLista();
+			javax.servlet.http.Cookie[] cookies = request.getCookies();
+			String textoFiltro = cookies[2].getValue();;
+			String filtro = cookies[1].getValue();;
+			String filtroAplicar = "";
+			switch(filtro) {
+				case "todos":
+					filtroAplicar = "";
+					break;
+				case "filtrarPorId":
+					filtroAplicar = "WHERE IdUsuario LIKE '%"+textoFiltro+"%'";
+					break;
+				case "filtrarPorUsuario":
+					filtroAplicar = "WHERE Usuario LIKE '%"+textoFiltro+"%'";
+					break;
+				case "filtrarPorNombre":
+					filtroAplicar = "WHERE Nombre LIKE '%"+textoFiltro+"%'";
+					break;
+				case "filtrarPorApellido":
+					filtroAplicar = "WHERE Apellido LIKE '%"+textoFiltro+"%'";
+					break;
+				default:
+					filtroAplicar = "";
+					break;
+			}
+			List<Usuario> lista=negCli.traerListaConFiltro(filtroAplicar);
 			NegocioNacionalidad negNac = new NegocioNacionalidad();
 			List<Nacionalidad> listaNac=negNac.traerLista();
 			request.setAttribute("listaNacionalidades", listaNac);
@@ -214,7 +312,31 @@ public class ServeletClientes extends HttpServlet {
 			int filasAfectadas = negCli.agregar(u);
 			int proximoId = negCli.traerProxId();
 			request.setAttribute("filasAfectadasCrear", filasAfectadas);
-			List<Usuario> lista=negCli.traerLista();
+			javax.servlet.http.Cookie[] cookies = request.getCookies();
+			String textoFiltro = cookies[2].getValue();;
+			String filtro = cookies[1].getValue();;
+			String filtroAplicar = "";
+			switch(filtro) {
+				case "todos":
+					filtroAplicar = "";
+					break;
+				case "filtrarPorId":
+					filtroAplicar = "WHERE IdUsuario LIKE '%"+textoFiltro+"%'";
+					break;
+				case "filtrarPorUsuario":
+					filtroAplicar = "WHERE Usuario LIKE '%"+textoFiltro+"%'";
+					break;
+				case "filtrarPorNombre":
+					filtroAplicar = "WHERE Nombre LIKE '%"+textoFiltro+"%'";
+					break;
+				case "filtrarPorApellido":
+					filtroAplicar = "WHERE Apellido LIKE '%"+textoFiltro+"%'";
+					break;
+				default:
+					filtroAplicar = "";
+					break;
+			}
+			List<Usuario> lista=negCli.traerListaConFiltro(filtroAplicar);
 			NegocioNacionalidad negNac = new NegocioNacionalidad();
 			List<Nacionalidad> listaNac=negNac.traerLista();
 			request.setAttribute("listaNacionalidades", listaNac);
@@ -224,6 +346,45 @@ public class ServeletClientes extends HttpServlet {
 			request.setAttribute("listaClientes", lista);
 			request.setAttribute("proximoId", proximoId);
 			RequestDispatcher rd=request.getRequestDispatcher("/Admin/ABML_Clientes_Admin.jsp");  
+			rd.forward(request, response);
+		}
+		if(request.getParameter("filtrar")!=null) {
+			NegocioClientes negCli = new NegocioClientes();
+			int proximoId = negCli.traerProxId();
+			javax.servlet.http.Cookie[] cookies = request.getCookies();
+			String textoFiltro = cookies[2].getValue();;
+			String filtro = cookies[1].getValue();;
+			String filtroAplicar = "";
+			switch(filtro) {
+				case "todos":
+					filtroAplicar = "";
+					break;
+				case "filtrarPorId":
+					filtroAplicar = "WHERE IdUsuario LIKE '%"+textoFiltro+"%'";
+					break;
+				case "filtrarPorUsuario":
+					filtroAplicar = "WHERE Usuario LIKE '%"+textoFiltro+"%'";
+					break;
+				case "filtrarPorNombre":
+					filtroAplicar = "WHERE Nombre LIKE '%"+textoFiltro+"%'";
+					break;
+				case "filtrarPorApellido":
+					filtroAplicar = "WHERE Apellido LIKE '%"+textoFiltro+"%'";
+					break;
+				default:
+					filtroAplicar = "";
+					break;
+			}
+			List<Usuario> lista=negCli.traerListaConFiltro(filtroAplicar);
+			NegocioNacionalidad negNac = new NegocioNacionalidad();
+			List<Nacionalidad> listaNac=negNac.traerLista();
+			request.setAttribute("listaNacionalidades", listaNac);
+			NegocioLocalidad negLoc = new NegocioLocalidad();
+			List<Localidad> listaLoc=negLoc.traerLista();
+			request.setAttribute("listaLocalidades", listaLoc);
+			request.setAttribute("proximoId", proximoId);
+			request.setAttribute("listaClientes", lista);
+			RequestDispatcher rd =  request.getRequestDispatcher("/Admin/ABML_Clientes_Admin.jsp");  
 			rd.forward(request, response);
 		}
 	}
