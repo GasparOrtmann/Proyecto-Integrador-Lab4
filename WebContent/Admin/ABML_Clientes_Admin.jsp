@@ -149,6 +149,7 @@
 					%>
 				</tbody>
 			</table>
+			</form>
 			<%
 			if (listaCli != null) {
 				for (int i = 0; i < Math.ceil((float) listaCli.size() / cantidadDeClientes); i++) {
@@ -161,45 +162,47 @@
 			<%
 			if (clienteEditar == null) {
 			%>
+			<form method="POST" action="/TPINT_GRUPO_6_LAB4/ServeletClientes"
+			class="centrar-column">
 			<h2>Creacion de Cliente</h2>
 			<div class="centrar-row">
 				<div class="centrar-column container-fields">
 					<div>
 						<b>ID</b> <input class="pe-none border-0 bg-transparent"
-							name="txtId" type="text" value="<%=proximoId%>">
+							name="txtId" type="text" value="<%=proximoId%>" required>
 					</div>
 					<div>
-						<b>DNI</b> <input type="text" name="txtDni">
+						<b>DNI</b> <input type="number" name="txtDni" required>
 					</div>
 					<div>
-						<b>CUIL</b> <input type="text" name="txtCuil">
+						<b>CUIL</b> <input type="number" name="txtCuil" required>
 					</div>
 					<div>
-						<b>Usuario</b> <input type="text" name="txtUsuario">
+						<b>Usuario</b> <input type="text" name="txtUsuario" required>
 					</div>
 					<div>
-						<b>Contraseña</b> <input type="password" name="txtContrasenia">
+						<b>Contraseña</b> <input type="password" name="txtContrasenia" required>
 					</div>
 					<div>
-						<b>Nombre</b> <input type="text" name="txtNombre">
+						<b>Nombre</b> <input type="text" name="txtNombre" required>
 					</div>
 					<div>
-						<b>Apellido</b> <input type="text" name="txtApellido">
+						<b>Apellido</b> <input type="text" name="txtApellido" required>
 					</div>
 				</div>
 				<div class="centrar-column container-fields">
 					<div>
-						<b>Sexo</b> <select name="txtSexo">
+						<b>Sexo</b> <select name="txtSexo" required>
 							<option value="Masculino">Masculino</option>
 							<option value="Femenino">Femenino</option>
 							<option value="Otro">Otro</option>
 						</select>
 					</div>
 					<div>
-						<b>Fecha de Nacimiento</b> <input type="date" name="txtFechaNac">
+						<b>Fecha de Nacimiento</b> <input type="date" name="txtFechaNac" required>
 					</div>
 					<div>
-						<b>Nacionalidad</b> <select name="txtNacionalidad">
+						<b>Nacionalidad</b> <select name="txtNacionalidad" required>
 							<%
 							if (listaNac != null) {
 								for (Nacionalidad n : listaNac) {
@@ -213,7 +216,7 @@
 						</select>
 					</div>
 					<div>
-						<b>Localidad</b> <select name="txtLocalidad">
+						<b>Localidad</b> <select name="txtLocalidad" required>
 							<%
 							if (listaLoc != null) {
 								for (Localidad l : listaLoc) {
@@ -227,19 +230,19 @@
 						</select>
 					</div>
 					<div>
-						<b>Calle</b> <input name="txtCalle" type="text">
+						<b>Calle</b> <input name="txtCalle" type="text" required>
 					</div>
 					<div>
-						<b>Altura</b> <input name="txtAltura" type="number">
+						<b>Altura</b> <input name="txtAltura" type="number" required>
 					</div>
 					<div>
-						<b>Email</b> <input type="email" name="txtEmail">
+						<b>Email</b> <input type="email" name="txtEmail" required>
 					</div>
 					<div>
-						<b>Estado</b> <input type="checkbox" name="txtEstado">
+						<b>Estado</b> <input type="checkbox" name="txtEstado" >
 					</div>
 					<div>
-						<b>Admin?</b> <input type="checkbox" name="txtAdmin">
+						<b>Admin?</b> <input type="checkbox" name="txtAdmin" >
 					</div>
 					<input type="text" hidden name="txtCantCuentas" value="0">
 				</div>
@@ -258,11 +261,11 @@
 							value="<%=clienteEditar.getIdUsuario()%>">
 					</div>
 					<div>
-						<b>DNI</b> <input name="txtDni" type="text"
+						<b>DNI</b> <input name="txtDni" type="number"
 							value="<%=clienteEditar.getNroDni()%>">
 					</div>
 					<div>
-						<b>CUIL</b> <input name=txtCuil type="text"
+						<b>CUIL</b> <input name=txtCuil type="number"
 							value="<%=clienteEditar.getNroCuil()%>">
 					</div>
 					<div>
