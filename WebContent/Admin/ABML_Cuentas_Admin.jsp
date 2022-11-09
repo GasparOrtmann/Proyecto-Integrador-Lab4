@@ -65,8 +65,10 @@
 						<td><%=c.getSaldo() %></td>
 						<td><%=c.getFechaAlta()%></td>
 						<td><%=c.isEstado() %></td>
+						<form method="post" action="/TPINT_GRUPO_6_LAB4/ServletCuentas?getIdCuenta=<%=c.getIdCuenta()%>">
 						<td><input type="submit" name="btnEditar" value="Editar"></td>
 						<td><input type="submit" name="btnEliminar" value="Eliminar"></td>
+						</form>
 					</tr>
 					<%
 					}}
