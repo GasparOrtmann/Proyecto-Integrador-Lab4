@@ -79,16 +79,16 @@
 		<div class="centrar-row">
 			<div class="centrar-column container-fields">
 			<div>
-					<label>Cod Usuario</label> <input type="text" name="txtCodUsuario">
+					<label>Cod Usuario</label> <input type="text" name="txtCodUsuario" required>
 				</div>
 				<div>
-					<label>CBU</label> <input type="text" name="txtCBU">
+					<label>CBU</label> <input type="text" name="txtCBU" required>
 				</div>
 				<div>
-					<label>Saldo</label> <input type="text" name="txtSaldo">
+					<label>Saldo</label> <input type="text" name="txtSaldo" required>
 				</div>
 				<div>
-					<label>Fecha Alta</label> <input type="date" name="inputFecha">
+					<label>Fecha Alta</label> <input type="date" name="inputFecha" required>
 				</div>
 				<div>
 					<label>Estado</label> <input type="checkbox" name="chkEstado">
