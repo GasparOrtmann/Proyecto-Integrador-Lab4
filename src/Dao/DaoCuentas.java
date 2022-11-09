@@ -58,6 +58,12 @@ public class DaoCuentas implements iDaoCuentas{
 	@Override
 	public Boolean agregarCuenta(Cuenta c) {
 	Connection cn = Conexion.getConexion().getSQLConexion();
+	String estado = "";
+	if(c.isEstado()) {
+		estado="1";
+	}else {
+		estado="0";
+	}
 	try {
 			int filaAfectada=0;
 			CallableStatement cst = cn.prepareCall("CALL SP_agregarCuenta(?,?,?,?,?,?,?)");

@@ -49,8 +49,12 @@ public class ServletCuentas extends HttpServlet {
 			String CBU = request.getParameter("txtCBU");
 			float saldo = Float.parseFloat(request.getParameter("txtSaldo"));
 			String fechaAlta =  request.getParameter("inputFecha");
-			boolean estado = request.getParameter("chkEstado") != null;
-			
+			boolean estado = false;
+			if(request.getParameter("chkEstado") != null) {
+				estado = true;
+			}else {
+				estado = false;
+			}
 			Cuenta c = new Cuenta(IdC, IdU, IdTC, CBU, saldo, fechaAlta, estado);		
 			negCu.agregarCuenta(c);
 			
