@@ -3,6 +3,7 @@
 <%@page import="Entidades.Nacionalidad"%>
 <%@page import="Entidades.Localidad"%>
 <%@page import="java.util.List"%>
+<%@page import="java.util.ArrayList"%>
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.text.ParsePosition"%>
 <%@page import="java.sql.Date"%>
@@ -41,6 +42,10 @@
 			List<Nacionalidad> listaNac = null;
 			List<Localidad> listaLoc = null;
 			int proximoId = 0;
+			int proximaPagina=1;
+			
+			int cantidadDeClientes=3;
+			
 			if (request.getAttribute("listaClientes") != null) {
 				listaCli = (List<Usuario>) request.getAttribute("listaClientes");
 			}
@@ -56,6 +61,11 @@
 			if (request.getAttribute("proximoId") != null) {
 				proximoId = Integer.valueOf(request.getAttribute("proximoId").toString());
 			}
+			if (request.getAttribute("proximaPagina") != null) {
+				proximaPagina = Integer.valueOf(request.getAttribute("proximaPagina").toString());
+			}
+			
+			
 			%>
 			<table class="table table-striped">
 				<thead class="table-dark">
@@ -76,32 +86,38 @@
 				</thead>
 				<tbody>
 					<%
-					if (listaCli != null) {
-						for (Usuario s : listaCli) {
+					ArrayList<Usuario> copiaListaPaginada=(ArrayList<Usuario>)listaCli;
+					if (copiaListaPaginada != null) {
+						for (int i=0;i<copiaListaPaginada.size();i++) {
+							if(i>=(proximaPagina*cantidadDeClientes)-cantidadDeClientes && i<=proximaPagina*cantidadDeClientes-1){
 					%>
 					<tr>
 						<td><input class="border-0 bg-transparent pe-none"
-							name="idModificar" value="<%=s.getIdUsuario()%>"></td>
-						<td><%=s.isEsAdmin()%></td>
-						<td><%=s.getUsuario()%></td>
-						<td><%=s.getNombre()%></td>
-						<td><%=s.getApellido()%></td>
-						<td><%=s.getSexo()%></td>
-						<td><%=s.getFechaNacimiento()%></td>
-						<td><%=s.getIdNacionalidad().getIdNacionalidad()%></td>
-						<td><%=s.getIdLocalidad().getIdLocalidad()%></td>
-						<td><%=s.isEstado()%></td>
-						<form method="POST" action="/TPINT_GRUPO_6_LAB4/ServeletClientes?idModificar=<%= s.getIdUsuario()%>">
+							name="idModificar" value="<%=copiaListaPaginada.get(i).getIdUsuario()%>"></td>
+						<td><%=copiaListaPaginada.get(i).isEsAdmin()%></td>
+						<td><%=copiaListaPaginada.get(i).getUsuario()%></td>
+						<td><%=copiaListaPaginada.get(i).getNombre()%></td>
+						<td><%=copiaListaPaginada.get(i).getApellido()%></td>
+						<td><%=copiaListaPaginada.get(i).getSexo()%></td>
+						<td><%=copiaListaPaginada.get(i).getFechaNacimiento()%></td>
+						<td><%=copiaListaPaginada.get(i).getIdNacionalidad().getIdNacionalidad()%></td>
+						<td><%=copiaListaPaginada.get(i).getIdLocalidad().getIdLocalidad()%></td>
+						<td><%=copiaListaPaginada.get(i).isEstado()%></td>
+						<form method="POST" action="/TPINT_GRUPO_6_LAB4/ServeletClientes?idModificar=<%= copiaListaPaginada.get(i).getIdUsuario()%>">
 						<td><input class="btn btn-secondary" type="submit" name="btnEditar" value="Editar" ></td>
 						<td><input class="btn btn-secondary" type="submit" name="btnEliminar" value="Eliminar"></td>
 						</form>
 					</tr>
 					<%
-					}
+							}
+						}
 					}
 					%>
 				</tbody>
 			</table>
+			<%for(int i=0;i<Math.ceil((float)listaCli.size()/cantidadDeClientes);i++){ %>
+				<a href="/TPINT_GRUPO_6_LAB4/ServeletClientes?paginar=<%=i+1%>"><%=i+1%></a>
+			<%} %>
 			<%
 			if (clienteEditar == null) {
 			%>

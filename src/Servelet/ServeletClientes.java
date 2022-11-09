@@ -43,6 +43,23 @@ public class ServeletClientes extends HttpServlet {
 			RequestDispatcher rd =  request.getRequestDispatcher("/Admin/ABML_Clientes_Admin.jsp");  
 			rd.forward(request, response);
 		}
+		if(request.getParameter("paginar")!=null) {
+			int pagina=Integer.valueOf(request.getParameter("paginar").toString());
+			NegocioClientes negCli = new NegocioClientes();
+			int proximoId = negCli.traerProxId();
+			List<Usuario> lista=negCli.traerLista();
+			NegocioNacionalidad negNac = new NegocioNacionalidad();
+			List<Nacionalidad> listaNac=negNac.traerLista();
+			request.setAttribute("listaNacionalidades", listaNac);
+			NegocioLocalidad negLoc = new NegocioLocalidad();
+			List<Localidad> listaLoc=negLoc.traerLista();
+			request.setAttribute("listaLocalidades", listaLoc);
+			request.setAttribute("proximoId", proximoId);
+			request.setAttribute("listaClientes", lista);
+			request.setAttribute("proximaPagina", pagina);
+			RequestDispatcher rd =  request.getRequestDispatcher("/Admin/ABML_Clientes_Admin.jsp");  
+			rd.forward(request, response);
+		}
 	
 	}
 
