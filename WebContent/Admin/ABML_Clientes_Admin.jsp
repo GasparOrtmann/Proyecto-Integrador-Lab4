@@ -227,7 +227,7 @@
 							value="<%=clienteEditar.getNroCuil()%>">
 					</div>
 					<div>
-						<b>Usuario</b> <input name="txtUsuario" type="text"
+						<b>Usuario</b> <input name="txtUsuario" class="pe-none border-0 bg-transparent" type="text"
 							value="<%=clienteEditar.getUsuario()%>">
 					</div>
 					<div>
