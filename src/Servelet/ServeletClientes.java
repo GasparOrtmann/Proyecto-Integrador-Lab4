@@ -98,7 +98,7 @@ public class ServeletClientes extends HttpServlet {
 		if(request.getParameter("btnEliminar")!=null) {
 			NegocioClientes negCli = new NegocioClientes();
 			int proximoId = negCli.traerProxId();
-			negCli.eliminarCliente(request.getParameter("idModificar"));
+			boolean filasAfectadas= negCli.eliminarCliente(request.getParameter("idModificar"));
 			List<Usuario> lista=negCli.traerLista();
 			request.setAttribute("listaClientes", lista);
 			NegocioNacionalidad negNac = new NegocioNacionalidad();
@@ -106,6 +106,7 @@ public class ServeletClientes extends HttpServlet {
 			request.setAttribute("listaNacionalidades", listaNac);
 			NegocioLocalidad negLoc = new NegocioLocalidad();
 			List<Localidad> listaLoc=negLoc.traerLista();
+			request.setAttribute("filasAfectadasBorrar", filasAfectadas);
 			request.setAttribute("listaLocalidades", listaLoc);
 			request.setAttribute("proximoId", proximoId);
 			RequestDispatcher rd =  request.getRequestDispatcher("/Admin/ABML_Clientes_Admin.jsp");  
@@ -164,7 +165,7 @@ public class ServeletClientes extends HttpServlet {
 			
 			Usuario u = new Usuario(id,admin,cuil,dni,fechaNac,usuario,contrasenia,nombre,apellido,sexo,new Localidad(localidad),calle,altura,new Nacionalidad(nacionalidad),email, cantCuentas,estado);		
 			int filasAfectadas = negCli.modificar(u);
-			request.setAttribute("idActual", filasAfectadas);
+			request.setAttribute("filasAfectadasEditar", filasAfectadas);
 			List<Usuario> lista=negCli.traerLista();
 			NegocioNacionalidad negNac = new NegocioNacionalidad();
 			List<Nacionalidad> listaNac=negNac.traerLista();
@@ -212,7 +213,7 @@ public class ServeletClientes extends HttpServlet {
 			Usuario u = new Usuario(id,admin,cuil,dni,fechaNac,usuario,contrasenia,nombre,apellido,sexo,new Localidad(localidad),calle,altura,new Nacionalidad(nacionalidad),email, cantCuentas,estado);		
 			int filasAfectadas = negCli.agregar(u);
 			int proximoId = negCli.traerProxId();
-			request.setAttribute("idActual", filasAfectadas);
+			request.setAttribute("filasAfectadasCrear", filasAfectadas);
 			List<Usuario> lista=negCli.traerLista();
 			NegocioNacionalidad negNac = new NegocioNacionalidad();
 			List<Nacionalidad> listaNac=negNac.traerLista();

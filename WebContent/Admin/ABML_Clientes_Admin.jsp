@@ -31,21 +31,19 @@
 	<div style="position: absolute; top: 150px; left: 300px;">
 		<form method="POST" action="/TPINT_GRUPO_6_LAB4/ServeletClientes"
 			class="centrar-column">
-			<h1>Gestion Clientes</h1>
-			<div class="centrar-row">
-				<label>Filtros:</label> <input /> <input type="submit"
-					value="Filtrar">
-			</div>
 			<%
 			List<Usuario> listaCli = null;
 			Usuario clienteEditar = null;
 			List<Nacionalidad> listaNac = null;
 			List<Localidad> listaLoc = null;
 			int proximoId = 0;
-			int proximaPagina=1;
-			
-			int cantidadDeClientes=3;
-			
+			int proximaPagina = 1;
+			int filasAfectadasCrear = 0;
+			int filasAfectadasEditar = 0;
+			boolean filasAfectadasBorrar = false;
+
+			int cantidadDeClientes = 3;
+
 			if (request.getAttribute("listaClientes") != null) {
 				listaCli = (List<Usuario>) request.getAttribute("listaClientes");
 			}
@@ -64,9 +62,40 @@
 			if (request.getAttribute("proximaPagina") != null) {
 				proximaPagina = Integer.valueOf(request.getAttribute("proximaPagina").toString());
 			}
-			
-			
+			if (request.getAttribute("filasAfectadasCrear") != null) {
+				filasAfectadasCrear = Integer.valueOf(request.getAttribute("filasAfectadasCrear").toString());
+			}
+			if (request.getAttribute("filasAfectadasEditar") != null) {
+				filasAfectadasEditar = Integer.valueOf(request.getAttribute("filasAfectadasEditar").toString());
+			}
+			if (request.getAttribute("filasAfectadasBorrar") != null) {
+				filasAfectadasBorrar = Boolean.valueOf(request.getAttribute("filasAfectadasBorrar").toString());
+			}
 			%>
+			<%if(filasAfectadasCrear!=0){ %>
+			<div class="alert alert-success alert-dismissible fade show" role="alert">
+			  Cliente Creado Exitosamente!
+			  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			</div>
+			<%} %>
+			<%if(filasAfectadasBorrar){ %>
+			<div class="alert alert-success alert-dismissible fade show" role="alert">
+			  Se cambio exitosamente el estado del Cliente!
+			  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			</div>
+			<%} %>
+			<%if(filasAfectadasEditar!=0){ %>
+			<div class="alert alert-success alert-dismissible fade show" role="alert">
+			  Cliente Editado Exitosamente!
+			  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			</div>
+			<%} %>
+			<h1>Gestion Clientes</h1>
+			<div class="centrar-row">
+				<label>Filtros:</label> <input /> <input type="submit"
+					value="Filtrar">
+			</div>
+
 			<table class="table table-striped">
 				<thead class="table-dark">
 					<tr>
@@ -86,15 +115,16 @@
 				</thead>
 				<tbody>
 					<%
-					
 					if (listaCli != null) {
-						ArrayList<Usuario> copiaListaPaginada=(ArrayList<Usuario>)listaCli;
-						for (int i=0;i<copiaListaPaginada.size();i++) {
-							if(i>=(proximaPagina*cantidadDeClientes)-cantidadDeClientes && i<=proximaPagina*cantidadDeClientes-1){
+						ArrayList<Usuario> copiaListaPaginada = (ArrayList<Usuario>) listaCli;
+						for (int i = 0; i < copiaListaPaginada.size(); i++) {
+							if (i >= (proximaPagina * cantidadDeClientes) - cantidadDeClientes
+							&& i <= proximaPagina * cantidadDeClientes - 1) {
 					%>
 					<tr>
 						<td><input class="border-0 bg-transparent pe-none"
-							name="idModificar" value="<%=copiaListaPaginada.get(i).getIdUsuario()%>"></td>
+							name="idModificar"
+							value="<%=copiaListaPaginada.get(i).getIdUsuario()%>"></td>
 						<td><%=copiaListaPaginada.get(i).isEsAdmin()%></td>
 						<td><%=copiaListaPaginada.get(i).getUsuario()%></td>
 						<td><%=copiaListaPaginada.get(i).getNombre()%></td>
@@ -104,22 +134,30 @@
 						<td><%=copiaListaPaginada.get(i).getIdNacionalidad().getIdNacionalidad()%></td>
 						<td><%=copiaListaPaginada.get(i).getIdLocalidad().getIdLocalidad()%></td>
 						<td><%=copiaListaPaginada.get(i).isEstado()%></td>
-						<form method="POST" action="/TPINT_GRUPO_6_LAB4/ServeletClientes?idModificar=<%= copiaListaPaginada.get(i).getIdUsuario()%>">
-						<td><input class="btn btn-secondary" type="submit" name="btnEditar" value="Editar" ></td>
-						<td><input class="btn btn-secondary" type="submit" name="btnEliminar" value="Eliminar"></td>
+						<form method="POST"
+							action="/TPINT_GRUPO_6_LAB4/ServeletClientes?idModificar=<%=copiaListaPaginada.get(i).getIdUsuario()%>">
+							<td><input class="btn btn-secondary" type="submit"
+								name="btnEditar" value="Editar"></td>
+							<td><input class="btn btn-secondary" type="submit"
+								name="btnEliminar" value="Eliminar"></td>
 						</form>
 					</tr>
 					<%
-							}
-						}
+					}
+					}
 					}
 					%>
 				</tbody>
 			</table>
-			<%if(listaCli!=null){
-			for(int i=0;i<Math.ceil((float)listaCli.size()/cantidadDeClientes);i++){ %>
-				<a href="/TPINT_GRUPO_6_LAB4/ServeletClientes?paginar=<%=i+1%>"><%=i+1%></a>
-			<%}} %>
+			<%
+			if (listaCli != null) {
+				for (int i = 0; i < Math.ceil((float) listaCli.size() / cantidadDeClientes); i++) {
+			%>
+			<a href="/TPINT_GRUPO_6_LAB4/ServeletClientes?paginar=<%=i + 1%>"><%=i + 1%></a>
+			<%
+			}
+			}
+			%>
 			<%
 			if (clienteEditar == null) {
 			%>
@@ -206,7 +244,8 @@
 					<input type="text" hidden name="txtCantCuentas" value="0">
 				</div>
 			</div>
-			<input class="btn btn-secondary" type="submit" name="btnCrearUsuario" value="Crear!">
+			<input class="btn btn-secondary" type="submit" name="btnCrearUsuario"
+				value="Crear!">
 			<%
 			} else {
 			%>
@@ -227,7 +266,8 @@
 							value="<%=clienteEditar.getNroCuil()%>">
 					</div>
 					<div>
-						<b>Usuario</b> <input name="txtUsuario" class="pe-none border-0 bg-transparent" type="text"
+						<b>Usuario</b> <input name="txtUsuario"
+							class="pe-none border-0 bg-transparent" type="text"
 							value="<%=clienteEditar.getUsuario()%>">
 					</div>
 					<div>
@@ -341,7 +381,8 @@ if (clienteEditar.isEsAdmin()) {
 						value="<%=clienteEditar.getCantCuentas()%>">
 				</div>
 			</div>
-			<input class="btn btn-secondary" type="submit" name="btnEditarUsuario" value="Editar!">
+			<input class="btn btn-secondary" type="submit"
+				name="btnEditarUsuario" value="Editar!">
 			<%
 			}
 			%>
