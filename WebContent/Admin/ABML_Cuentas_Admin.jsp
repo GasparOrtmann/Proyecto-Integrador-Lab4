@@ -86,7 +86,7 @@
 					<label>Saldo</label> <input type="text" name="txtSaldo">
 				</div>
 				<div>
-					<label>Fecha Alta</label> <input type="text" name="inputFecha">
+					<label>Fecha Alta</label> <input type="date" name="inputFecha">
 				</div>
 				<div>
 					<label>Estado</label> <input type="checkbox" name="chkEstado">
