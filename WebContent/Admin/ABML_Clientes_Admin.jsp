@@ -28,7 +28,7 @@
 <body>
 	<%@include file="MasterPageAdmin.jsp"%>
 
-	<div style="position: absolute; top: 150px; left: 400px;">
+	<div style="position: absolute; top: 150px; left: 300px;">
 		<form method="POST" action="/TPINT_GRUPO_6_LAB4/ServeletClientes"
 			class="centrar-column">
 			<h1>Gestion Clientes</h1>
@@ -86,8 +86,9 @@
 				</thead>
 				<tbody>
 					<%
-					ArrayList<Usuario> copiaListaPaginada=(ArrayList<Usuario>)listaCli;
-					if (copiaListaPaginada != null) {
+					
+					if (listaCli != null) {
+						ArrayList<Usuario> copiaListaPaginada=(ArrayList<Usuario>)listaCli;
 						for (int i=0;i<copiaListaPaginada.size();i++) {
 							if(i>=(proximaPagina*cantidadDeClientes)-cantidadDeClientes && i<=proximaPagina*cantidadDeClientes-1){
 					%>
@@ -115,9 +116,10 @@
 					%>
 				</tbody>
 			</table>
-			<%for(int i=0;i<Math.ceil((float)listaCli.size()/cantidadDeClientes);i++){ %>
+			<%if(listaCli!=null){
+			for(int i=0;i<Math.ceil((float)listaCli.size()/cantidadDeClientes);i++){ %>
 				<a href="/TPINT_GRUPO_6_LAB4/ServeletClientes?paginar=<%=i+1%>"><%=i+1%></a>
-			<%} %>
+			<%}} %>
 			<%
 			if (clienteEditar == null) {
 			%>
