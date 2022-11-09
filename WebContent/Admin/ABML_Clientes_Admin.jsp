@@ -81,7 +81,7 @@
 					%>
 					<tr>
 						<td><input class="border-0 bg-transparent pe-none"
-							name="codUsuarioCambios" value="<%=s.getIdUsuario()%>"></td>
+							name="idModificar" value="<%=s.getIdUsuario()%>"></td>
 						<td><%=s.isEsAdmin()%></td>
 						<td><%=s.getUsuario()%></td>
 						<td><%=s.getNombre()%></td>
@@ -91,8 +91,10 @@
 						<td><%=s.getIdNacionalidad().getIdNacionalidad()%></td>
 						<td><%=s.getIdLocalidad().getIdLocalidad()%></td>
 						<td><%=s.isEstado()%></td>
-						<td><input type="submit" name="btnEditar" value="Editar"></td>
+						<form method="POST" action="/TPINT_GRUPO_6_LAB4/ServeletClientes?idModificar=<%= s.getIdUsuario()%>">
+						<td><input type="submit" name="btnEditar" value="Editar" ></td>
 						<td><input type="submit" name="btnEliminar" value="Eliminar"></td>
+						</form>
 					</tr>
 					<%
 					}
@@ -143,11 +145,13 @@
 					<div>
 						<b>Nacionalidad</b> <select name="txtNacionalidad">
 							<%
-							for (Nacionalidad n : listaNac) {
+							if (listaNac != null) {
+								for (Nacionalidad n : listaNac) {
 							%>
 							<option value="<%=n.getIdNacionalidad()%>">
 								<%=n.getNacionalidad()%></option>
 							<%
+							}
 							}
 							%>
 						</select>
@@ -155,11 +159,13 @@
 					<div>
 						<b>Localidad</b> <select name="txtLocalidad">
 							<%
-							for (Localidad l : listaLoc) {
+							if (listaLoc != null) {
+								for (Localidad l : listaLoc) {
 							%>
 							<option value="<%=l.getIdLocalidad()%>">
 								<%=l.getLocalidad()%></option>
 							<%
+							}
 							}
 							%>
 						</select>

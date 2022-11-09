@@ -81,7 +81,7 @@ public class ServeletClientes extends HttpServlet {
 		if(request.getParameter("btnEliminar")!=null) {
 			NegocioClientes negCli = new NegocioClientes();
 			int proximoId = negCli.traerProxId();
-			negCli.eliminarCliente(request.getParameter("codUsuarioCambios"));
+			negCli.eliminarCliente(request.getParameter("idModificar"));
 			List<Usuario> lista=negCli.traerLista();
 			request.setAttribute("listaClientes", lista);
 			NegocioNacionalidad negNac = new NegocioNacionalidad();
@@ -97,7 +97,7 @@ public class ServeletClientes extends HttpServlet {
 		if(request.getParameter("btnEditar")!=null) {
 			NegocioClientes negCli = new NegocioClientes();
 			int proximoId = negCli.traerProxId();
-			Usuario traerCliente = negCli.traerCliente(request.getParameter("codUsuarioCambios"));
+			Usuario traerCliente = negCli.traerCliente(request.getParameter("idModificar"));
 			List<Usuario> lista=negCli.traerLista();
 			request.setAttribute("listaClientes", lista);
 			NegocioNacionalidad negNac = new NegocioNacionalidad();
@@ -174,7 +174,6 @@ public class ServeletClientes extends HttpServlet {
 			}else{
 				estadoEstado=false;
 			}
-			System.out.println(request.getParameter("txtCantCuentas"));
 			int id = Integer.valueOf(request.getParameter("txtId"));
 			String dni = request.getParameter("txtDni");
 			String cuil = request.getParameter("txtCuil");
