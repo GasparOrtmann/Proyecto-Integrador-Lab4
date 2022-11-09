@@ -92,8 +92,8 @@
 						<td><%=s.getIdLocalidad().getIdLocalidad()%></td>
 						<td><%=s.isEstado()%></td>
 						<form method="POST" action="/TPINT_GRUPO_6_LAB4/ServeletClientes?idModificar=<%= s.getIdUsuario()%>">
-						<td><input type="submit" name="btnEditar" value="Editar" ></td>
-						<td><input type="submit" name="btnEliminar" value="Eliminar"></td>
+						<td><input class="btn btn-secondary" type="submit" name="btnEditar" value="Editar" ></td>
+						<td><input class="btn btn-secondary" type="submit" name="btnEliminar" value="Eliminar"></td>
 						</form>
 					</tr>
 					<%
@@ -188,7 +188,7 @@
 					<input type="text" hidden name="txtCantCuentas" value="0">
 				</div>
 			</div>
-			<input type="submit" name="btnCrearUsuario" value="Crear!">
+			<input class="btn btn-secondary" type="submit" name="btnCrearUsuario" value="Crear!">
 			<%
 			} else {
 			%>
@@ -323,7 +323,7 @@ if (clienteEditar.isEsAdmin()) {
 						value="<%=clienteEditar.getCantCuentas()%>">
 				</div>
 			</div>
-			<input type="submit" name="btnEditarUsuario" value="Editar!">
+			<input class="btn btn-secondary" type="submit" name="btnEditarUsuario" value="Editar!">
 			<%
 			}
 			%>
