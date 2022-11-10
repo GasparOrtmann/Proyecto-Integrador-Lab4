@@ -119,13 +119,13 @@ public class DaoCuentas implements iDaoCuentas{
 		}
 		String query = "UPDATE cuentas SET"+
 						"  IdUsuario="+c.getIdUsuario()+
-						", IdTipoCuenta="+c.getIdTipoCuenta()+
+						", IdTipoCuenta="+c.getIdTipoCuenta().getIdTipoCuenta()+
 						", CBU='"+c.getCBU()+"'"+
 						", Saldo="+c.getSaldo()+
 						", FechaAlta='"+c.getFechaAlta()+"'"+
 						", Estado="+estado+
 						" WHERE IdCuenta="+c.getIdCuenta();
-
+		System.out.println(query);
 		Connection cn = Conexion.getConexion().getSQLConexion();
 		int filas = 0;
 

@@ -88,6 +88,31 @@ public class ServletCuentas extends HttpServlet {
 			RequestDispatcher rd =  request.getRequestDispatcher("/Admin/ABML_Cuentas_Admin.jsp");  
 			rd.forward(request, response);
 		}
+		
+		if(request.getParameter("btnEditarCuenta")!=null) {
+			int IdC = Integer.parseInt(request.getParameter("txtCodCuenta"));
+			int IdU = Integer.parseInt(request.getParameter("txtCodUsuario"));
+			int IdTC = Integer.parseInt(request.getParameter("ddlTipoCuenta"));
+			String CBU = request.getParameter("txtCBU");
+			float saldo = Float.parseFloat(request.getParameter("txtSaldo"));
+			String fechaAlta =  request.getParameter("inputFecha");
+			boolean estado = false;
+			if(request.getParameter("chkEstado") != null) {
+				estado = true;
+			}else {
+				estado = false;
+			}
+			System.out.println(IdC+ IdU+ IdTC+ CBU+ saldo+ fechaAlta+ estado);
+			Cuenta c = new Cuenta(IdC, IdU, new TipoCuenta(IdTC), CBU, saldo, fechaAlta, estado);		
+			int filasModificadas = negCu.modificar(c);
+			request.setAttribute("filasModificadasEditar", filasModificadas);
+			List<Cuenta> lista=negCu.traerLista();
+			request.setAttribute("listaCuentas", lista);
+			List<TipoCuenta> listaTipos=negTC.traerTiposCuentas();
+			request.setAttribute("listaTiposCuentas", listaTipos);
+			RequestDispatcher rd =  request.getRequestDispatcher("/Admin/ABML_Cuentas_Admin.jsp");  
+			rd.forward(request, response);
+		}
 	}
 
 }

@@ -33,6 +33,7 @@
 	Cuenta cuentaEditar = null;
 	List<Cuenta> listaCu = null;
 	List<TipoCuenta> listaTipos = null;
+	int filasModificadasEditar = 0;
 	
 	if (request.getAttribute("cuentaEditar") != null) {
 		cuentaEditar = (Cuenta) request.getAttribute("cuentaEditar");
@@ -42,6 +43,9 @@
 	}
 	if (request.getAttribute("listaTiposCuentas") != null) {
 		listaTipos = (List<TipoCuenta>) request.getAttribute("listaTiposCuentas");
+	}
+	if (request.getAttribute("filasModificadasEditar") != null) {
+		filasModificadasEditar = Integer.valueOf(request.getAttribute("filasModificadasEditar").toString());
 	}
 	%>
 		<h1>Gestion Cuentas</h1>
@@ -132,6 +136,11 @@
 			<h2>Edición de Cuenta</h2>
 		<div class="centrar-row">
 			<div class="centrar-column container-fields">
+				<div>
+					<label>Cod Cuenta</label> <input class="pe-none border-0 bg-transparent"
+							name="txtCodCuenta" type="text"
+							value="<%=cuentaEditar.getIdCuenta()%>">
+				</div>
 			<div>
 					<label>Cod Usuario</label> <input type="text" name="txtCodUsuario" value="<%=cuentaEditar.getIdUsuario() %>" required>
 				</div>
