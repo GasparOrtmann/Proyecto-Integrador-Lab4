@@ -8,5 +8,7 @@ public interface iNegocioCuentas {
 	List<Cuenta> traerLista();
 	Boolean agregarCuenta(Cuenta c);
 	Integer traerProxId();
-	Boolean eliminarCuenta(String id);
+	boolean eliminarCuenta(String id);
+	int modificar(Cuenta c);
+	Cuenta traerCuenta(String id);
 }

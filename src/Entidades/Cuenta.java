@@ -4,7 +4,7 @@ package Entidades;
 public class Cuenta {
 	int IdCuenta;
 	int IdUsuario;
-	int IdTipoCuenta;
+	TipoCuenta IdTipoCuenta;
 	String CBU;
 	float saldo;
 	String fechaAlta;
@@ -14,7 +14,7 @@ public class Cuenta {
 		
 	}
 	
-	public Cuenta(int idCuenta, int idUsuario, int idTipoCuenta, String cBU, float saldo, String fechaAlta,
+	public Cuenta(int idCuenta, int idUsuario, TipoCuenta idTipoCuenta, String cBU, float saldo, String fechaAlta,
 			boolean estado) {
 		super();
 		IdCuenta = idCuenta;
@@ -38,10 +38,10 @@ public class Cuenta {
 	public void setIdUsuario(int idUsuario) {
 		IdUsuario = idUsuario;
 	}
-	public int getIdTipoCuenta() {
+	public TipoCuenta getIdTipoCuenta() {
 		return IdTipoCuenta;
 	}
-	public void setIdTipoCuenta(int idTipoCuenta) {
+	public void setIdTipoCuenta(TipoCuenta idTipoCuenta) {
 		IdTipoCuenta = idTipoCuenta;
 	}
 	public String getCBU() {

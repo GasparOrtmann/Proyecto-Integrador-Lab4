@@ -6,6 +6,9 @@
 	<%@page import="Entidades.TipoCuenta"%>
 	<%@page import="Entidades.Cuenta"%>
 	<%@page import="java.util.List"%>
+	<%@page import="java.text.SimpleDateFormat"%>
+	<%@page import="java.text.ParsePosition"%>
+	<%@page import="java.sql.Date"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -26,17 +29,26 @@
 
 <div style="position: absolute;top:150px;left:400px;">
 	<form method="post" action="/TPINT_GRUPO_6_LAB4/ServletCuentas" class="centrar-column">
+	<%
+	Cuenta cuentaEditar = null;
+	List<Cuenta> listaCu = null;
+	List<TipoCuenta> listaTipos = null;
+	
+	if (request.getAttribute("cuentaEditar") != null) {
+		cuentaEditar = (Cuenta) request.getAttribute("cuentaEditar");
+	}
+	if (request.getAttribute("listaCuentas") != null) {
+		listaCu = (List<Cuenta>) request.getAttribute("listaCuentas");
+	}
+	if (request.getAttribute("listaTiposCuentas") != null) {
+		listaTipos = (List<TipoCuenta>) request.getAttribute("listaTiposCuentas");
+	}
+	%>
 		<h1>Gestion Cuentas</h1>
 		<div class="centrar-row">
 			<label>Filtros:</label> <input /> <input type="submit"
 				value="Filtrar">
 		</div>
-		<%
-		List<Cuenta> listaCu = null;
-			if (request.getAttribute("listaCuentas") != null) {
-				listaCu = (List<Cuenta>) request.getAttribute("listaCuentas");
-			}
-			%>
 		<table class="table table-striped">
 				<thead class="table-dark">
 				<tr>
@@ -60,7 +72,7 @@
 						<td><input class="border-0 bg-transparent pe-none"
 							name="getIdCuenta" value="<%=c.getIdCuenta()%>"></td>
 						<td><%=c.getIdUsuario() %></td>
-						<td><%=c.getIdTipoCuenta() %></td>
+						<td><%=c.getIdTipoCuenta().getIdTipoCuenta() %></td>
 						<td><%=c.getCBU() %></td>
 						<td><%=c.getSaldo() %></td>
 						<td><%=c.getFechaAlta()%></td>
@@ -75,6 +87,11 @@
 					%>
 			</tbody>
 		</table>
+		</form>
+		<%
+			if (cuentaEditar == null) {
+			%>
+		<form method="post" action="/TPINT_GRUPO_6_LAB4/ServletCuentas" class="centrar-column">
 		<h2>Creación de Cuenta</h2>
 		<div class="centrar-row">
 			<div class="centrar-column container-fields">
@@ -82,7 +99,7 @@
 					<label>Cod Usuario</label> <input type="text" name="txtCodUsuario" required>
 				</div>
 				<div>
-					<label>CBU</label> <input type="text" name="txtCBU" required>
+					<label>CBU</label> <input type="number" name="txtCBU" required>
 				</div>
 				<div>
 					<label>Saldo</label> <input type="text" name="txtSaldo" required>
@@ -94,20 +111,71 @@
 					<label>Estado</label> <input type="checkbox" name="chkEstado">
 				</div>
 				<div>
-					<label>Tipo de cuenta</label> <select name=ddlTipoCuenta>
+					<label>Tipo de cuenta</label> <select name=ddlTipoCuenta required>
 						<%
-						iNegocioTipoCuenta cneg = new NegocioTipoCuenta();
-					  	List<TipoCuenta> lstTipos= cneg.traerTiposCuentas();
-					
-					  for(TipoCuenta tc:lstTipos){
+						if(listaTipos != null){
+					  		for(TipoCuenta tc:listaTipos){
 						  %>
 							<option value="<%=tc.getIdTipoCuenta()%>"><%=tc.getTipoCuenta() %></option>
-							<%} %>
+							<%
+							}
+					  		}
+							%>
 					</select>
 				</div>
 			</div>
 		</div>
-		<input type="submit" value="Aceptar" name=btnAceptar>
+		<input type="submit" value="Agregar" name=btnAgregar>
+		<%
+			} else {
+			%>
+			<h2>Edición de Cuenta</h2>
+		<div class="centrar-row">
+			<div class="centrar-column container-fields">
+			<div>
+					<label>Cod Usuario</label> <input type="text" name="txtCodUsuario" value="<%=cuentaEditar.getIdUsuario() %>" required>
+				</div>
+				<div>
+					<label>CBU</label> <input type="number" name="txtCBU" value="<%=cuentaEditar.getCBU() %>" required>
+				</div>
+				<div>
+					<label>Saldo</label> <input type="text" name="txtSaldo" value="<%=cuentaEditar.getSaldo() %>" required>
+				</div>
+				<div>
+					<%
+						long date = new SimpleDateFormat("yyyy-dd-MM").parse(cuentaEditar.getFechaAlta(), new ParsePosition(0))
+								.getTime();
+						Date dbDate = new Date(date);
+						%>
+					<label>Fecha Alta</label> <input type="date" name="inputFecha" value="<%=dbDate %>" required>
+				</div>
+				<div>
+					<label>Estado</label> <input type="checkbox" name="chkEstado"
+					<%String checkedEstado = "";
+						if (cuentaEditar.isEstado()) {
+							checkedEstado = "checked";
+						}%>
+							<%=checkedEstado%>>
+				</div>
+				<div>
+					<label>Tipo de cuenta</label> <select name=ddlTipoCuenta>
+					<% for (TipoCuenta tc : listaTipos){ %>
+					<option value="<%=tc.getIdTipoCuenta()%>"
+					<%String tipoCuenta="";
+					if(cuentaEditar.getIdTipoCuenta().getIdTipoCuenta() == tc.getIdTipoCuenta()){
+						tipoCuenta = "selected";
+					}%>
+						<%=tipoCuenta %>>
+						<%=tc.getTipoCuenta() %></option>
+						<%
+						}
+						%>
+					</select>
+				</div>
+			</div>
+		</div>
+		<input type="submit" value="Editar" name=btnEditarCuenta>
+		<%} %>
 	</form>
 		</div>
 </body>

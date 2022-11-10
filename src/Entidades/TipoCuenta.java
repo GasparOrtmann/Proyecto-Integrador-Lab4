@@ -5,6 +5,9 @@ public class TipoCuenta {
 	int idTipoCuenta;
 	String tipoCuenta;
 	
+	public TipoCuenta(int id) {
+		this.idTipoCuenta=id;
+	}
 	public TipoCuenta(int id, String tipo) {
 		this.idTipoCuenta=id;
 		this.tipoCuenta=tipo;

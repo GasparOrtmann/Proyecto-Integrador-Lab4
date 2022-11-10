@@ -26,7 +26,7 @@ public class NegocioCuentas implements iNegocioCuentas{
 	}
 
 	@Override
-	public Boolean eliminarCuenta(String id) {
+	public boolean eliminarCuenta(String id) {
 		DaoCuentas daoCu = new DaoCuentas();
 		return daoCu.eliminarCuenta(id);
 	}
@@ -34,6 +34,18 @@ public class NegocioCuentas implements iNegocioCuentas{
 	@Override
 	public Integer traerProxId() {
 		return daoCu.traerProxId();
+	}
+
+	@Override
+	public int modificar(Cuenta c) {
+		DaoCuentas daoCu = new DaoCuentas();
+		return daoCu.modificar(c);	
+	}
+
+	@Override
+	public Cuenta traerCuenta(String id) {
+		DaoCuentas daoCu = new DaoCuentas();
+		return daoCu.traerCuenta(id);		
 	}
 
 }

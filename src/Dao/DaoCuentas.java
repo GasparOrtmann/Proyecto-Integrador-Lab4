@@ -10,6 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Entidades.Cuenta;
+import Entidades.Localidad;
+import Entidades.Nacionalidad;
+import Entidades.TipoCuenta;
+import Entidades.Usuario;
 import iDao.iDaoCuentas;
 
 public class DaoCuentas implements iDaoCuentas{
@@ -28,7 +32,7 @@ public class DaoCuentas implements iDaoCuentas{
 			while (rs.next()) {
 				int idC = rs.getInt(1);
 				int idU = rs.getInt(2);
-				int idTC = rs.getInt(3);
+				TipoCuenta idTC = new TipoCuenta(rs.getInt(3));
 				String CBU = rs.getString(4);
 				float saldo = rs.getFloat(5);
 				String fechaAlta = rs.getString(6);
@@ -69,7 +73,7 @@ public class DaoCuentas implements iDaoCuentas{
 			CallableStatement cst = cn.prepareCall("CALL SP_agregarCuenta(?,?,?,?,?,?,?)");
 			cst.setInt(1,c.getIdCuenta());
 			cst.setInt(2,c.getIdUsuario());
-			cst.setInt(3,c.getIdTipoCuenta());
+			cst.setInt(3,c.getIdTipoCuenta().getIdTipoCuenta());
 			cst.setString(4,c.getCBU());
 			cst.setFloat(5,c.getSaldo());
 			cst.setString(6,c.getFechaAlta());
@@ -103,6 +107,63 @@ public class DaoCuentas implements iDaoCuentas{
 			return false;
 		}
 		return true;
+	}
+	
+	@Override
+	public int modificar(Cuenta c) {
+		String estado = "";
+		if(c.isEstado()) {
+			estado="1";
+		}else {
+			estado="0";
+		}
+		String query = "UPDATE cuentas SET"+
+						"  IdUsuario="+c.getIdUsuario()+
+						", IdTipoCuenta="+c.getIdTipoCuenta()+
+						", CBU='"+c.getCBU()+"'"+
+						", Saldo="+c.getSaldo()+
+						", FechaAlta='"+c.getFechaAlta()+"'"+
+						", Estado="+estado+
+						" WHERE IdCuenta="+c.getIdCuenta();
+
+		Connection cn = Conexion.getConexion().getSQLConexion();
+		int filas = 0;
+
+		try {
+			Statement st = (Statement) cn.createStatement();
+			filas = st.executeUpdate(query);
+		} catch (Exception e) {
+			e.printStackTrace();
+			;
+		}
+		return filas;
+	}
+	
+	@Override
+	public Cuenta traerCuenta(String id) {
+		Connection cnn = Conexion.getConexion().getSQLConexion();
+		Cuenta c = new Cuenta();
+		String query = "SELECT * FROM cuentas WHERE IdCuenta=" + Integer.valueOf(id);
+		PreparedStatement pst;
+		try {
+
+			pst = cnn.prepareStatement(query);
+			ResultSet rs = pst.executeQuery();
+
+			while (rs.next()) {
+				c.setIdCuenta(rs.getInt(1));
+				c.setIdUsuario(rs.getInt(2));
+				c.setIdTipoCuenta(new TipoCuenta(rs.getInt(3)));
+				c.setCBU(rs.getString(4));
+				c.setSaldo(rs.getFloat(5));
+				c.setFechaAlta(rs.getString(6));
+				c.setEstado(rs.getBoolean(7));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return c;
 	}
 	
 	@Override
