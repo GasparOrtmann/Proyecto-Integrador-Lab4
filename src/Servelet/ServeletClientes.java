@@ -50,8 +50,16 @@ public class ServeletClientes extends HttpServlet {
 			NegocioClientes negCli = new NegocioClientes();
 			int proximoId = negCli.traerProxId();
 			javax.servlet.http.Cookie[] cookies = request.getCookies();
-			String textoFiltro = cookies[2].getValue();
-			String filtro = cookies[1].getValue();;
+			String textoFiltro=null;
+			String filtro = null;
+			try {
+				textoFiltro = cookies[2].getValue();
+				filtro= cookies[1].getValue();
+			}catch(Exception e) {
+				e.getStackTrace();
+				filtro = "todos";
+				textoFiltro="";
+			}
 			String filtroAplicar = "";
 			switch(filtro) {
 				case "todos":
@@ -126,8 +134,16 @@ public class ServeletClientes extends HttpServlet {
 			int proximoId = negCli.traerProxId();
 			boolean filasAfectadas= negCli.eliminarCliente(request.getParameter("idModificar"));
 			javax.servlet.http.Cookie[] cookies = request.getCookies();
-			String textoFiltro = cookies[2].getValue();
-			String filtro = cookies[1].getValue();;
+			String textoFiltro=null;
+			String filtro = null;
+			try {
+				textoFiltro = cookies[2].getValue();
+				filtro= cookies[1].getValue();
+			}catch(Exception e) {
+				e.getStackTrace();
+				filtro = "todos";
+				textoFiltro="";
+			}
 			String filtroAplicar = "";
 			switch(filtro) {
 				case "todos":
@@ -167,8 +183,16 @@ public class ServeletClientes extends HttpServlet {
 			int proximoId = negCli.traerProxId();
 			Usuario traerCliente = negCli.traerCliente(request.getParameter("idModificar"));
 			javax.servlet.http.Cookie[] cookies = request.getCookies();
-			String textoFiltro = cookies[2].getValue();
-			String filtro = cookies[1].getValue();;
+			String textoFiltro=null;
+			String filtro = null;
+			try {
+				textoFiltro = cookies[2].getValue();
+				filtro= cookies[1].getValue();
+			}catch(Exception e) {
+				e.getStackTrace();
+				filtro = "todos";
+				textoFiltro="";
+			}
 			String filtroAplicar = "";
 			switch(filtro) {
 				case "todos":
@@ -241,8 +265,16 @@ public class ServeletClientes extends HttpServlet {
 			int filasAfectadas = negCli.modificar(u);
 			request.setAttribute("filasAfectadasEditar", filasAfectadas);
 			javax.servlet.http.Cookie[] cookies = request.getCookies();
-			String textoFiltro = cookies[2].getValue();;
-			String filtro = cookies[1].getValue();;
+			String textoFiltro=null;
+			String filtro = null;
+			try {
+				textoFiltro = cookies[2].getValue();
+				filtro= cookies[1].getValue();
+			}catch(Exception e) {
+				e.getStackTrace();
+				filtro = "todos";
+				textoFiltro="";
+			}
 			String filtroAplicar = "";
 			switch(filtro) {
 				case "todos":
@@ -313,8 +345,16 @@ public class ServeletClientes extends HttpServlet {
 			int proximoId = negCli.traerProxId();
 			request.setAttribute("filasAfectadasCrear", filasAfectadas);
 			javax.servlet.http.Cookie[] cookies = request.getCookies();
-			String textoFiltro = cookies[2].getValue();;
-			String filtro = cookies[1].getValue();;
+			String textoFiltro=null;
+			String filtro = null;
+			try {
+				textoFiltro = cookies[2].getValue();
+				filtro= cookies[1].getValue();
+			}catch(Exception e) {
+				e.getStackTrace();
+				filtro = "todos";
+				textoFiltro="";
+			}
 			String filtroAplicar = "";
 			switch(filtro) {
 				case "todos":
@@ -352,8 +392,16 @@ public class ServeletClientes extends HttpServlet {
 			NegocioClientes negCli = new NegocioClientes();
 			int proximoId = negCli.traerProxId();
 			javax.servlet.http.Cookie[] cookies = request.getCookies();
-			String textoFiltro = cookies[2].getValue();;
-			String filtro = cookies[1].getValue();;
+			String textoFiltro=null;
+			String filtro = null;
+			try {
+				textoFiltro = cookies[2].getValue();
+				filtro= cookies[1].getValue();
+			}catch(Exception e) {
+				e.getStackTrace();
+				filtro = "todos";
+				textoFiltro="";
+			}
 			String filtroAplicar = "";
 			switch(filtro) {
 				case "todos":

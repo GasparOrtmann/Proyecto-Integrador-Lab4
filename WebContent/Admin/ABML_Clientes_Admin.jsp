@@ -203,7 +203,9 @@
 					})
 				</script>
 			</div>
-
+		</form>
+		<form method="POST" action="/TPINT_GRUPO_6_LAB4/ServeletClientes"
+			class="centrar-column">
 			<table class="table table-striped">
 				<thead class="table-dark">
 					<tr>
