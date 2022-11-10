@@ -120,6 +120,12 @@
 						let filtroSeleccionado = "";
 						let filtroAplicado = getCookie("filtro");
 						let filtroInputAplicado = getCookie("filtroInput");
+						if(filtroAplicado==null){
+							filtroAplicado=todos;
+						}
+						if(filtroInputAplicado==null){
+							filtroInputAplicado="";
+						}
 						switch(filtroAplicado) {
 							case "todos":
 								filtroSeleccionado = "TODO";
