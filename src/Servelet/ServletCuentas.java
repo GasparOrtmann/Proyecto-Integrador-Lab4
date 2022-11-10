@@ -66,6 +66,10 @@ public class ServletCuentas extends HttpServlet {
 			
 			Integer idActual = negCu.traerProxId();
 			request.setAttribute("idActual", idActual);
+			List<Cuenta> lista=negCu.traerLista();
+			request.setAttribute("listaCuentas", lista);
+			List<TipoCuenta> listaTipos=negTC.traerTiposCuentas();
+			request.setAttribute("listaTiposCuentas", listaTipos);
 			RequestDispatcher rd=request.getRequestDispatcher("/Admin/ABML_Cuentas_Admin.jsp");  
 			rd.forward(request, response);	
 		}
@@ -105,6 +109,7 @@ public class ServletCuentas extends HttpServlet {
 			System.out.println(IdC+ IdU+ IdTC+ CBU+ saldo+ fechaAlta+ estado);
 			Cuenta c = new Cuenta(IdC, IdU, new TipoCuenta(IdTC), CBU, saldo, fechaAlta, estado);		
 			int filasModificadas = negCu.modificar(c);
+			System.out.println("filas modificadas = "+filasModificadas);
 			request.setAttribute("filasModificadasEditar", filasModificadas);
 			List<Cuenta> lista=negCu.traerLista();
 			request.setAttribute("listaCuentas", lista);
