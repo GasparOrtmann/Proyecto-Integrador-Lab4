@@ -48,4 +48,10 @@ public class NegocioCuentas implements iNegocioCuentas{
 		return daoCu.traerCuenta(id);		
 	}
 
+	@Override
+	public List<Cuenta> FiltrarPorUsuario(String id) {
+		
+		return daoCu.filtrarPorUsuario(id);
+	}
+
 }

@@ -50,8 +50,10 @@
 	%>
 		<h1>Gestion Cuentas</h1>
 		<div class="centrar-row">
-			<label>Filtros:</label> <input /> <input type="submit"
-				value="Filtrar">
+			
+				<label>Filtrar por usuario:</label> <input type="text" name=txtFUsuario /> <input type="submit"
+				value="Filtrar" name="Filtrar">
+			
 		</div>
 		<table class="table table-striped">
 				<thead class="table-dark">

@@ -186,4 +186,36 @@ public class DaoCuentas implements iDaoCuentas{
 		}
 		return id+1;
 	}
+
+	@Override
+	public List<Cuenta> filtrarPorUsuario(String id) {
+		Connection cnn = Conexion.getConexion().getSQLConexion();
+		List<Cuenta> lstCuenta = new ArrayList<Cuenta>();
+		String query = "SELECT * FROM cuentas WHERE IdUsuario ="+id;
+		PreparedStatement pst;
+		try {
+
+			pst = cnn.prepareStatement(query);
+			ResultSet rs = pst.executeQuery();
+
+			while (rs.next()) {
+				int idC = rs.getInt(1);
+				int idU = rs.getInt(2);
+				TipoCuenta idTC = new TipoCuenta(rs.getInt(3));
+				String CBU = rs.getString(4);
+				float saldo = rs.getFloat(5);
+				String fechaAlta = rs.getString(6);
+				boolean estado = rs.getBoolean(7);
+				lstCuenta.add(new Cuenta(idC, idU, idTC, CBU, saldo, fechaAlta, estado));
+				
+				System.out.println(rs.getInt(1));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return lstCuenta;
+	}
+	
+	
 }
