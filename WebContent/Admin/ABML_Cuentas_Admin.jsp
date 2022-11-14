@@ -164,7 +164,7 @@
 				</div>
 				<div>
 					<%
-						long date = new SimpleDateFormat("yyyy-dd-MM").parse(cuentaEditar.getFechaAlta(), new ParsePosition(0))
+						long date = new SimpleDateFormat("dd/MM/yyyy").parse(cuentaEditar.getFechaAlta(), new ParsePosition(0))
 								.getTime();
 						Date dbDate = new Date(date);
 						%>
