@@ -125,7 +125,15 @@ public class ServletCuentas extends HttpServlet {
 		{
 			if(request.getParameter("txtFUsuario")!="") 
 			{
-				List<Cuenta> lista = negCu.FiltrarPorUsuario(request.getParameter("txtFUsuario"));
+				System.out.println(request.getParameter("chkEstado"));
+				Boolean estado=true;
+				if(request.getParameter("chkEstado")==null)
+				{
+					estado=false;
+				}
+				
+				
+				List<Cuenta> lista = negCu.FiltrarPorUsuario(request.getParameter("txtFUsuario"),estado);
 				request.setAttribute("listaCuentas", lista);
 				
 				RequestDispatcher rd =  request.getRequestDispatcher("/Admin/ABML_Cuentas_Admin.jsp");  

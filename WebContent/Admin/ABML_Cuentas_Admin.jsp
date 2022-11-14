@@ -51,8 +51,11 @@
 		<h1>Gestion Cuentas</h1>
 		<div class="centrar-row">
 			
-				<label>Filtrar por usuario:</label> <input type="text" name=txtFUsuario /> <input type="submit"
-				value="Filtrar" name="Filtrar">
+				<label>Filtrar por usuario:</label> <input type="text" name=txtFUsuario /> &nbsp&nbsp
+					Estado: <input type="checkbox" name="chkEstado" value="activo" id="ed1">&nbsp&nbsp&nbsp
+					
+				<input type="submit" value="Filtrar" name="Filtrar">  
+				<br>
 			
 		</div>
 		<table class="table table-striped">

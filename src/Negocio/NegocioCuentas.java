@@ -49,9 +49,9 @@ public class NegocioCuentas implements iNegocioCuentas{
 	}
 
 	@Override
-	public List<Cuenta> FiltrarPorUsuario(String id) {
+	public List<Cuenta> FiltrarPorUsuario(String id,Boolean actividad) {
 		
-		return daoCu.filtrarPorUsuario(id);
+		return daoCu.filtrarPorUsuario(id,actividad);
 	}
 
 }

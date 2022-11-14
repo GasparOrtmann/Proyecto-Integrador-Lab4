@@ -11,5 +11,5 @@ public interface iNegocioCuentas {
 	boolean eliminarCuenta(String id);
 	int modificar(Cuenta c);
 	Cuenta traerCuenta(String id);
-	List<Cuenta> FiltrarPorUsuario(String id);
+	List<Cuenta> FiltrarPorUsuario(String id,Boolean actividad);
 }

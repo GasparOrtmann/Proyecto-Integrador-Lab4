@@ -188,10 +188,10 @@ public class DaoCuentas implements iDaoCuentas{
 	}
 
 	@Override
-	public List<Cuenta> filtrarPorUsuario(String id) {
+	public List<Cuenta> filtrarPorUsuario(String id,Boolean actividad) {
 		Connection cnn = Conexion.getConexion().getSQLConexion();
 		List<Cuenta> lstCuenta = new ArrayList<Cuenta>();
-		String query = "SELECT * FROM cuentas WHERE IdUsuario ="+id;
+		String query = "SELECT * FROM cuentas WHERE IdUsuario ="+id+" AND Estado ="+actividad;
 		PreparedStatement pst;
 		try {
 
@@ -209,6 +209,9 @@ public class DaoCuentas implements iDaoCuentas{
 				lstCuenta.add(new Cuenta(idC, idU, idTC, CBU, saldo, fechaAlta, estado));
 				
 				System.out.println(rs.getInt(1));
+				System.out.println("estado: "+actividad);
+				System.out.println(".........");
+				System.out.println(query);
 			}
 
 		} catch (SQLException e) {
