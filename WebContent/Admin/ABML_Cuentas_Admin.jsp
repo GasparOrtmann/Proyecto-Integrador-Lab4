@@ -34,6 +34,7 @@
 	List<Cuenta> listaCu = null;
 	List<TipoCuenta> listaTipos = null;
 	int filasModificadasEditar = 0;
+	Boolean tieneLetras;
 	
 	if (request.getAttribute("cuentaEditar") != null) {
 		cuentaEditar = (Cuenta) request.getAttribute("cuentaEditar");
@@ -46,6 +47,12 @@
 	}
 	if (request.getAttribute("filasModificadasEditar") != null) {
 		filasModificadasEditar = Integer.valueOf(request.getAttribute("filasModificadasEditar").toString());
+	}
+	
+	if(request.getAttribute("tieneLetras")!= null)
+	{
+		%>*ingresar solo numeros
+		<% 
 	}
 	%>
 		<h1>Gestion Cuentas</h1>
