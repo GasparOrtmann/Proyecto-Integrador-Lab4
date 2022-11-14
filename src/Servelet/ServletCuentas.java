@@ -123,11 +123,21 @@ public class ServletCuentas extends HttpServlet {
 		
 		if(request.getParameter("Filtrar")!= null)
 		{
-			List<Cuenta> lista = negCu.FiltrarPorUsuario(request.getParameter("txtFUsuario"));
-			request.setAttribute("listaCuentas", lista);
-			
-			RequestDispatcher rd =  request.getRequestDispatcher("/Admin/ABML_Cuentas_Admin.jsp");  
-			rd.forward(request, response);
+			if(request.getParameter("txtFUsuario")!="") 
+			{
+				List<Cuenta> lista = negCu.FiltrarPorUsuario(request.getParameter("txtFUsuario"));
+				request.setAttribute("listaCuentas", lista);
+				
+				RequestDispatcher rd =  request.getRequestDispatcher("/Admin/ABML_Cuentas_Admin.jsp");  
+				rd.forward(request, response);
+			}
+			else
+			{
+				request.setAttribute("listaCuentas",negCu.traerLista());
+				RequestDispatcher rd =  request.getRequestDispatcher("/Admin/ABML_Cuentas_Admin.jsp");  
+				rd.forward(request, response);
+			}
+
 		}
 	}
 
