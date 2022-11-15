@@ -35,6 +35,7 @@
 	List<TipoCuenta> listaTipos = null;
 	int filasModificadasEditar = 0;
 	Boolean cuentaAgregada = false;
+	Boolean limiteCuentas = false;
 	Boolean tieneLetras;
 	
 	if (request.getAttribute("cuentaEditar") != null) {
@@ -52,6 +53,9 @@
 	if (request.getAttribute("cuentaAgregada") != null){
 		cuentaAgregada = Boolean.valueOf(request.getAttribute("cuentaAgregada").toString());
 	}
+	if (request.getAttribute("limiteCuentas") != null){
+		limiteCuentas = Boolean.valueOf(request.getAttribute("limiteCuentas").toString());
+	}
 	if(request.getAttribute("tieneLetras")!= null)
 	{
 		%>*ingresar solo numeros
@@ -64,7 +68,8 @@
 			  Se agregó exitosamente la cuenta del Cliente!
 			  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 			</div>
-			<%}else{ %>
+			<%} %>
+	<%if(limiteCuentas){ %>
 			<div class="alert alert-danger alert-dismissible fade show" role="alert">
 			  El cliente no puede tener más de 3 cuentas!
 			  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
@@ -133,7 +138,7 @@
 					<label>CBU</label> <input type="number" name="txtCBU" required>
 				</div>
 				<div>
-					<label>Saldo</label> <input type="text" name="txtSaldo" required>
+					<label>Saldo</label> <input class="pe-none border-0 bg-transparent" type="text" name="txtSaldo" value="10000">
 				</div>
 				<div>
 					<label>Fecha Alta</label> <input type="date" name="inputFecha" required>
