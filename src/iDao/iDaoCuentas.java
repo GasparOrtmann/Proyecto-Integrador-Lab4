@@ -12,6 +12,6 @@ public interface iDaoCuentas {
 	boolean eliminarCuenta(String id);
 	int modificar(Cuenta c);
 	Cuenta traerCuenta(String id);
-	
+	int cantCuentasUsuario(int idU);
 	List<Cuenta> filtrarPorUsuario(String id,Boolean actividad);
 }

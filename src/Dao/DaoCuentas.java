@@ -172,6 +172,24 @@ public class DaoCuentas implements iDaoCuentas{
 	}
 	
 	@Override
+	public int cantCuentasUsuario(int idU) {
+		Connection cnn = Conexion.getConexion().getSQLConexion();
+		String query = "SELECT COUNT(IdUsuario) as cant FROM cuentas WHERE IdUsuario="+idU;
+		PreparedStatement pst;
+		int cant = 0;
+		try {
+			pst = cnn.prepareStatement(query);
+			ResultSet rs = pst.executeQuery();
+			rs.next();
+			cant = rs.getInt("cant");
+			}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return cant;
+	}
+	
+	@Override
 	public Integer traerProxId() {
 		Connection cnn = Conexion.getConexion().getSQLConexion();
 		

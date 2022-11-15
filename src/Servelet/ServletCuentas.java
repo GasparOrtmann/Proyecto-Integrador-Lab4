@@ -61,9 +61,16 @@ public class ServletCuentas extends HttpServlet {
 			}else {
 				estado = false;
 			}
-			Cuenta c = new Cuenta(IdC, IdU, new TipoCuenta(IdTC), CBU, saldo, fechaAlta, estado);		
-			negCu.agregarCuenta(c);
-			
+			Cuenta c = new Cuenta(IdC, IdU, new TipoCuenta(IdTC), CBU, saldo, fechaAlta, estado);
+			boolean cuentaAgregada = false;
+			if (negCu.cantCuentasUsuario(IdU)<3) {
+				negCu.agregarCuenta(c);
+				cuentaAgregada = true;
+			}else {
+				cuentaAgregada = false;
+			}
+			System.out.println(cuentaAgregada);
+			request.setAttribute("cuentaAgregada", cuentaAgregada);
 			Integer idActual = negCu.traerProxId();
 			request.setAttribute("idActual", idActual);
 			List<Cuenta> lista=negCu.traerLista();

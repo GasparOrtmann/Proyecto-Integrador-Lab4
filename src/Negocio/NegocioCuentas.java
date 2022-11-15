@@ -54,4 +54,10 @@ public class NegocioCuentas implements iNegocioCuentas{
 		return daoCu.filtrarPorUsuario(id,actividad);
 	}
 
+	@Override
+	public int cantCuentasUsuario(int idU) {
+		DaoCuentas daoCu = new DaoCuentas();
+		return daoCu.cantCuentasUsuario(idU);
+	}
+
 }

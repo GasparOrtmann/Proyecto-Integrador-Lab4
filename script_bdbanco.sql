@@ -107,16 +107,17 @@ CONSTRAINT FK_Movimientos_Cuentas FOREIGN KEY (IdCuenta) REFERENCES Cuentas (IdC
 );
 
 USE `bdbanco`;
-	DROP procedure IF EXISTS `SP_agregarcuenta`;
-	
-	DELIMITER $$
-	USE `bdbanco`$$
-	CREATE PROCEDURE `SP_agregarcuenta` (IN sIdC int, IN sIdU int, IN sIdT int, IN sCBU varchar(20), IN sSaldo float, IN sFechaAlta varchar(10), IN sEstado bit)
-	BEGIN
+DROP procedure IF EXISTS `SP_agregarcuenta`;
+
+DELIMITER $$
+USE `bdbanco`$$
+CREATE DEFINER=`root`@`localhost` PROCEDURE `SP_agregarcuenta`(IN sIdC int, IN sIdU int, IN sIdT int, IN sCBU varchar(20), IN sSaldo float, IN sFechaAlta varchar(10), IN sEstado bit)
+BEGIN 
 	INSERT INTO Cuentas (IdCuenta,IdUsuario,IdTipoCuenta,CBU,Saldo,FechaAlta,Estado) values (sIdc,sIdU,sIdT,sCBU,sSaldo,sFechaAlta,sEstado);
-	END$$
-	
-	DELIMITER ;
+    END$$
+
+DELIMITER ;
+
 
 INSERT INTO nacionalidades (IdNacionalidad, Nacionalidad)
 SELECT 1, 'Argentina' UNION

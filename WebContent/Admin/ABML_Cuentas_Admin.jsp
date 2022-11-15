@@ -34,6 +34,7 @@
 	List<Cuenta> listaCu = null;
 	List<TipoCuenta> listaTipos = null;
 	int filasModificadasEditar = 0;
+	Boolean cuentaAgregada = false;
 	Boolean tieneLetras;
 	
 	if (request.getAttribute("cuentaEditar") != null) {
@@ -48,13 +49,27 @@
 	if (request.getAttribute("filasModificadasEditar") != null) {
 		filasModificadasEditar = Integer.valueOf(request.getAttribute("filasModificadasEditar").toString());
 	}
-	
+	if (request.getAttribute("cuentaAgregada") != null){
+		cuentaAgregada = Boolean.valueOf(request.getAttribute("cuentaAgregada").toString());
+	}
 	if(request.getAttribute("tieneLetras")!= null)
 	{
 		%>*ingresar solo numeros
 		<% 
 	}
 	%>
+	
+	<%if(cuentaAgregada){ %>
+			<div class="alert alert-success alert-dismissible fade show" role="alert">
+			  Se agregó exitosamente la cuenta del Cliente!
+			  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			</div>
+			<%}else{ %>
+			<div class="alert alert-danger alert-dismissible fade show" role="alert">
+			  El cliente no puede tener más de 3 cuentas!
+			  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			</div>
+			<%} %>
 		<h1>Gestion Cuentas</h1>
 		<div class="centrar-row">
 			
