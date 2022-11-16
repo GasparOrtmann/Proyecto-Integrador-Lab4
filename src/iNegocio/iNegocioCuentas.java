@@ -13,4 +13,5 @@ public interface iNegocioCuentas {
 	Cuenta traerCuenta(String id);
 	int cantCuentasUsuario(int idU);
 	List<Cuenta> FiltrarPorUsuario(String id,Boolean actividad);
+	List<Cuenta> traerCuentasUsuario(int idUsuario);
 }

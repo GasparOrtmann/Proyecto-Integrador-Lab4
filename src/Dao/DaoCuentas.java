@@ -176,6 +176,62 @@ public class DaoCuentas implements iDaoCuentas{
 		return c;
 	}
 	
+	public String traerTipoCuenta (int Id) {
+		Connection cnn = Conexion.getConexion().getSQLConexion();
+		String query = "SELECT TipoCuenta FROM tipos_cuenta WHERE IdTipoCuenta ="+Id;
+		PreparedStatement pst;
+		String tc = null;
+		try {
+			pst = cnn.prepareStatement(query);
+			ResultSet rs = pst.executeQuery();
+			rs.next();
+			tc = rs.getString("TipoCuenta");
+			}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return tc;
+	}
+	
+	@Override
+	public List<Cuenta> traerCuentasUsuario(int idUsuario) {
+		Connection cnn = Conexion.getConexion().getSQLConexion();
+		List<Cuenta> lstCuenta = new ArrayList<Cuenta>();
+		//Cuenta c = new Cuenta();
+		String query = "SELECT * FROM cuentas WHERE IdUsuario=" + idUsuario + " AND Estado=1";
+		PreparedStatement pst;
+		try {
+			pst = cnn.prepareStatement(query);
+			ResultSet rs = pst.executeQuery();
+
+			while (rs.next()) {
+				
+				int idC = rs.getInt(1);
+				int idU = rs.getInt(2);
+				TipoCuenta idTC = new TipoCuenta(rs.getInt(3), traerTipoCuenta(rs.getInt(3)));
+				String CBU = rs.getString(4);
+				float saldo = rs.getFloat(5);
+				String fechaAlta = rs.getString(6);
+				boolean estado = rs.getBoolean(7);
+				lstCuenta.add(new Cuenta(idC, idU, idTC, CBU, saldo, fechaAlta, estado));
+				/*
+				c.setIdCuenta(rs.getInt(1));
+				c.setIdUsuario(rs.getInt(2));
+				c.setIdTipoCuenta(new TipoCuenta(rs.getInt(3), traerTipoCuenta(rs.getInt(3))));
+				c.setCBU(rs.getString(4));
+				c.setSaldo(rs.getFloat(5));
+				c.setFechaAlta(rs.getString(6));
+				c.setEstado(rs.getBoolean(7));
+				lstCuenta.add(c);
+				*/
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return lstCuenta;
+	}
+	
 	@Override
 	public int cantCuentasUsuario(int idU) {
 		Connection cnn = Conexion.getConexion().getSQLConexion();
@@ -246,6 +302,4 @@ public class DaoCuentas implements iDaoCuentas{
 		}
 		return lstCuenta;
 	}
-	
-	
 }

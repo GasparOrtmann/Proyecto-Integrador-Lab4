@@ -12,14 +12,17 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.tomcat.util.http.parser.Cookie;
 
+import Entidades.Cuenta;
 import Entidades.Localidad;
 import Entidades.Nacionalidad;
 import Entidades.Usuario;
 import Negocio.NegocioClientes;
+import Negocio.NegocioCuentas;
 import Negocio.NegocioLocalidad;
 import Negocio.NegocioNacionalidad;
 import Negocio.UsuarioNegocio;
 import iNegocio.IUsuarioNegocio;
+import iNegocio.iNegocioCuentas;
 
 @WebServlet("/ServeletClientes")
 public class ServeletClientes extends HttpServlet {
@@ -109,6 +112,8 @@ public class ServeletClientes extends HttpServlet {
 			IUsuarioNegocio uneg = new UsuarioNegocio();
 			Usuario usuarioIngresado = uneg.traerUsuario(usuario, contrasenia);
 				
+			iNegocioCuentas negCu = new NegocioCuentas();
+			int idUsuario = usuarioIngresado.getIdUsuario();
 			if(usuarioIngresado.getIdUsuario()!= 0) {
 				
 				if(usuarioIngresado.isEsAdmin()) {
@@ -117,6 +122,8 @@ public class ServeletClientes extends HttpServlet {
 					rd.forward(request, response);	
 				} 
 				if(!usuarioIngresado.isEsAdmin()){
+					List<Cuenta> lista = negCu.traerCuentasUsuario(idUsuario);
+					request.setAttribute("listaCuentas", lista);
 					request.setAttribute("usuarioIngresado",usuarioIngresado);
 					RequestDispatcher rd=request.getRequestDispatcher("/Cliente/InicioUsuario.jsp");  
 					rd.forward(request, response);	
@@ -127,8 +134,7 @@ public class ServeletClientes extends HttpServlet {
 				rd.forward(request, response);	
 				}
 		}
-		
-		
+	
 		if(request.getParameter("btnEliminar")!=null) {
 			NegocioClientes negCli = new NegocioClientes();
 			int proximoId = negCli.traerProxId();

@@ -60,4 +60,9 @@ public class NegocioCuentas implements iNegocioCuentas{
 		return daoCu.cantCuentasUsuario(idU);
 	}
 
+	@Override
+	public List<Cuenta> traerCuentasUsuario(int idUsuario) {
+		DaoCuentas daoCu = new DaoCuentas();
+		return daoCu.traerCuentasUsuario(idUsuario);
+	}
 }
