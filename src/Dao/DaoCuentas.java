@@ -115,6 +115,10 @@ public class DaoCuentas implements iDaoCuentas{
 	
 	@Override
 	public int modificar(Cuenta c) {
+		String anio = c.getFechaAlta().substring(0,4);
+		String mes = c.getFechaAlta().substring(5,7);
+		String dia = c.getFechaAlta().substring(8,10);
+		String fechaAlta = dia+"/"+mes+"/"+anio;
 		String estado = "";
 		if(c.isEstado()) {
 			estado="1";
@@ -126,7 +130,7 @@ public class DaoCuentas implements iDaoCuentas{
 						", IdTipoCuenta="+c.getIdTipoCuenta().getIdTipoCuenta()+
 						", CBU='"+c.getCBU()+"'"+
 						", Saldo="+c.getSaldo()+
-						", FechaAlta='"+c.getFechaAlta()+"'"+
+						", FechaAlta="+fechaAlta+ 
 						", Estado="+estado+
 						" WHERE IdCuenta="+c.getIdCuenta();
 		System.out.println(query);

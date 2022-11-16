@@ -75,6 +75,12 @@
 			  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 			</div>
 			<%} %>
+	<%if(filasModificadasEditar == 1){ %>
+		<div class="alert alert-success alert-dismissible fade show" role="alert">
+		  Se editó correctamente la cuenta!
+		  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+	<%} %>
 		<h1>Gestion Cuentas</h1>
 		<div class="centrar-row">
 			
