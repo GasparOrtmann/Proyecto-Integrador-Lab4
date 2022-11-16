@@ -5,6 +5,15 @@ public class TipoMovimiento {
 	int idTipoMovimiento;
 	String tipoMovimiento;
 	
+	public TipoMovimiento(int idTM) {
+		this.idTipoMovimiento=idTM;
+	}
+	
+	public TipoMovimiento(int idTM, String tm) {
+		this.idTipoMovimiento=idTM;
+		this.tipoMovimiento=tm;
+	}
+	
 	public int getIdTipoMovimiento() {
 		return idTipoMovimiento;
 	}

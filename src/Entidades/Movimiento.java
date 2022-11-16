@@ -2,22 +2,36 @@ package Entidades;
 
 public class Movimiento {
 	int idMovimiento;
-	int idTipoMovimiento;
+	TipoMovimiento idTipoMovimiento;
 	int idCuenta;
 	String fecha;
 	float importe;
 	String detalle;
 	
+	public Movimiento() {
+		
+	}
+	
+	public Movimiento(int idMovimiento, TipoMovimiento idTipoMovimiento, int idCuenta, String fecha, float importe,
+			String detalle) {
+		super();
+		this.idMovimiento = idMovimiento;
+		this.idTipoMovimiento = idTipoMovimiento;
+		this.idCuenta = idCuenta;
+		this.fecha = fecha;
+		this.importe = importe;
+		this.detalle = detalle;
+	}
 	public int getIdMovimiento() {
 		return idMovimiento;
 	}
 	public void setIdMovimiento(int idMovimiento) {
 		this.idMovimiento = idMovimiento;
 	}
-	public int getIdTipoMovimiento() {
+	public TipoMovimiento getIdTipoMovimiento() {
 		return idTipoMovimiento;
 	}
-	public void setIdTipoMovimiento(int idTipoMovimiento) {
+	public void setIdTipoMovimiento(TipoMovimiento idTipoMovimiento) {
 		this.idTipoMovimiento = idTipoMovimiento;
 	}
 	public int getIdCuenta() {

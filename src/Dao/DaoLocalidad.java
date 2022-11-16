@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Entidades.Localidad;
-import Entidades.Nacionalidad;
 import iDao.iDaoLocalidad;
 
 public class DaoLocalidad implements iDaoLocalidad{

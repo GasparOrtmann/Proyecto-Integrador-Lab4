@@ -7,9 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import Entidades.Localidad;
 import Entidades.Nacionalidad;
-import Entidades.Usuario;
 import iDao.iDaoNacionalidad; 
 
 public class DaoNacionalidad implements iDaoNacionalidad{

@@ -10,10 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Entidades.Cuenta;
-import Entidades.Localidad;
-import Entidades.Nacionalidad;
 import Entidades.TipoCuenta;
-import Entidades.Usuario;
 import iDao.iDaoCuentas;
 
 public class DaoCuentas implements iDaoCuentas{

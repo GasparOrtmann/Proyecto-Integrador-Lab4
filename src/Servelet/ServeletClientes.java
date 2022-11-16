@@ -14,15 +14,18 @@ import org.apache.tomcat.util.http.parser.Cookie;
 
 import Entidades.Cuenta;
 import Entidades.Localidad;
+import Entidades.Movimiento;
 import Entidades.Nacionalidad;
 import Entidades.Usuario;
 import Negocio.NegocioClientes;
 import Negocio.NegocioCuentas;
 import Negocio.NegocioLocalidad;
+import Negocio.NegocioMovimientos;
 import Negocio.NegocioNacionalidad;
 import Negocio.UsuarioNegocio;
 import iNegocio.IUsuarioNegocio;
 import iNegocio.iNegocioCuentas;
+import iNegocio.iNegocioMovimientos;
 
 @WebServlet("/ServeletClientes")
 public class ServeletClientes extends HttpServlet {
@@ -133,6 +136,14 @@ public class ServeletClientes extends HttpServlet {
 				RequestDispatcher rd=request.getRequestDispatcher("Login.jsp");  
 				rd.forward(request, response);	
 				}
+		}
+	
+		if(request.getParameter("btnVerHistorial")!=null) {
+			iNegocioMovimientos negMo = new NegocioMovimientos();
+			int idCuenta = Integer.parseInt(request.getParameter("getIdCuenta"));
+			List<Movimiento> lista = negMo.traerLista(idCuenta);
+			request.setAttribute("listaMovimientos", lista);
+			System.out.println(lista);
 		}
 	
 		if(request.getParameter("btnEliminar")!=null) {

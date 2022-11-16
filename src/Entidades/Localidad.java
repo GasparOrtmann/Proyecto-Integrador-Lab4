@@ -18,13 +18,13 @@ public class Localidad {
 		return idLocalidad;
 	}
 	public void setIdLocalidad(int idLocalidad) {
-		idLocalidad = idLocalidad;
+		this.idLocalidad = idLocalidad;
 	}
 	public int getIdProvincia() {
 		return idProvincia;
 	}
 	public void setIdProvincia(int idProvincia) {
-		idProvincia = idProvincia;
+		this.idProvincia = idProvincia;
 	}
 	public String getLocalidad() {
 		return localidad;

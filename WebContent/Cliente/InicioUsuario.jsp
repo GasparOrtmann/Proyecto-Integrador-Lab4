@@ -20,7 +20,7 @@
 <%@include file="MasterPageCliente.jsp"%>
 
 <div style="position: absolute;top:150px;left:400px; width:1400px;">
-	<form method="post" action="/TPINT_GRUPO_6_LAB4/ServletClientes" class="centrar-column">
+	<form method="post" action="/TPINT_GRUPO_6_LAB4/ServeletClientes" class="centrar-column">
 	<%
 	List<Cuenta> listaCuentas = null;
 	
@@ -36,12 +36,12 @@
 			%>
 				<div class="containerCuenta">
 					<div class="containerCuentaPrincipal">
-						<label>Cuenta N°: <%=c.getIdCuenta() %></label> <label><%=c.getSaldo() %></label>
+						<label>Cuenta N°: </label><input class="border-0 bg-transparent pe-none" name="getIdCuenta" value="<%=c.getIdCuenta()%>"><label><%=c.getSaldo() %></label>
 					</div>
 					<label><%=c.getIdTipoCuenta().getTipoCuenta() %></label>
 					<div class="containerCuentaPrincipal">
 						<label>CBU: <%=c.getCBU() %></label>
-						<button>Ver historial</button>
+						<button type="submit" name="btnVerHistorial">Ver historial</button>
 					</div>
 				</div>
 				<%
