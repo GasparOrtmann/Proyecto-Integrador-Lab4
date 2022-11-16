@@ -30,8 +30,10 @@
 		<div class="col-3">
 					<div class="navbarLateral">
 				<div class="flex-shrink-0 p-3" style="width: 280px; background-color: #B4B1C4; height: 100rem">
-					<%  if(request.getAttribute("usuarioIngresado")!=null){
-						Usuario usuarioLogin = (Usuario)request.getAttribute("usuarioIngresado");
+					<%  
+						HttpSession miSession=request.getSession(); 
+						if(miSession.getAttribute("usuarioIngresado")!=null){
+						Usuario usuarioLogin = (Usuario)miSession.getAttribute("usuarioIngresado");
 						String nombre = usuarioLogin.getNombre().toUpperCase();
 						String apellido = usuarioLogin.getApellido().toUpperCase();
 						char inicialNombre = nombre.charAt(0);

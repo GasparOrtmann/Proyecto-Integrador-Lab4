@@ -9,6 +9,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.tomcat.util.http.parser.Cookie;
 
@@ -117,17 +118,21 @@ public class ServeletClientes extends HttpServlet {
 				
 			iNegocioCuentas negCu = new NegocioCuentas();
 			int idUsuario = usuarioIngresado.getIdUsuario();
+			
+			HttpSession miSession= request.getSession(true);
+			miSession.setAttribute("usuarioIngresado", usuarioIngresado);
+			
 			if(usuarioIngresado.getIdUsuario()!= 0) {
 				
 				if(usuarioIngresado.isEsAdmin()) {
-					request.setAttribute("usuarioIngresado",usuarioIngresado);
+					//request.setAttribute("usuarioIngresado",usuarioIngresado);
 					RequestDispatcher rd=request.getRequestDispatcher("/Admin/Informe_Admin.jsp");  
 					rd.forward(request, response);	
 				} 
 				if(!usuarioIngresado.isEsAdmin()){
 					List<Cuenta> lista = negCu.traerCuentasUsuario(idUsuario);
 					request.setAttribute("listaCuentas", lista);
-					request.setAttribute("usuarioIngresado",usuarioIngresado);
+					//request.setAttribute("usuarioIngresado",usuarioIngresado);
 					RequestDispatcher rd=request.getRequestDispatcher("/Cliente/InicioUsuario.jsp");  
 					rd.forward(request, response);	
 				} 

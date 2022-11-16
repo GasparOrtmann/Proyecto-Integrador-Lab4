@@ -27,12 +27,13 @@
 		<div class="col-3">
 					<div class="navbarLateral">
 				<div class="flex-shrink-0 p-3"style="width: 280px; background-color: #B4B1C4; height: 100rem">
-					<%  if(request.getAttribute("usuarioIngresado")!=null){
-						Usuario usuarioLogin = (Usuario)request.getAttribute("usuarioIngresado");
-						String nombre = usuarioLogin.getNombre().toUpperCase();
-						String apellido = usuarioLogin.getApellido().toUpperCase();
-						char inicialNombre = nombre.charAt(0);
-						char inicialApellido = apellido.charAt(0);	
+					<%  HttpSession miSession=request.getSession(); 
+						if(miSession.getAttribute("usuarioIngresado")!=null){
+							Usuario usuarioLogin = (Usuario)miSession.getAttribute("usuarioIngresado");
+							String nombre = usuarioLogin.getNombre().toUpperCase();
+							String apellido = usuarioLogin.getApellido().toUpperCase();
+							char inicialNombre = nombre.charAt(0);
+							char inicialApellido = apellido.charAt(0);	
 					%>
 					<form method="get" action="Cliente/Cuenta_Cliente.jsp">
 					<input type="submit" class="btnUser" style="color:white" value="<%=inicialNombre+" "+inicialApellido%>"></input>
@@ -50,8 +51,8 @@
 							<button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">PRESTAMOS</button>
 							<div class="collapse" id="orders-collapse" style="">
 								<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-									<li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Mis Prestamos</a></li>
-									<li><a href="#"class="link-dark d-inline-flex text-decoration-none rounded">Solicitar Prestamo</a></li>
+									<li><a href="Cliente/MisPrestamos" class="link-dark d-inline-flex text-decoration-none rounded">Mis Prestamos</a></li>
+									<li><a href="Cliente/SolicitarPrestamo"class="link-dark d-inline-flex text-decoration-none rounded">Solicitar Prestamo</a></li>
 								</ul>
 							</div>
 						</li>
