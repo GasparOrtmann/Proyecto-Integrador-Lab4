@@ -120,6 +120,7 @@ public class DaoCuentas implements iDaoCuentas{
 		String dia = c.getFechaAlta().substring(8,10);
 		String fechaAlta = dia+"/"+mes+"/"+anio;
 		String estado = "";
+		System.out.println(fechaAlta);
 		if(c.isEstado()) {
 			estado="1";
 		}else {
@@ -130,7 +131,7 @@ public class DaoCuentas implements iDaoCuentas{
 						", IdTipoCuenta="+c.getIdTipoCuenta().getIdTipoCuenta()+
 						", CBU='"+c.getCBU()+"'"+
 						", Saldo="+c.getSaldo()+
-						", FechaAlta="+fechaAlta+ 
+						", FechaAlta='"+fechaAlta+"'"+
 						", Estado="+estado+
 						" WHERE IdCuenta="+c.getIdCuenta();
 		System.out.println(query);

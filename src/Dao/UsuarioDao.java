@@ -17,7 +17,7 @@ public class UsuarioDao implements IUsuarioDao {
 		
 		Connection cnn = Conexion.getConexion().getSQLConexion();
 
-		String query = "SELECT * FROM bdbanco.usuarios WHERE Contrasenia='"+txtusuario+"' AND Usuario= '"+txtcontrasenia+"'";
+		String query = "SELECT * FROM bdbanco.usuarios WHERE Contrasenia='"+txtcontrasenia+"' AND Usuario= '"+txtusuario+"'";
 		
 		Usuario usuarioIngresado = new Usuario();
 
