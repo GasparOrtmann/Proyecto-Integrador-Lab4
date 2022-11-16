@@ -50,13 +50,6 @@ public class DaoMovimientos implements iDaoMovimientos{
 				float importe = rs.getFloat(5);
 				String detalle = rs.getString(6);
 				lstMovs.add(new Movimiento(idM, idTM, idC, fecha, importe, detalle));
-				System.out.println(lstMovs);	
-				System.out.println(idM);
-				System.out.println(idTM);
-				System.out.println(idC);
-				System.out.println(fecha);
-				System.out.println(importe);
-				System.out.println(detalle);
 			}
 
 		} catch (SQLException e) {

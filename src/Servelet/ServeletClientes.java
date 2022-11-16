@@ -140,10 +140,12 @@ public class ServeletClientes extends HttpServlet {
 	
 		if(request.getParameter("btnVerHistorial")!=null) {
 			iNegocioMovimientos negMo = new NegocioMovimientos();
-			int idCuenta = Integer.parseInt(request.getParameter("getIdCuenta"));
+			int idCuenta = Integer.parseInt(request.getParameter("btnVerHistorial"));
 			List<Movimiento> lista = negMo.traerLista(idCuenta);
 			request.setAttribute("listaMovimientos", lista);
-			System.out.println(lista);
+			RequestDispatcher rd=request.getRequestDispatcher("/Cliente/InicioUsuario.jsp");  
+			rd.forward(request, response);	
+			System.out.println(idCuenta);
 		}
 	
 		if(request.getParameter("btnEliminar")!=null) {
