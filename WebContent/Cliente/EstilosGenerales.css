@@ -29,26 +29,31 @@ body{
 	gap:2rem;
 }
 .containerCuentas{
-	font-size:20px;
-	display:flex;
-	flex-direction:column;
-	align-items:center;
-	justify-self:center;
-	align-self:center;
-	width:40%;
-	height:80%;
-	gap:2rem;
+	display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-self: center;
+    align-self: center;
+    width: auto;
+    height: 80%;
+    gap: 1rem;
+    box-shadow: 0 8px 16px 0 rgb(0 0 0 / 10%);
+    background-color: #827397;
+    border-radius: 8px;
+    padding: 15px;
 }
 .containerCuenta{
-	font-size:20px;
-	font-weight:bolder;
-	color:white;
-	padding:20px;
-	display:flex;
-	flex-direction:column;
-	height:150px;
-	background-color:#B4B1C4;
-	justify-content:space-around;
+	font-size: 20px;
+    font-weight: bolder;
+    color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    height: 150px;
+    background-color: #B4B1C4;
+    justify-content: space-around;
+    border-radius: 8px;
+    box-shadow: 0 8px 16px 0 rgb(0 0 0 / 10%);
 }
 .containerCuentaPrincipal{
 	display:flex;
@@ -66,24 +71,32 @@ body{
 	
 }
 .containerActividad{
-	justify-self:center;
-	align-self:center;
-	width:50%;
-	height:80%;
-	background-color:#827397;
-	display:flex;
-	justify-content:start;
-	align-items:center;
-	border-radius:5px;
-	flex-direction:column;
-	padding:20px;
-	gap:1rem;
+	display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-self: center;
+    align-self: center;
+    width: 50%;
+    height: 80%;
+    gap: 1rem;
+    box-shadow: 0 8px 16px 0 rgb(0 0 0 / 10%);
+    background-color: #827397;
+    border-radius: 8px;
+    padding: 15px;
 }
 .containerActividadIndividual{
 	width:90%;
 	background-color:#E9D5CA;
 	padding:20px;
 	border-radius:5px;
+	box-shadow: 0 8px 16px 0 rgb(0 0 0 / 10%);
+}
+.movimiento{
+	display:flex;
+	justify-content:space-between;
+}
+.label-border {
+  border: 1px solid #ccc;
 }
 .containerData{
 	font-weight:bold;
@@ -103,7 +116,28 @@ body{
 	border-radius:100%;
 }
 
+.card-header {
+    border-bottom: 1px solid rgba(0,0,0,.1);
+    display: -webkit-flex;
+    display: flex;
+    -webkit-justify-content: space-between;
+    justify-content: space-between;
+    padding: 12px 16px;
+    position: relative;
+}
+.card-header-container{
+    -webkit-align-items: center;
+    align-items: center;
+    display: -webkit-flex;
+    display: flex;
+}
 
+.card-header__title {
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.2857142857;
+    padding-right: 5.4px;
+}
 
 /*-------------MASTERPAGE CLIENTE--------------------------------------------*/
 

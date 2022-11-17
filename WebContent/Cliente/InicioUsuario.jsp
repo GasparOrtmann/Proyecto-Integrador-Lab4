@@ -37,15 +37,22 @@
 		listaHistorial = (List<Movimiento>) request.getAttribute("listaHistorial");
 	}
 	%>
+		
 		<div class="containerContentData">
-			<div class="containerActividad">
+			<div class="containerCuentas">
+			<div class="card-header">
+				<div class="card-header-container">
+					<h3 class="card-header-title">Tus cuentas</h3>
+				</div>
+			</div>
 			<%
 			if(listaCuentas != null){
 				for(Cuenta c : listaCuentas){
 			%>
 				<div class="containerCuenta">
 					<div class="containerCuentaPrincipal">
-						<label>Cuenta N°: </label><input class="border-0 bg-transparent pe-none" name="getIdCuenta" value="<%=c.getIdCuenta()%>"><label><%=c.getSaldo() %></label>
+						<label>Cuenta N°: </label><input class="border-0 bg-transparent pe-none" name="getIdCuenta" value="<%=c.getIdCuenta()%>" style="
+    				color: white; font-weight: bolder;"><label>$ <%=c.getSaldo() %></label>
 					</div>
 					<label><%=c.getIdTipoCuenta().getTipoCuenta() %></label>
 					<div class="containerCuentaPrincipal">
@@ -72,7 +79,6 @@
 				</tr>
 				</thead>
 			<tbody>
-				 <h2>Historial de Cuenta <%=idCuenta %></h2> 
 				 <%
 				for (Movimiento m : listaMovimientos){
 				%>
@@ -91,17 +97,23 @@
 		</div>
 			</div>
 			<div class="containerActividad">
-			<h2>Tu actividad</h2>
+			<div class="card-header">
+				<div class="card-header-container">
+					<h3 class="card-header-title">Tu actividad</h3>
+				</div>
+			</div>
 			<%
 			if(listaHistorial!=null){
 				for (Movimiento h : listaHistorial){
 			%>
 				<div class="containerActividadIndividual">
-					<h3><%=h.getIdTipoMovimiento().getTipoMovimiento() %></h3>
-					
+					<div class="movimiento">
+					<label style="font-weight: bolder;"><%=h.getIdTipoMovimiento().getTipoMovimiento() %> (Cuenta <%=h.getIdCuenta().getIdCuenta() %>)</label>
+					<label style="font-weight: bolder;">$ <%=h.getImporte() %></label>
+					</div>
 					<div class="containerCuentaPrincipal">
-						<label><%=h.getDetalle() %></label><label><%=h.getFecha() %></label>
-						<label>Cuenta <%=h.getIdCuenta().getIdCuenta() %></label> <label><%=h.getImporte() %></label>
+						<label><%=h.getDetalle() %></label>
+						<label><%=h.getFecha() %></label>
 					</div>
 				</div>
 				<%
