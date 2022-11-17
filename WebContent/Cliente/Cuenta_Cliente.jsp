@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <%@page import="Entidades.Usuario" %>
+    <%@page session="true" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -15,15 +17,34 @@
 
 	<form class="centrar-column">
 	<h1>Datos de Usuario</h1>
-	<div class="centrar-row">
-		<div>
-			<label>Nombre de Usuario: usuarioPrueba</label> <br>
-			<label>Mail: usuarioPrueba@gmail.com</label> <br>
-			<label>Nombre: Usuario</label> <br>
-			<label>Apellido: Prueba</label> <br>
-			<label>Domicilio: Calle 1234</label> <br>
-		</div>
-	</div>
+	
+	 		<% 
+	 			
+          		if(miSession.getAttribute("usuarioIngresado")!=null){
+          			
+          			Usuario usuarioIngresado =(Usuario)miSession.getAttribute("usuarioIngresado");
+          			int id = (int)usuarioIngresado.getIdUsuario();
+          			String nUsuario = (String) usuarioIngresado.getUsuario();
+          			String mail= (String) usuarioIngresado.getEmail();
+          			String nombre= (String) usuarioIngresado.getNombre();
+          			String apellido= (String) usuarioIngresado.getApellido();
+          			String calle= (String) usuarioIngresado.getCalle();
+          			int altura= (int) usuarioIngresado.getAltura();
+          			
+          			String direc = calle+String.valueOf(altura);
+          			%><div class="centrar-row">
+          			<div>
+          				<label>Nombre de Usuario: </label> <%= nUsuario 
+          				%><br><label>Mail:</label> <%= mail 
+          				%><br><label>Nombre: </label> <%= nombre 
+          				%><br><label>Apellido: </label> <%= apellido 
+          				%><br><label>Domicilio:</label> <%=direc %>
+          			</div>
+          		</div>
+          			<% 
+          			}
+        	%> 
+
 	</form>
 </div>
 </body>
