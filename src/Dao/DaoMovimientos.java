@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import Entidades.Cuenta;
 import Entidades.Movimiento;
 import Entidades.TipoMovimiento;
 import iDao.iDaoMovimientos;
@@ -35,8 +36,7 @@ public class DaoMovimientos implements iDaoMovimientos{
 	public List<Movimiento> traerLista(int idCuenta){
 		Connection cnn = Conexion.getConexion().getSQLConexion();
 		List<Movimiento> lstMovs = new ArrayList<Movimiento>();
-		String query = "SELECT * FROM movimientos WHERE IdCuenta="+idCuenta;
-		
+		String query = "SELECT * FROM movimientos WHERE IdCuenta="+idCuenta+" ORDER BY Fecha DESC";
 		PreparedStatement pst;
 		try {
 			pst = cnn.prepareStatement(query);
@@ -45,7 +45,7 @@ public class DaoMovimientos implements iDaoMovimientos{
 				int idM = rs.getInt(1);
 				String tm = traerTipoMovimiento(rs.getInt(2));
 				TipoMovimiento idTM = new TipoMovimiento(rs.getInt(2),tm);
-				int idC = rs.getInt(3);
+				Cuenta idC = new Cuenta(rs.getInt(3));
 				String fecha = rs.getString(4);
 				float importe = rs.getFloat(5);
 				String detalle = rs.getString(6);
@@ -56,5 +56,31 @@ public class DaoMovimientos implements iDaoMovimientos{
 			e.printStackTrace();
 		}
 		return lstMovs;
+	}
+	
+	@Override
+	public List<Movimiento> traerHistorial(){
+		Connection cnn = Conexion.getConexion().getSQLConexion();
+		List<Movimiento> lstTrans = new ArrayList<Movimiento>();
+		String query = "SELECT * FROM movimientos ORDER BY Fecha DESC";
+		PreparedStatement pst;
+		try {
+			pst = cnn.prepareStatement(query);
+			ResultSet rs = pst.executeQuery();
+			while (rs.next()) {
+				int idM = rs.getInt(1);
+				String tm = traerTipoMovimiento(rs.getInt(2));
+				TipoMovimiento idTM = new TipoMovimiento(rs.getInt(2),tm);
+				Cuenta idC = new Cuenta(rs.getInt(3));
+				String fecha = rs.getString(4);
+				float importe = rs.getFloat(5);
+				String detalle = rs.getString(6);
+				lstTrans.add(new Movimiento(idM, idTM, idC, fecha, importe, detalle));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return lstTrans;
 	}
 }

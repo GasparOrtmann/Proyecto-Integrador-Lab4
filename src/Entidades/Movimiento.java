@@ -3,7 +3,7 @@ package Entidades;
 public class Movimiento {
 	int idMovimiento;
 	TipoMovimiento idTipoMovimiento;
-	int idCuenta;
+	Cuenta idCuenta;
 	String fecha;
 	float importe;
 	String detalle;
@@ -12,7 +12,16 @@ public class Movimiento {
 		
 	}
 	
-	public Movimiento(int idMovimiento, TipoMovimiento idTipoMovimiento, int idCuenta, String fecha, float importe,
+	public Movimiento(Cuenta idCuenta, String fecha, float importe,
+			String detalle) {
+		super();
+		this.idCuenta = idCuenta;
+		this.fecha = fecha;
+		this.importe = importe;
+		this.detalle = detalle;
+	}
+	
+	public Movimiento(int idMovimiento, TipoMovimiento idTipoMovimiento, Cuenta idCuenta, String fecha, float importe,
 			String detalle) {
 		super();
 		this.idMovimiento = idMovimiento;
@@ -34,10 +43,10 @@ public class Movimiento {
 	public void setIdTipoMovimiento(TipoMovimiento idTipoMovimiento) {
 		this.idTipoMovimiento = idTipoMovimiento;
 	}
-	public int getIdCuenta() {
+	public Cuenta getIdCuenta() {
 		return idCuenta;
 	}
-	public void setIdCuenta(int idCuenta) {
+	public void setIdCuenta(Cuenta idCuenta) {
 		this.idCuenta = idCuenta;
 	}
 	public String getFecha() {

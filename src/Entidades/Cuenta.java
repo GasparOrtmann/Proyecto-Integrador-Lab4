@@ -11,7 +11,10 @@ public class Cuenta {
 	boolean estado;
 	
 	public Cuenta() {
-		
+	}
+	
+	public Cuenta(int idCuenta) {
+		IdCuenta = idCuenta;
 	}
 	
 	public Cuenta(int idCuenta, int idUsuario, TipoCuenta idTipoCuenta, String cBU, float saldo, String fechaAlta,

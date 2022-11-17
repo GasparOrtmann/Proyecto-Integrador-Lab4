@@ -37,6 +37,30 @@ public class ServeletClientes extends HttpServlet {
     }
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
+		HttpSession miSession = request.getSession(); 
+		
+		if(request.getParameter("TraerCuentasUsuario")!=null) {
+			
+			//HttpSession miSession = request.getSession(); 
+			
+			if(miSession.getAttribute("usuarioIngresado")!=null) {
+			
+				NegocioCuentas ncta = new NegocioCuentas();
+				NegocioMovimientos negMo = new NegocioMovimientos();
+				Usuario usuarioLogueado = (Usuario)miSession.getAttribute("usuarioIngresado");
+				List<Cuenta> lstCuentasUsuario= ncta.traerCuentasUsuario(usuarioLogueado.getIdUsuario());
+				miSession.setAttribute("lstCuentasUsuario", lstCuentasUsuario);
+				int idUsuario = usuarioLogueado.getIdUsuario();
+				List<Cuenta> lista = ncta.traerCuentasUsuario(idUsuario);
+				request.setAttribute("listaCuentas", lista);
+				List<Movimiento> listaHistorial = negMo.traerHistorial();
+				request.setAttribute("listaHistorial", listaHistorial);
+				RequestDispatcher rd=request.getRequestDispatcher("/Cliente/InicioUsuario.jsp");  
+				rd.forward(request, response);
+			}
+			
+		}
+		
 		if(request.getParameter("TraerListadoClientes")!=null) {
 			NegocioClientes negCli = new NegocioClientes();
 			int proximoId = negCli.traerProxId();
@@ -119,6 +143,8 @@ public class ServeletClientes extends HttpServlet {
 			iNegocioCuentas negCu = new NegocioCuentas();
 			int idUsuario = usuarioIngresado.getIdUsuario();
 			
+			iNegocioMovimientos negMo = new NegocioMovimientos();
+			
 			HttpSession miSession= request.getSession(true);
 			miSession.setAttribute("usuarioIngresado", usuarioIngresado);
 			
@@ -131,6 +157,8 @@ public class ServeletClientes extends HttpServlet {
 				if(!usuarioIngresado.isEsAdmin()){
 					List<Cuenta> lista = negCu.traerCuentasUsuario(idUsuario);
 					request.setAttribute("listaCuentas", lista);
+					List<Movimiento> listaHistorial = negMo.traerHistorial();
+					request.setAttribute("listaHistorial", listaHistorial);
 					RequestDispatcher rd=request.getRequestDispatcher("/Cliente/InicioUsuario.jsp");  
 					rd.forward(request, response);	
 				} 
@@ -147,6 +175,8 @@ public class ServeletClientes extends HttpServlet {
 			int idCuenta = Integer.parseInt(request.getParameter("btnVerHistorial"));
 			List<Movimiento> lista = negMo.traerLista(idCuenta);
 			request.setAttribute("listaMovimientos", lista);
+			List<Movimiento> listaHistorial = negMo.traerHistorial();
+			request.setAttribute("listaHistorial", listaHistorial);
 			RequestDispatcher rd=request.getRequestDispatcher("/Cliente/InicioUsuario.jsp");  
 			rd.forward(request, response);	
 			System.out.println(idCuenta);

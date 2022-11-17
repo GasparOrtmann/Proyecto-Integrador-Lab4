@@ -25,6 +25,7 @@
 	<%
 	List<Cuenta> listaCuentas = null;
 	List<Movimiento> listaMovimientos = null;
+	List<Movimiento> listaHistorial = null;
 	
 	if (request.getAttribute("listaCuentas") != null) {
 		listaCuentas = (List<Cuenta>) request.getAttribute("listaCuentas");
@@ -32,9 +33,12 @@
 	if (request.getAttribute("listaMovimientos") != null) {
 		listaMovimientos = (List<Movimiento>) request.getAttribute("listaMovimientos");
 	}
+	if (request.getAttribute("listaHistorial") != null) {
+		listaHistorial = (List<Movimiento>) request.getAttribute("listaHistorial");
+	}
 	%>
 		<div class="containerContentData">
-			<div class="containerCuentas">
+			<div class="containerActividad">
 			<%
 			if(listaCuentas != null){
 				for(Cuenta c : listaCuentas){
@@ -52,30 +56,31 @@
 				<%
 				}}
 				%>
-			</div>
-			<div>
+				<div>
 			<%
 			if(listaMovimientos!=null){
-				for (Movimiento m : listaMovimientos){
-			%>
-			<table class="table table-striped">
-				<thead class="table-dark">
+				int idCuenta = Integer.parseInt(request.getParameter("btnVerHistorial"));
+				%>
+				<table class="table table-striped">
+				<thead>
 				<tr>
-					<td>Cod Movimiento</td>
-					<td>Cod Tipo Movimiento</td>
-					<td>Cod Cuenta</td>
+					<td>Número de Movimiento</td>
+					<td>Tipo de Movimiento</td>
 					<td>Fecha</td>
 					<td>Importe</td>
 					<td>Detalle</td>
 				</tr>
 				</thead>
 			<tbody>
+				 <h2>Historial de Cuenta <%=idCuenta %></h2> 
+				 <%
+				for (Movimiento m : listaMovimientos){
+				%>
 				<tr>
 						<td><%=m.getIdMovimiento() %></td>
-						<td><%=m.getIdTipoMovimiento().getIdTipoMovimiento() %></td>
-						<td><%=m.getIdCuenta() %></td>
+						<td><%=m.getIdTipoMovimiento().getTipoMovimiento() %></td>
 						<td><%=m.getFecha() %></td>
-						<td><%=m.getImporte()%></td>
+						<td>$<%=m.getImporte()%></td>
 						<td><%=m.getDetalle() %></td>
 				</tr>
 				<%
@@ -84,27 +89,25 @@
 			</tbody>
 		</table>
 		</div>
-					</div>
+			</div>
 			<div class="containerActividad">
-				<h2>Tu actividad</h2>
+			<h2>Tu actividad</h2>
+			<%
+			if(listaHistorial!=null){
+				for (Movimiento h : listaHistorial){
+			%>
 				<div class="containerActividadIndividual">
-					<h3>TRANSFERENCIA</h3>
+					<h3><%=h.getIdTipoMovimiento().getTipoMovimiento() %></h3>
+					
 					<div class="containerCuentaPrincipal">
-						<label>CBU: 189SM02LSKLMA9</label> <label>$3.500</label>
+						<label><%=h.getDetalle() %></label><label><%=h.getFecha() %></label>
+						<label>Cuenta <%=h.getIdCuenta().getIdCuenta() %></label> <label><%=h.getImporte() %></label>
 					</div>
 				</div>
-				<div class="containerActividadIndividual">
-					<h3>TRANSFERENCIA</h3>
-					<div class="containerCuentaPrincipal">
-						<label>CBU: 189SM02LSKLMA9</label> <label>$3.500</label>
-					</div>
-				</div>
-				<div class="containerActividadIndividual">
-					<h3>TRANSFERENCIA</h3>
-					<div class="containerCuentaPrincipal">
-						<label>CBU: 189SM02LSKLMA9</label> <label>$3.500</label>
-					</div>
-				</div>
+				<%
+				}}
+				%>
+			</div>
 			</div>
 			</form>
 		</div>

@@ -20,4 +20,10 @@ public class NegocioMovimientos implements iNegocioMovimientos{
 		return daoMo.traerTipoMovimiento(Id);
 	}
 
+	@Override
+	public List<Movimiento> traerHistorial() {
+		DaoMovimientos daoMo = new DaoMovimientos();
+		return daoMo.traerHistorial();
+	}
+
 }
