@@ -73,4 +73,9 @@ public class Prestamo {
 		this.estado = estado;
 	}
 	
+	public Prestamo() {
+		
+		
+	}
+	
 }

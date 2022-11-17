@@ -21,9 +21,9 @@
 <h1>SOLICITAR PRESTAMO</h1><br><br>
   <div class="conteiner-fluid">
 	  <div class="row">
-		  <div class="col-6">
+		  <div class="col-6" style="height:300px">
 		  <form method="get" action="/TPINT_GRUPO_6_LAB4/ServletPrestamos">
-		   <label>Ingrese el Monto a solicitar:</label> <input type="text" name="txtMontoPrestamo"> <br><br>
+		   <label>Ingrese el Monto a solicitar:</label> <input type="text" name="txtMontoPrestamo" required> <br><br>
 		   <label>Seleccione la cantidad de Cuotas</label> <select name=ddlCuotas>
 								<option value="12">12</option>
 								<option value="24">24</option>
@@ -35,16 +35,16 @@
 										List<Cuenta> lstCuentasUsuario = (List<Cuenta>)miSession.getAttribute("lstCuentasUsuario");
 										for(Cuenta cuenta:lstCuentasUsuario){
 						 			 %>
-									<option value="<%=cuenta.getIdCuenta()%>"><%=cuenta.getIdCuenta()%> - <%=cuenta.getCBU() %></option>
+									<option value="<%=cuenta.getIdCuenta()%> - <%=cuenta.getCBU() %>"><%=cuenta.getIdCuenta()%> - <%=cuenta.getCBU() %></option>
 									<%
 									}
 									}
 									%>
-								</select><br><br><br>
+								</select><br><br><br><br><br>
 		   <input type="submit" value="Simular" name="btnSimularPrestamo"  class="btnSimularPrestamo">
 		   </form>
 		   </div>
-		   <div class="col-6" style="color:white; background-color:#B4B1C4;width:600px; height:auto;border-radius:5px;">
+		   <div class="col-6" style="color:white; background-color:#B4B1C4;width:600px; height:300px;border-radius:5px;">
 		   <br>
 		 
 		   		<%
@@ -56,22 +56,41 @@
 			   			float interesPorcentajeTotal = cantCuotas/12*85;
 			   			float interesTotal = interesPorcentajeTotal*montoSolicitado/100;
 			   			float cuotaFija= (interesTotal+montoSolicitado)/cantCuotas;
+			   			      miSession.setAttribute("cuotaFija",cuotaFija);
 			   			float montoDevolver= (((((cantCuotas/12)*85)*montoSolicitado)/100)+montoSolicitado);
 		   			
 		   		%>
-		   		<form method="post" action="">
-			   <p>Monto solicitado :<p> <label> <%=montoSolicitado%>  </label>
-			   <p>Cuenta donde se acreditara :<p> <label> <%=cuentaAcreditacion %>  </label>
-			   <p>Cuota fija: <p> <label> <%=cuotaFija %> </label>
-			   <p>Cantidad de cuotas: <p> <label><%=cantCuotas %>  </label>
-			   <p>Interes: 85% anual</p>
-			   <p>Monto total a devolver:<p> <label> <%=montoDevolver %> </label>
+		   		<form method="post" action="/TPINT_GRUPO_6_LAB4/ServletPrestamos">
+			   <p>Monto solicitado :  $<%=montoSolicitado%>.-<p>
+			   <p>Cuenta donde se acreditara : <%=cuentaAcreditacion%><p>
+			   <p>Cuota fija: $<%=cuotaFija%>.-<p> 
+			   <p>Cantidad de cuotas: <%=cantCuotas %><p> 
+			   <p>Interes: 85% TNA</p>
+			   <p>Monto total a devolver: $<%=montoDevolver %>.-<p><br><br>
 			    <input type="submit" value="Aceptar" name="btnAceptarPrestamo"  class="btnAceptarPrestamo">
 			    </form>
 			   <%} %> 
+			    <% if(request.getParameter("btnAceptarPrestamo")!=null && request.getAttribute("confirmacionPrestamo")!=null){
+				   Boolean confirmacion= (Boolean)request.getAttribute("confirmacionPrestamo");
+			   		if(confirmacion){
+               %>
+                <div class="alert alert-danger alert-dismissible fade show" style="width:auto;"role="alert">
+					  	El prestamo quedo correctamente derivado para su aprobación.
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>  
+				<% } %>
+			      <% if(!confirmacion){
+               %>
+                 <div class="alert alert-success alert-dismissible fade show" style="width:auto;"role="alert">
+					  	El prestamo no puedo procesarse, reintente en unos minutos.
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+				</div>
+			  <% } }%>
+			 
 		   </div>
 		 </div>
 	</div>
+	 
 </div>
 
 <!-- JavaScript Bundle with Popper -->

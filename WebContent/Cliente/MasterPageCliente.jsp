@@ -38,7 +38,7 @@
 					<form method="get" action="Cliente/Cuenta_Cliente.jsp">
 					<input type="submit" class="btnUser" style="color:white" value="<%=inicialNombre+" "+inicialApellido%>"></input>
 					<br> <br> <a href="#" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
-						<span class="fs-5 fw-semibold">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=usuarioLogin.getNombre()+" "+usuarioLogin.getApellido()%></span>
+						<span class="fs-5 fw-semibold">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<%=usuarioLogin.getNombre()+" "+usuarioLogin.getApellido()%></span>
 					</a>
 					<% } %>
 					</form>
