@@ -42,6 +42,8 @@
           			</div>
           		</div>
           			<% 
+          			}else{
+          				%>error: no existe la sesion.<%
           			}
         	%> 
 
