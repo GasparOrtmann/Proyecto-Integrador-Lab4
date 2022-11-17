@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <%@page import="Entidades.Usuario"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -41,6 +42,18 @@
           <input type="submit" class="btn btn-secondary" name="btnIniciarSesion" style="margin-left:40%;margin-top:5px;value="INICIAR SESION"></input>
         </form>
       </div>
+       	<% 	HttpSession miSession=request.getSession(); 
+          		if(miSession.getAttribute("usuarioIngresado")!=null){
+          			
+          			Usuario usuarioIngresado =(Usuario)miSession.getAttribute("usuarioIngresado");
+          			int id = (int)usuarioIngresado.getIdUsuario();
+          			
+          			if(id==0){ %> 
+		         	 <div class="alert alert-danger alert-dismissible fade show" style="width:1000px;"role="alert">
+					  	El usuario no se encuentra registrado; solicite el Alta al administrador!
+					  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>
+			<%}} %>
     </div>
   </div>
 </div>

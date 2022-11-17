@@ -52,7 +52,7 @@
 							<div class="collapse" id="orders-collapse" style="">
 								<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
 									<li><a href="Cliente/MisPrestamos" class="link-dark d-inline-flex text-decoration-none rounded">Mis Prestamos</a></li>
-									<li><a href="Cliente/SolicitarPrestamo"class="link-dark d-inline-flex text-decoration-none rounded">Solicitar Prestamo</a></li>
+									<li><a href="/TPINT_GRUPO_6_LAB4/ServletPrestamos?TraerCuentasUsuario=1"class="link-dark d-inline-flex text-decoration-none rounded">Solicitar Prestamo</a></li>
 								</ul>
 							</div>
 						</li>

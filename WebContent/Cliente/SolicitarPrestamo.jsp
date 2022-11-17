@@ -1,10 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+    <%@page import="Entidades.Cuenta"%>
+	<%@page import="java.util.List"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<link href="EstilosGenerales.css" rel="stylesheet" type="text/css">
+<link href="Cliente/EstilosGenerales.css" rel="stylesheet" type="text/css">
 <!-- CSS only -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 <script src="https://kit.fontawesome.com/2fcd49ae61.js" crossorigin="anonymous"></script>
@@ -20,28 +22,53 @@
   <div class="conteiner-fluid">
 	  <div class="row">
 		  <div class="col-6">
+		  <form method="get" action="/TPINT_GRUPO_6_LAB4/ServletPrestamos">
 		   <label>Ingrese el Monto a solicitar:</label> <input type="text" name="txtMontoPrestamo"> <br><br>
 		   <label>Seleccione la cantidad de Cuotas</label> <select name=ddlCuotas>
-								<option value="1">12</option>
-								<option value="2">24</option>
-								<option value="3">48</option>
-								<option value="4">36</option>
+								<option value="12">12</option>
+								<option value="24">24</option>
+								<option value="48">48</option>
+								<option value="36">36</option>
 								</select><br><br>
-		   <label>Cuenta donde se acreditara el Prestamo</label>  <select name=ddlCuenta>
-								<option value="1">Caja de Ahorro CBU 123654789</option>
-								<option value="2">Caja de Ahorro CBU 456987123</option>
-								<option value="3">Caja de Ahorro CBU 112223336</option>
+		   <label>Cuenta donde se acreditara el Prestamo</label>  <select name=ddlCuentas>
+									<% if(miSession.getAttribute("lstCuentasUsuario")!=null){
+										List<Cuenta> lstCuentasUsuario = (List<Cuenta>)miSession.getAttribute("lstCuentasUsuario");
+										for(Cuenta cuenta:lstCuentasUsuario){
+						 			 %>
+									<option value="<%=cuenta.getIdCuenta()%>"><%=cuenta.getIdCuenta()%> - <%=cuenta.getCBU() %></option>
+									<%
+									}
+									}
+									%>
 								</select><br><br><br>
 		   <input type="submit" value="Simular" name="btnSimularPrestamo"  class="btnSimularPrestamo">
+		   </form>
 		   </div>
-		   <div class="col-6" style="color:white; background-color:#B4B1C4;width:600px; height:206px;border-radius:5px;">
+		   <div class="col-6" style="color:white; background-color:#B4B1C4;width:600px; height:auto;border-radius:5px;">
 		   <br>
-			   <p>Monto solicitado $150000<p>
-			   <p>Cuota fija: $10596<p>
-			   <p>Cantidad de cuotas: 48<p>
-			   <p>Interes: 45% anual</p>
-			   <p>Monto total a devolver: $270000<p>
+		 
+		   		<%
+		   			if(request.getParameter("btnSimularPrestamo")!=null){
+		   				
+			   			float montoSolicitado = Float.parseFloat(miSession.getAttribute("montoSolicitado").toString());
+			   			String cuentaAcreditacion = (String)miSession.getAttribute("idCuentaAcreditacion");
+			   			int cantCuotas = Integer.parseInt(miSession.getAttribute("cantCuotas").toString());
+			   			float interesPorcentajeTotal = cantCuotas/12*85;
+			   			float interesTotal = interesPorcentajeTotal*montoSolicitado/100;
+			   			float cuotaFija= (interesTotal+montoSolicitado)/cantCuotas;
+			   			float montoDevolver= (((((cantCuotas/12)*85)*montoSolicitado)/100)+montoSolicitado);
+		   			
+		   		%>
+		   		<form method="post" action="">
+			   <p>Monto solicitado :<p> <label> <%=montoSolicitado%>  </label>
+			   <p>Cuenta donde se acreditara :<p> <label> <%=cuentaAcreditacion %>  </label>
+			   <p>Cuota fija: <p> <label> <%=cuotaFija %> </label>
+			   <p>Cantidad de cuotas: <p> <label><%=cantCuotas %>  </label>
+			   <p>Interes: 85% anual</p>
+			   <p>Monto total a devolver:<p> <label> <%=montoDevolver %> </label>
 			    <input type="submit" value="Aceptar" name="btnAceptarPrestamo"  class="btnAceptarPrestamo">
+			    </form>
+			   <%} %> 
 		   </div>
 		 </div>
 	</div>

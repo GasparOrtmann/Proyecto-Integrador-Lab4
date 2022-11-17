@@ -124,20 +124,19 @@ public class ServeletClientes extends HttpServlet {
 			
 			if(usuarioIngresado.getIdUsuario()!= 0) {
 				
-				if(usuarioIngresado.isEsAdmin()) {
-					//request.setAttribute("usuarioIngresado",usuarioIngresado);
+				if(usuarioIngresado.isEsAdmin()) {					
 					RequestDispatcher rd=request.getRequestDispatcher("/Admin/Informe_Admin.jsp");  
 					rd.forward(request, response);	
 				} 
 				if(!usuarioIngresado.isEsAdmin()){
 					List<Cuenta> lista = negCu.traerCuentasUsuario(idUsuario);
 					request.setAttribute("listaCuentas", lista);
-					//request.setAttribute("usuarioIngresado",usuarioIngresado);
 					RequestDispatcher rd=request.getRequestDispatcher("/Cliente/InicioUsuario.jsp");  
 					rd.forward(request, response);	
 				} 
 				
 			}else {
+				usuarioIngresado.setIdUsuario(0);
 				RequestDispatcher rd=request.getRequestDispatcher("Login.jsp");  
 				rd.forward(request, response);	
 				}
