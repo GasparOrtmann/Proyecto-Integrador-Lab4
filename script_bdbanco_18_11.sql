@@ -125,7 +125,7 @@ DELIMITER ;
 	USE `bdbanco`$$
 	CREATE PROCEDURE `SP_agregarPrestamo` (IN pId int, IN pIdUsu int, IN monto float,IN cuotaValor float, IN cantCuota int, IN fechaAlta varchar(10))
 	BEGIN
-	INSERT INTO Prestamos (IdPrestamo,IdUsuario,MontoPrestado,MontoTotalAdeudado,ImporteCuotaFija,CantidadCuotas,CuotasAdeudadas,CuotasPagas,FechaAlta,Estado) 
+	INSERT INTO Prestamos (IdPrestamo,IdUsuario,MontoPrestamo,MontoTotalAdeudado,ImporteCuotaFija,CantidadCuotas,CuotasAdeudadas,CuotasPagas,FechaAlta,Estado) 
 					values (pId,pIdUsu,monto,null,cuotaValor,cantCuota,null,null,fechaAlta,'Pendiente');
 	END$$
 	

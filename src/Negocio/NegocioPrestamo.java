@@ -1,5 +1,7 @@
 package Negocio;
 
+import java.util.List;
+
 import Dao.DaoPrestamo;
 import Entidades.Prestamo;
 import iNegocio.iNegocioPrestamo;
@@ -24,6 +26,12 @@ public class NegocioPrestamo implements iNegocioPrestamo {
 	public int traerProxId() {
 	  int id = pdao.traerProxId();
 		return id;
+	}
+
+	@Override
+	public List<Prestamo> traerListaPrestamos() {
+		 List<Prestamo> lstPrestamos = pdao.traerListaPrestamos();
+		return lstPrestamos;
 	}
 	
 

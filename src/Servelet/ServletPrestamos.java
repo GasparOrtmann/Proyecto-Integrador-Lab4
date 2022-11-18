@@ -62,6 +62,17 @@ public class ServletPrestamos extends HttpServlet {
 			
 		}
 		
+		if(request.getParameter("TraerListadoPrestamos")!=null) {
+			
+			NegocioPrestamo pneg = new NegocioPrestamo();
+			List<Prestamo> lstPrestamos = pneg.traerListaPrestamos();
+			
+			request.setAttribute("lstPrestamos", lstPrestamos);
+			RequestDispatcher rd=request.getRequestDispatcher("/Admin/ABML_Prestamos_Admin.jsp");  
+			rd.forward(request, response);
+			
+		}
+		
 		
 		
 	}
@@ -84,12 +95,15 @@ public class ServletPrestamos extends HttpServlet {
 			 prestamo.setImporteCuotaFija(Float.parseFloat(miSession.getAttribute("cuotaFija").toString()));
 			 prestamo.setCantidadCuotas( Integer.parseInt(miSession.getAttribute("cantCuotas").toString()));
 			 prestamo.setFechaAlta(fechaSolicitud);
+			 
 			 Boolean confirmacionPrestamo=false;
+			 
 			 if(pneg.agregarPrestamo(prestamo)) {
 				 confirmacionPrestamo=true;
 			 } else {
 				 confirmacionPrestamo=false;
 			 }
+			 
 			 request.setAttribute("confirmacionPrestamo",confirmacionPrestamo);
 			 RequestDispatcher rd=request.getRequestDispatcher("/Cliente/SolicitarPrestamo.jsp");  
 			 rd.forward(request, response);

@@ -74,14 +74,14 @@
 				   Boolean confirmacion= (Boolean)request.getAttribute("confirmacionPrestamo");
 			   		if(confirmacion){
                %>
-                <div class="alert alert-danger alert-dismissible fade show" style="width:auto;"role="alert">
+                <div class="alert alert-success  alert-dismissible fade show" style="width:auto;"role="alert">
 					  	El prestamo quedo correctamente derivado para su aprobación.
 				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 				</div>  
 				<% } %>
 			      <% if(!confirmacion){
                %>
-                 <div class="alert alert-success alert-dismissible fade show" style="width:auto;"role="alert">
+                 <div class="alert alert-danger alert-dismissible fade show" style="width:auto;"role="alert">
 					  	El prestamo no puedo procesarse, reintente en unos minutos.
 				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 				</div>

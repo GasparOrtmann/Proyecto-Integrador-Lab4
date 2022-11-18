@@ -55,7 +55,7 @@
 							<button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">PRESTAMOS</button>
 							<div class="collapse" id="orders-collapse" style="">
 								<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-									<li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Prestamos Pendientes</a></li>
+									<li><a href="/TPINT_GRUPO_6_LAB4/ServletPrestamos?TraerListadoPrestamos=1" class="link-dark d-inline-flex text-decoration-none rounded">Prestamos Pendientes</a></li>
 								</ul>
 							</div>
 						</li>

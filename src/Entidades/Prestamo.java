@@ -10,7 +10,7 @@ public class Prestamo {
 	int cuotasAdeudadas;
 	int cuotasPagas;
 	String fechaAlta;
-	boolean estado;
+	String estado;
 	
 	public int getIdPrestamo() {
 		return idPrestamo;
@@ -66,16 +66,30 @@ public class Prestamo {
 	public void setFechaAlta(String fechaAlta) {
 		this.fechaAlta = fechaAlta;
 	}
-	public boolean isEstado() {
+	public String getEstado() {
 		return estado;
 	}
-	public void setEstado(boolean estado) {
+	public void setEstado(String estado) {
 		this.estado = estado;
 	}
 	
 	public Prestamo() {
 		
 		
+	}
+	public Prestamo(int idP, int idU, float montoP, float montoPAdeu, float cuotaFija, int cantCuotas, int cuotDeuda,
+			int cuotPagas, String fechaAlta2, String estado2) {
+		
+		this.idUsuario=idU;
+		this.idPrestamo=idP;
+		this.montoPrestamo=montoP;
+		this.montoTotalAdeudado=montoPAdeu;
+		this.importeCuotaFija=cuotaFija;
+		this.cantidadCuotas=cantCuotas;
+		this.cuotasAdeudadas=cuotDeuda;
+		this.cuotasPagas=cuotPagas;
+		this.fechaAlta=fechaAlta2;
+		this.estado=estado2;
 	}
 	
 }

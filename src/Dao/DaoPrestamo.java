@@ -7,8 +7,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 
+import Entidades.Cuenta;
 import Entidades.Prestamo;
+import Entidades.TipoCuenta;
 import iDao.iDaoPrestamo;
 
 public class DaoPrestamo implements iDaoPrestamo{
@@ -21,7 +25,7 @@ public class DaoPrestamo implements iDaoPrestamo{
 	CREATE PROCEDURE `SP_agregarPrestamo` (IN pId int, IN pIdUsu int, IN monto float,IN cuotaValor float, IN cantCuota int, IN fechaAlta varchar(10))
 	BEGIN
 	INSERT INTO Prestamos (IdPrestamo,IdUsuario,MontoPrestado,MontoTotalAdeudado,ImporteCuotaFija,CantidadCuotas,CuotasAdeudadas,CuotasPagas,FechaAlta,Estado) 
-					values (pId,pIdUsu,monto,null,cuotaValor,cantCuota,null,null,fechaAlta,0);
+					values (pId,pIdUsu,monto,null,cuotaValor,cantCuota,null,null,fechaAlta,'Pendiente');
 	END$$
 	
 	DELIMITER ;*/
@@ -73,6 +77,40 @@ public class DaoPrestamo implements iDaoPrestamo{
 		return id+1;
 	}	
 		
+	public List<Prestamo> traerListaPrestamos() {
 		
+		Connection cnn = Conexion.getConexion().getSQLConexion();
+		
+		List<Prestamo> lstPrestamos = new ArrayList<Prestamo>();
+		
+		String query = "SELECT * FROM prestamos";
+		PreparedStatement pst;
+		
+		try {
+
+			pst = cnn.prepareStatement(query);
+			ResultSet rs = pst.executeQuery();
+
+			while (rs.next()) {
+				
+				int idP = rs.getInt(1);
+				int idU = rs.getInt(2);
+				float montoP= rs.getFloat(3);
+				float montoPAdeu= rs.getFloat(4);
+				float cuotaFija=rs.getFloat(5);
+				int cantCuotas = rs.getInt(6);
+				int cuotDeuda=rs.getInt(7);
+				int cuotPagas=rs.getInt(8);
+				String fechaAlta=rs.getString(9);
+				String estado=rs.getString(10);
+
+				lstPrestamos.add(new Prestamo(idP, idU, montoP, montoPAdeu, cuotaFija, cantCuotas, cuotDeuda,cuotPagas,fechaAlta,estado));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return lstPrestamos;
+	}
 	
 }
