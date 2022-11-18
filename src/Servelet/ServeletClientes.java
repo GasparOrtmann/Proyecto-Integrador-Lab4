@@ -128,9 +128,7 @@ public class ServeletClientes extends HttpServlet {
 	
 	}
 
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException { 
 		
 	if(request.getParameter("btnIniciarSesion")!=null) {
 			
@@ -182,6 +180,24 @@ public class ServeletClientes extends HttpServlet {
 			System.out.println(idCuenta);
 		}
 	
+		if(request.getParameter("btnVolver")!=null) {
+			HttpSession miSession= request.getSession(true);
+			Usuario usuarioLogueado = (Usuario)miSession.getAttribute("usuarioIngresado");
+			miSession.setAttribute("usuarioIngresado", usuarioLogueado);
+			NegocioCuentas ncta = new NegocioCuentas();
+			NegocioMovimientos negMo = new NegocioMovimientos();
+			
+			List<Cuenta> lstCuentasUsuario= ncta.traerCuentasUsuario(usuarioLogueado.getIdUsuario());
+			miSession.setAttribute("lstCuentasUsuario", lstCuentasUsuario);
+			int idUsuario = usuarioLogueado.getIdUsuario();
+			List<Cuenta> lista = ncta.traerCuentasUsuario(idUsuario);
+			request.setAttribute("listaCuentas", lista);
+			List<Movimiento> listaHistorial = negMo.traerHistorial();
+			request.setAttribute("listaHistorial", listaHistorial);
+			RequestDispatcher rd=request.getRequestDispatcher("/Cliente/InicioUsuario.jsp");  
+			rd.forward(request, response);
+		}
+		
 		if(request.getParameter("btnEliminar")!=null) {
 			NegocioClientes negCli = new NegocioClientes();
 			int proximoId = negCli.traerProxId();

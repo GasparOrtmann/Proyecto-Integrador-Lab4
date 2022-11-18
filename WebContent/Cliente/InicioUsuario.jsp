@@ -40,13 +40,14 @@
 		
 		<div class="containerContentData">
 			<div class="containerCuentas">
-			<div class="card-header">
+			
+			<%
+			if(listaCuentas != null){ %>
+				<div class="card-header">
 				<div class="card-header-container">
 					<h3 class="card-header-title">Tus cuentas</h3>
 				</div>
-			</div>
-			<%
-			if(listaCuentas != null){
+			</div><%
 				for(Cuenta c : listaCuentas){
 			%>
 				<div class="containerCuenta">
@@ -68,9 +69,19 @@
 			if(listaMovimientos!=null){
 				int idCuenta = Integer.parseInt(request.getParameter("btnVerHistorial"));
 				%>
-				<table class="table table-striped">
+				
+				<div class="card-header">
+				
+				<div class="card-header-container" style="margin-right: auto;">
+					<h3 class="card-header-title">Historial de Cuenta <%=idCuenta %></h3>
+				</div>
+				<div class="card-header">
+					<button type="submit" name="btnVolver" >Volver</button>
+				</div>
+			</div>
+				<table class="table">
 				<thead>
-				<tr>
+				<tr class="th">
 					<td>Número de Movimiento</td>
 					<td>Tipo de Movimiento</td>
 					<td>Fecha</td>
