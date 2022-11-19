@@ -32,7 +32,9 @@ public class ServeletDashboard extends HttpServlet {
 			int cantClientes = negCli.cantClientes();
 			int cantTransacciones = negMo.cantTransacciones();
 			int cantPrestamos = negPre.cantPrestamos();
-
+			int[] prestamosSegunEstado = negPre.prestamosSegunEstado();
+			
+			request.setAttribute("prestamosSegunEstado", prestamosSegunEstado);
 			request.setAttribute("cantClientes", cantClientes);
 			request.setAttribute("cantTransacciones", cantTransacciones);
 			request.setAttribute("cantPrestamos", cantPrestamos);
@@ -60,7 +62,9 @@ public class ServeletDashboard extends HttpServlet {
 			int cantPrestamos = negPre.cantPrestamos();
 			float gananciaPorInteres = negPre.gananciaPorInteres(fechaInicioFormateada,fechaFinFormateada);
 			float montoPrestado = negPre.montoPrestado(fechaInicioFormateada,fechaFinFormateada);
+			int[] prestamosSegunEstado = negPre.prestamosSegunEstado();
 			
+			request.setAttribute("prestamosSegunEstado", prestamosSegunEstado);	
 			request.setAttribute("gananciaPorInteres", gananciaPorInteres);
 			request.setAttribute("montoPrestado", montoPrestado);
 			request.setAttribute("cantClientes", cantClientes);
@@ -78,7 +82,9 @@ public class ServeletDashboard extends HttpServlet {
 			int cantClientes = negCli.cantClientes();
 			int cantTransacciones = negMo.cantTransacciones();
 			int cantPrestamos = negPre.cantPrestamos();
-
+			int[] prestamosSegunEstado = negPre.prestamosSegunEstado();
+			
+			request.setAttribute("prestamosSegunEstado", prestamosSegunEstado);
 			request.setAttribute("cantClientes", cantClientes);
 			request.setAttribute("cantTransacciones", cantTransacciones);
 			request.setAttribute("cantPrestamos", cantPrestamos);

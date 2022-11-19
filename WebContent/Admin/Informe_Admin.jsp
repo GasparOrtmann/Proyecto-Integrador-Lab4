@@ -25,6 +25,7 @@
 	float montoPrestamo = 0;
 	float gananciaPorInteres = 0;
 	int[] prestamosCedidos = new int[12];
+	int[] prestamosSegunEstado = new int[3];
 
 	if (request.getAttribute("cantClientes") != null) {
 		cantClientes = (int) request.getAttribute("cantClientes");
@@ -43,6 +44,9 @@
 	}
 	if (request.getAttribute("prestamosCedidos") != null) {
 		prestamosCedidos = (int[]) request.getAttribute("prestamosCedidos");
+	}
+	if (request.getAttribute("prestamosSegunEstado") != null) {
+		prestamosSegunEstado = (int[]) request.getAttribute("prestamosSegunEstado");
 	}
 	%>
 
@@ -109,12 +113,20 @@
 		<div align="center"
 			style="background-color: white; height: 250px; width: 60%; float: left; margin-left: 50px; margin-top: 160px;">
 			<form method="POST" action="/TPINT_GRUPO_6_LAB4/ServeletDashboard">
-				<label class="fs-3">Prestamos cedidos segun Mes/Año</label>
-				<br>
-				<input class="form-control mt-2" type="number" name="txtAnioPrestamo" onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57" placeholder="Inserte el Año" require>
-				<input class="btn btn-primary my-2" type="submit" name="btnCalcularPrestamo" value="Calcular">
+				<label class="fs-3">Prestamos cedidos segun Mes/Año</label> <br>
+				<input class="form-control mt-2" type="number"
+					name="txtAnioPrestamo"
+					onkeypress="return (event.charCode == 8 || event.charCode == 0 || event.charCode == 13) ? null : event.charCode >= 48 && event.charCode <= 57"
+					placeholder="Inserte el Año" require> <input
+					class="btn btn-primary my-2" type="submit"
+					name="btnCalcularPrestamo" value="Calcular">
 				<canvas id="myChart" width="400" height="200"></canvas>
 			</form>
+		</div>
+		<div align="center"
+			style="background-color: white; height: 100px; width: 60%; float: left; margin-left: 50px; margin-top: 160px;">
+			<label class="fs-3">Prestamos segun estado</label> <br>
+			<canvas id="myChart2" width="400" height="200"></canvas>
 		</div>
 		<script
 			src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"
@@ -130,18 +142,31 @@
 							'Octubre', 'Noviembre', 'Diciembre' ],
 					datasets : [ {
 						label : 'Dinero prestado por el banco segun cada mes',
-						data : [ <%= prestamosCedidos[0]%>, 
-							    <%= prestamosCedidos[1]%>, 
-							    <%= prestamosCedidos[2]%>,
-							    <%= prestamosCedidos[3]%>,
-							    <%= prestamosCedidos[4]%>, 
-								<%= prestamosCedidos[5]%>,
-								<%= prestamosCedidos[6]%>,
-								<%= prestamosCedidos[7]%>,
-							 	<%= prestamosCedidos[8]%>,
-								<%= prestamosCedidos[9]%>,
-								<%= prestamosCedidos[10]%>,
-								<%= prestamosCedidos[11]%>],
+						data : [
+		<%=prestamosCedidos[0]%>
+			,
+		<%=prestamosCedidos[1]%>
+			,
+		<%=prestamosCedidos[2]%>
+			,
+		<%=prestamosCedidos[3]%>
+			,
+		<%=prestamosCedidos[4]%>
+			,
+		<%=prestamosCedidos[5]%>
+			,
+		<%=prestamosCedidos[6]%>
+			,
+		<%=prestamosCedidos[7]%>
+			,
+		<%=prestamosCedidos[8]%>
+			,
+		<%=prestamosCedidos[9]%>
+			,
+		<%=prestamosCedidos[10]%>
+			,
+		<%=prestamosCedidos[11]%>
+			],
 						backgroundColor : [ 'rgba(255, 99, 132, 0.2)',
 								'rgba(54, 162, 235, 0.2)',
 								'rgba(255, 206, 86, 0.2)',
@@ -154,6 +179,37 @@
 								'rgba(75, 192, 192, 1)',
 								'rgba(153, 102, 255, 1)',
 								'rgba(255, 159, 64, 1)' ],
+						borderWidth : 1
+					} ]
+				},
+				options : {
+					scales : {
+						y : {
+							beginAtZero : true
+						}
+					}
+				}
+			});
+			const ctx2 = document.getElementById('myChart2').getContext('2d');
+			const myChart2 = new Chart(ctx2, {
+				type : 'doughnut',
+				data : {
+					labels : [ 'Aprobado', 'Rechazado', 'Pendiente' ],
+					datasets : [ {
+						label : 'Prestamos segun estado',
+						data : [
+		<%=prestamosSegunEstado[0]%>
+			,
+		<%=prestamosSegunEstado[1]%>
+			,
+		<%=prestamosSegunEstado[2]%>
+			],
+						backgroundColor : [ 'rgba(255, 99, 132, 0.2)',
+								'rgba(54, 162, 235, 0.2)',
+								'rgba(255, 206, 86, 0.2)' ],
+						borderColor : [ 'rgba(255, 99, 132, 1)',
+								'rgba(54, 162, 235, 1)',
+								'rgba(255, 206, 86, 1)' ],
 						borderWidth : 1
 					} ]
 				},

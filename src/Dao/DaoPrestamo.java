@@ -217,5 +217,32 @@ public class DaoPrestamo implements iDaoPrestamo{
 		}
 		return prestamosCedidos;
 	}
+
+	@Override
+	public int[] prestamosSegunEstado() {
+		Connection cnn = Conexion.getConexion().getSQLConexion();
+		int[] prestamosSegunEstado = new int[3];
+		String query = "SELECT COUNT(*) AS PRESTAMOS FROM prestamos WHERE Estado=\"Aprobado\"\r\n"
+				+ " UNION ALL\r\n"
+				+ "SELECT COUNT(*) AS PRESTAMOS FROM prestamos WHERE Estado=\"Rechazado\"\r\n"
+				+ " UNION ALL\r\n"
+				+ "SELECT COUNT(*) AS PRESTAMOS FROM prestamos WHERE Estado=\"Pendiente\"";
+		PreparedStatement pst;
+		try {
+
+			pst = cnn.prepareStatement(query);
+			ResultSet rs = pst.executeQuery();
+			
+			int vuelta=0;
+			while (rs.next()) {
+				int cant = rs.getInt(1);
+				prestamosSegunEstado[vuelta]=cant;
+				vuelta++;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return prestamosSegunEstado;
+	}
 	
 }

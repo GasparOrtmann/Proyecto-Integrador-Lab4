@@ -13,4 +13,5 @@ public interface iDaoPrestamo {
 	float gananciaPorInteres(String fechaInicioFormateada,String fechaFinFormateada);
 	float montoPrestado(String fechaInicioFormateada,String fechaFinFormateada);
 	int[] prestamosCedidos(int anioSeleccionado);
+	int[] prestamosSegunEstado();
 }

@@ -57,6 +57,12 @@ public class NegocioPrestamo implements iNegocioPrestamo {
 		int[] prestamosCedidos = pdao.prestamosCedidos(anioSeleccionado);
 		return prestamosCedidos;
 	}
+
+	@Override
+	public int[] prestamosSegunEstado() {
+		int[] prestamosSegunEstado = pdao.prestamosSegunEstado();
+		return prestamosSegunEstado;
+	}
 	
 
 }

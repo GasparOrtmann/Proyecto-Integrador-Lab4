@@ -48,7 +48,7 @@
 					
 					<ul class="list-unstyled ps-0">
 						<li class="mb-1">
-							<a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Prestamos Pendientes</a>
+							<a href="/TPINT_GRUPO_6_LAB4/ServeletDashboard?TraerInformacionDashboard=1" class="btn btn-toggle d-inline-flex align-items-center rounded border-0">DASHBOARD</a>
 						</li>
 						<li class="border-top my-3"></li>
 						<li class="mb-1">
