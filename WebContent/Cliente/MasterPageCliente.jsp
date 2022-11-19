@@ -59,7 +59,7 @@
 							<button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false">TRANSFERENCIAS</button>
 							<div class="collapse" id="account-collapse" style="">
 								<ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
-									<li><a href="#"
+									<li><a href="/TPINT_GRUPO_6_LAB4/ServletMovimientos?TraerCuentasUsuario=1"
 										class="link-dark d-inline-flex text-decoration-none rounded">A
 											Cuenta Propia</a></li>
 									<li><a href="#" class="link-dark d-inline-flex text-decoration-none rounded">A Otras Cuentas</a></li>

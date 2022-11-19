@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mysql.jdbc.Statement;
+
 import Entidades.Cuenta;
 import Entidades.Movimiento;
 import Entidades.TipoMovimiento;
@@ -101,5 +103,95 @@ public class DaoMovimientos implements iDaoMovimientos{
 			e.printStackTrace();
 		}
 		return cantTransacciones;
+	}
+	
+	@Override
+	public int movimientoPositivo(int idCuenta, float monto) {
+		Connection cn = Conexion.getConexion().getSQLConexion();
+		String query = "UPDATE cuentas SET saldo = (saldo+"+monto+") WHERE IdCuenta ="+idCuenta;
+		
+		int filas=0;
+		try 
+		{
+			Statement st = (Statement) cn.createStatement();
+			 filas =st.executeUpdate(query);
+			 cn.commit();
+		}catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+		
+		
+		return filas;
+	}
+
+	@Override
+	public int movimientoNegativo(int idCuenta, float monto) {
+		Connection cn = Conexion.getConexion().getSQLConexion();
+		String query = "UPDATE cuentas SET saldo = (saldo-"+monto+") WHERE IdCuenta ="+idCuenta;
+		
+		int filas=0;
+		try 
+		{
+			Statement st = (Statement) cn.createStatement();
+			 filas =st.executeUpdate(query);
+			 cn.commit();
+		}catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+		
+		
+		return filas;
+	}
+
+	@Override
+	public int generarTransferncia(int cuentaOrigen, int cuentaDestino, float monto) {
+			
+		Connection cn = Conexion.getConexion().getSQLConexion();
+		int proxId=proxId();
+		String query = "INSERT INTO movimientos(IdMovimiento,IdTipoMovimiento,IdCuenta,Fecha,importe,Detalle)"
+						+"VALUES ("+proxId+",4,"+cuentaOrigen+",CURRENT_DATE(),"+monto+",'transferencia')";
+		
+		int filas=0;
+			filas+=movimientoNegativo(cuentaOrigen,monto);
+			filas+=movimientoPositivo(cuentaDestino,monto);
+			
+		if(filas==2)
+		{
+			try
+			{
+				Statement st = (Statement) cn.createStatement();
+				filas += st.executeUpdate(query);
+				cn.commit();
+				
+			}catch(SQLException e)
+			{
+				e.printStackTrace();
+			}
+		}
+	
+		
+		return filas;
+	}
+
+	@Override
+	public int proxId() {
+		Connection cnn = Conexion.getConexion().getSQLConexion();
+		
+		String query = "Select MAX(IdMovimiento) AS id from movimientos";
+		Integer id=0;
+		
+		PreparedStatement pst;
+		try {
+			pst = cnn.prepareStatement(query);
+			ResultSet rs = pst.executeQuery();
+			rs.next();
+			id = rs.getInt("id");
+			}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return id+1;
 	}
 }

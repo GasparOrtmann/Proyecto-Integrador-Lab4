@@ -30,4 +30,13 @@ public class NegocioMovimientos implements iNegocioMovimientos{
 		DaoMovimientos daoMo = new DaoMovimientos();
 		return daoMo.cantTransacciones();
 	}
+	public Boolean generarTransferncia(int cuentaOrigen, int cuentaDestino, float monto) {
+		DaoMovimientos daoMo = new DaoMovimientos();
+		
+		if(daoMo.generarTransferncia(cuentaOrigen,cuentaDestino,monto)>0){
+			return true;
+		}
+		
+		return false;
+	}
 }

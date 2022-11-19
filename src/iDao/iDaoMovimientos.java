@@ -13,5 +13,9 @@ public interface iDaoMovimientos {
 	List<Movimiento> traerHistorial();
 	
 	int cantTransacciones();
-
+	
+	int movimientoPositivo(int idCuenta,float monto);
+	int movimientoNegativo(int idCuenta,float monto);
+	int generarTransferncia(int cuentaOrigen,int cuentaDestino,float monto);
+	int proxId();
 }

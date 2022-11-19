@@ -9,4 +9,5 @@ public interface iNegocioMovimientos {
 	String traerTipoMovimiento(int Id);
 	List<Movimiento> traerHistorial();
 	int cantTransacciones();
+	Boolean generarTransferncia(int cuentaOrigen,int cuentaDestino,float monto);
 }
