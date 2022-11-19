@@ -112,5 +112,110 @@ public class DaoPrestamo implements iDaoPrestamo{
 		}
 		return lstPrestamos;
 	}
+	@Override
+	public int cantPrestamos() {
+		Connection cnn = Conexion.getConexion().getSQLConexion();
+		String query = "SELECT COUNT(*) as cantPrestamos FROM prestamos WHERE Estado='Aprobado'";
+		Integer cantPrestamos = 0;
+
+		PreparedStatement pst;
+		try {
+			pst = cnn.prepareStatement(query);
+			ResultSet rs = pst.executeQuery();
+			rs.next();
+			cantPrestamos = rs.getInt("cantPrestamos");
+		}
+
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return cantPrestamos;
+	}
+
+	@Override
+	public float gananciaPorInteres(String fechaInicioFormateada, String fechaFinFormateada) {
+		Connection cnn = Conexion.getConexion().getSQLConexion();
+		String query = "SELECT SUM(MontoTotalAdeudado-MontoPrestamo) as gananciaPorInteres FROM prestamos WHERE str_to_date(FechaAlta,'%d / %m / %Y')>str_to_date('"+fechaInicioFormateada+"','%d / %m / %Y') AND str_to_date(FechaAlta,'%d / %m / %Y')<str_to_date('"+fechaFinFormateada+"','%d / %m / %Y') AND Estado='Aprobado';";
+		Integer gananciaPorInteres = 0;
+
+		PreparedStatement pst;
+		try {
+			pst = cnn.prepareStatement(query);
+			ResultSet rs = pst.executeQuery();
+			rs.next();
+			gananciaPorInteres = rs.getInt("gananciaPorInteres");
+		}
+
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return gananciaPorInteres;
+	}
+
+	@Override
+	public float montoPrestado(String fechaInicioFormateada, String fechaFinFormateada) {
+		Connection cnn = Conexion.getConexion().getSQLConexion();
+		String query = "SELECT SUM(MontoPrestamo) as montoPrestado FROM prestamos WHERE str_to_date(FechaAlta,'%d / %m / %Y')>str_to_date('"+fechaInicioFormateada+"','%d / %m / %Y') AND str_to_date(FechaAlta,'%d / %m / %Y')<str_to_date('"+fechaFinFormateada+"','%d / %m / %Y') AND Estado='Aprobado';";
+		Integer montoPrestado = 0;
+
+		PreparedStatement pst;
+		try {
+			pst = cnn.prepareStatement(query);
+			ResultSet rs = pst.executeQuery();
+			rs.next();
+			montoPrestado = rs.getInt("montoPrestado");
+		}
+
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return montoPrestado;
+	}
+
+	@Override
+	public int[] prestamosCedidos(int anioSeleccionado) {
+		Connection cnn = Conexion.getConexion().getSQLConexion();
+		int[] prestamosCedidos = new int[12];
+		String query = "SELECT COUNT(*) AS MESES FROM prestamos WHERE substr(FechaAlta,4,2)=\"01\" AND  substr(FechaAlta,7,7)= '"+anioSeleccionado+"' AND Estado='Aprobado'\r\n"
+				+ " UNION ALL\r\n"
+				+ " SELECT COUNT(*) FROM prestamos WHERE substr(FechaAlta,4,2)=\"02\" AND  substr(FechaAlta,7,7)= '"+anioSeleccionado+"' AND Estado='Aprobado'\r\n"
+				+ "  UNION ALL\r\n"
+				+ " SELECT COUNT(*) FROM prestamos WHERE substr(FechaAlta,4,2)=\"03\" AND  substr(FechaAlta,7,7)= '"+anioSeleccionado+"' AND Estado='Aprobado'\r\n"
+				+ "  UNION ALL\r\n"
+				+ " SELECT COUNT(*) FROM prestamos WHERE substr(FechaAlta,4,2)=\"04\" AND  substr(FechaAlta,7,7)= '"+anioSeleccionado+"' AND Estado='Aprobado'\r\n"
+				+ "  UNION ALL\r\n"
+				+ " SELECT COUNT(*) FROM prestamos WHERE substr(FechaAlta,4,2)=\"05\" AND  substr(FechaAlta,7,7)= '"+anioSeleccionado+"' AND Estado='Aprobado'\r\n"
+				+ "  UNION ALL\r\n"
+				+ " SELECT COUNT(*) FROM prestamos WHERE substr(FechaAlta,4,2)=\"06\" AND  substr(FechaAlta,7,7)= '"+anioSeleccionado+"' AND Estado='Aprobado'\r\n"
+				+ "  UNION ALL\r\n"
+				+ " SELECT COUNT(*) FROM prestamos WHERE substr(FechaAlta,4,2)=\"07\" AND  substr(FechaAlta,7,7)= '"+anioSeleccionado+"' AND Estado='Aprobado'\r\n"
+				+ "   UNION ALL\r\n"
+				+ " SELECT COUNT(*) FROM prestamos WHERE substr(FechaAlta,4,2)=\"08\" AND  substr(FechaAlta,7,7)= '"+anioSeleccionado+"' AND Estado='Aprobado'\r\n"
+				+ "   UNION ALL\r\n"
+				+ " SELECT COUNT(*) FROM prestamos WHERE substr(FechaAlta,4,2)=\"09\" AND  substr(FechaAlta,7,7)= '"+anioSeleccionado+"' AND Estado='Aprobado'\r\n"
+				+ "   UNION ALL\r\n"
+				+ " SELECT COUNT(*) FROM prestamos WHERE substr(FechaAlta,4,2)=\"10\" AND  substr(FechaAlta,7,7)= '"+anioSeleccionado+"' AND Estado='Aprobado'\r\n"
+				+ "   UNION ALL\r\n"
+				+ " SELECT COUNT(*) FROM prestamos WHERE substr(FechaAlta,4,2)=\"11\" AND  substr(FechaAlta,7,7)= '"+anioSeleccionado+"' AND Estado='Aprobado'\r\n"
+				+ "   UNION ALL\r\n"
+				+ " SELECT COUNT(*) FROM prestamos WHERE substr(FechaAlta,4,2)=\"12\" AND  substr(FechaAlta,7,7)= '"+anioSeleccionado+"' AND Estado='Aprobado'\r\n"
+				+ "";
+		PreparedStatement pst;
+		try {
+
+			pst = cnn.prepareStatement(query);
+			ResultSet rs = pst.executeQuery();
+			
+			int vuelta=0;
+			while (rs.next()) {
+				int cant = rs.getInt(1);
+				prestamosCedidos[vuelta]=cant;
+				vuelta++;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return prestamosCedidos;
+	}
 	
 }

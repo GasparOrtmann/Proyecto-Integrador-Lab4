@@ -83,4 +83,23 @@ public class DaoMovimientos implements iDaoMovimientos{
 		}
 		return lstTrans;
 	}
+	@Override
+	public int cantTransacciones() {
+		Connection cnn = Conexion.getConexion().getSQLConexion();
+		String query = "SELECT COUNT(*) as cantTransacciones FROM movimientos";
+		Integer cantTransacciones = 0;
+
+		PreparedStatement pst;
+		try {
+			pst = cnn.prepareStatement(query);
+			ResultSet rs = pst.executeQuery();
+			rs.next();
+			cantTransacciones = rs.getInt("cantTransacciones");
+		}
+
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return cantTransacciones;
+	}
 }

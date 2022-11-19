@@ -13,4 +13,5 @@ public interface iDaoClientes {
 	int traerProximoId ();
 	int modificar (Usuario usuario);
 	int agregar (Usuario usuario);
+	int cantClientes();
 }

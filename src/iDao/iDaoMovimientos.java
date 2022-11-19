@@ -11,5 +11,7 @@ public interface iDaoMovimientos {
 	String traerTipoMovimiento(int Id);
 
 	List<Movimiento> traerHistorial();
+	
+	int cantTransacciones();
 
 }

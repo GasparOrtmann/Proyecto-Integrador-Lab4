@@ -263,5 +263,24 @@ public class DaoClientes implements iDaoClientes {
 		}
 		return lstUsuario;
 	}
+	@Override
+	public int cantClientes() {
+		Connection cnn = Conexion.getConexion().getSQLConexion();
+		String query = "SELECT COUNT(*) as cantClientes FROM usuarios";
+		Integer cantClientes = 0;
+
+		PreparedStatement pst;
+		try {
+			pst = cnn.prepareStatement(query);
+			ResultSet rs = pst.executeQuery();
+			rs.next();
+			cantClientes = rs.getInt("cantClientes");
+		}
+
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return cantClientes;
+	}
 
 }

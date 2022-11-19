@@ -33,6 +33,30 @@ public class NegocioPrestamo implements iNegocioPrestamo {
 		 List<Prestamo> lstPrestamos = pdao.traerListaPrestamos();
 		return lstPrestamos;
 	}
+
+	@Override
+	public int cantPrestamos() {
+		int cantPrestamos = pdao.cantPrestamos();
+		return cantPrestamos;
+	}
+
+	@Override
+	public float gananciaPorInteres(String fechaInicioFormateada, String fechaFinFormateada) {
+		float gananciaPorInteres = pdao.gananciaPorInteres(fechaInicioFormateada, fechaFinFormateada);
+		return gananciaPorInteres;
+	}
+
+	@Override
+	public float montoPrestado(String fechaInicioFormateada, String fechaFinFormateada) {
+		float montoPrestado = pdao.montoPrestado(fechaInicioFormateada, fechaFinFormateada);
+		return montoPrestado;
+	}
+
+	@Override
+	public int[] prestamosCedidos(int anioSeleccionado) {
+		int[] prestamosCedidos = pdao.prestamosCedidos(anioSeleccionado);
+		return prestamosCedidos;
+	}
 	
 
 }

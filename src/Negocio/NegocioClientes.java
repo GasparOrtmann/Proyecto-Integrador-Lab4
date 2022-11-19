@@ -50,4 +50,10 @@ public class NegocioClientes implements iNegocioClientes {
 		return daoCli.traerListaConFiltro(filtroAplicar);
 	}
 
+	@Override
+	public int cantClientes() {
+		DaoClientes daoCli = new DaoClientes();
+		return daoCli.cantClientes();
+	}
+
 }

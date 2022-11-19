@@ -12,4 +12,5 @@ public interface iNegocioClientes {
 	int modificar(Usuario usuario);
 	int agregar(Usuario usuario);
 	int traerProxId();
+	int cantClientes();
 }

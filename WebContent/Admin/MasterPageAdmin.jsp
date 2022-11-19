@@ -48,7 +48,7 @@
 					
 					<ul class="list-unstyled ps-0">
 						<li class="mb-1">
-							<button class="btn btn-toggle d-inline-flex align-items-center rounded border-0">DASHBOARD</button>
+							<a href="#" class="link-dark d-inline-flex text-decoration-none rounded">Prestamos Pendientes</a>
 						</li>
 						<li class="border-top my-3"></li>
 						<li class="mb-1">

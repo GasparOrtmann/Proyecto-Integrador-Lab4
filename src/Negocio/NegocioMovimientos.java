@@ -26,4 +26,8 @@ public class NegocioMovimientos implements iNegocioMovimientos{
 		return daoMo.traerHistorial();
 	}
 
+	public int cantTransacciones() {
+		DaoMovimientos daoMo = new DaoMovimientos();
+		return daoMo.cantTransacciones();
+	}
 }
