@@ -124,7 +124,7 @@
 			</form>
 		</div>
 		<div align="center"
-			style="background-color: white; height: 100px; width: 60%; float: left; margin-left: 50px; margin-top: 160px;">
+			style="background-color: white; height: 100px; width: 60%; float: left; margin-left: 50px; margin-top: 180px;">
 			<label class="fs-3">Prestamos segun estado</label> <br>
 			<canvas id="myChart2" width="400" height="200"></canvas>
 		</div>
