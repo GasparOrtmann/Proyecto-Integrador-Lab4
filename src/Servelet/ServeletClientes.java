@@ -17,12 +17,14 @@ import Entidades.Cuenta;
 import Entidades.Localidad;
 import Entidades.Movimiento;
 import Entidades.Nacionalidad;
+import Entidades.Telefono;
 import Entidades.Usuario;
 import Negocio.NegocioClientes;
 import Negocio.NegocioCuentas;
 import Negocio.NegocioLocalidad;
 import Negocio.NegocioMovimientos;
 import Negocio.NegocioNacionalidad;
+import Negocio.NegocioTelefono;
 import Negocio.UsuarioNegocio;
 import iNegocio.IUsuarioNegocio;
 import iNegocio.iNegocioCuentas;
@@ -145,6 +147,7 @@ public class ServeletClientes extends HttpServlet {
 			
 			HttpSession miSession= request.getSession(true);
 			miSession.setAttribute("usuarioIngresado", usuarioIngresado);
+			miSession.setAttribute("tipoDeUsuario", usuarioIngresado.isEsAdmin());
 			
 			if(usuarioIngresado.getIdUsuario()!= 0) {
 				
@@ -249,8 +252,10 @@ public class ServeletClientes extends HttpServlet {
 		}
 		if(request.getParameter("btnEditar")!=null) {
 			NegocioClientes negCli = new NegocioClientes();
+			NegocioTelefono negTel = new NegocioTelefono();
 			int proximoId = negCli.traerProxId();
 			Usuario traerCliente = negCli.traerCliente(request.getParameter("idModificar"));
+			Telefono traerTelefono = negTel.traerTelefonoCliente(traerCliente.getIdUsuario());
 			javax.servlet.http.Cookie[] cookies = request.getCookies();
 			String textoFiltro=null;
 			String filtro = null;
@@ -290,6 +295,7 @@ public class ServeletClientes extends HttpServlet {
 			request.setAttribute("listaNacionalidades", listaNac);
 			NegocioLocalidad negLoc = new NegocioLocalidad();
 			List<Localidad> listaLoc=negLoc.traerLista();
+			request.setAttribute("telefonoEditar", traerTelefono);
 			request.setAttribute("listaLocalidades", listaLoc);
 			request.setAttribute("clienteEditar", traerCliente);
 			request.setAttribute("proximoId", proximoId);
@@ -298,6 +304,7 @@ public class ServeletClientes extends HttpServlet {
 		}
 		if(request.getParameter("btnEditarUsuario")!=null) {
 			NegocioClientes negCli = new NegocioClientes();
+			NegocioTelefono negTel = new NegocioTelefono();
 			int proximoId = negCli.traerProxId();
 			boolean estadoEsAdmin = false;
 			boolean estadoEstado = false;
@@ -330,9 +337,20 @@ public class ServeletClientes extends HttpServlet {
 			int altura = Integer.valueOf(request.getParameter("txtAltura"));
 			int cantCuentas = Integer.valueOf(request.getParameter("txtCantCuentas"));
 			
+			Telefono telefono = new Telefono();
+			telefono.setIdUsuario(id);
+			telefono.setNroTelefono(request.getParameter("txtTelefono"));
+			telefono.setEstado(true);
 			Usuario u = new Usuario(id,admin,cuil,dni,fechaNac,usuario,contrasenia,nombre,apellido,sexo,new Localidad(localidad),calle,altura,new Nacionalidad(nacionalidad),email, cantCuentas,estado);		
-			int filasAfectadas = negCli.modificar(u);
-			request.setAttribute("filasAfectadasEditar", filasAfectadas);
+			
+			if(request.getParameter("txtContrasenia").equals(request.getParameter("txtRepetirContrasenia"))) {
+				int filasAfectadas = negCli.modificar(u);
+				int filasAfectadasTelefono = negTel.modificar(telefono);
+				request.setAttribute("filasAfectadasEditar", filasAfectadas);
+			}else {
+				request.setAttribute("errorContrasenia", 1);
+			}
+			
 			javax.servlet.http.Cookie[] cookies = request.getCookies();
 			String textoFiltro=null;
 			String filtro = null;
@@ -379,6 +397,7 @@ public class ServeletClientes extends HttpServlet {
 		}
 		if(request.getParameter("btnCrearUsuario")!=null) {
 			NegocioClientes negCli = new NegocioClientes();
+			NegocioTelefono negTel = new NegocioTelefono();
 			boolean estadoEsAdmin = false;
 			boolean estadoEstado = false;
 			if(request.getParameter("txtAdmin")!=null) {
@@ -409,10 +428,21 @@ public class ServeletClientes extends HttpServlet {
 			int altura = Integer.valueOf(request.getParameter("txtAltura"));
 			int cantCuentas = Integer.valueOf(request.getParameter("txtCantCuentas"));
 			
+			Telefono telefono = new Telefono();
+			telefono.setEstado(true);
+			telefono.setIdUsuario(id);
+			telefono.setNroTelefono(request.getParameter("txtTelefono"));
 			Usuario u = new Usuario(id,admin,cuil,dni,fechaNac,usuario,contrasenia,nombre,apellido,sexo,new Localidad(localidad),calle,altura,new Nacionalidad(nacionalidad),email, cantCuentas,estado);		
-			int filasAfectadas = negCli.agregar(u);
+			
 			int proximoId = negCli.traerProxId();
-			request.setAttribute("filasAfectadasCrear", filasAfectadas);
+			if(request.getParameter("txtContrasenia").equals(request.getParameter("txtRepetirContrasenia"))) {
+				int filasAfectadas = negCli.agregar(u);
+				int filasAfectadasTelefono = negTel.modificar(telefono);
+				request.setAttribute("filasAfectadasCrear", filasAfectadas);
+			}else {
+				request.setAttribute("errorContrasenia", 1);
+			}
+			
 			javax.servlet.http.Cookie[] cookies = request.getCookies();
 			String textoFiltro=null;
 			String filtro = null;

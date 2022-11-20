@@ -1,5 +1,6 @@
 <%@page import="java.io.Console"%>
 <%@page import="Entidades.Usuario"%>
+<%@page import="Entidades.Telefono"%>
 <%@page import="Entidades.Nacionalidad"%>
 <%@page import="Entidades.Localidad"%>
 <%@page import="java.util.List"%>
@@ -27,7 +28,16 @@
 </head>
 <body>
 	<%@include file="MasterPageAdmin.jsp"%>
-
+	
+	<%
+		if(miSession.getAttribute("tipoDeUsuario")!=null){
+			if((Boolean)miSession.getAttribute("tipoDeUsuario")==false){
+				response.sendRedirect("/TPINT_GRUPO_6_LAB4/Cliente/InicioUsuario.jsp");
+			}
+		}else{
+			response.sendRedirect("/TPINT_GRUPO_6_LAB4/Login.jsp");
+		}
+	%>
 	<div style="position: absolute; top: 150px; left: 300px;">
 		<form method="POST" action="/TPINT_GRUPO_6_LAB4/ServeletClientes"
 			class="centrar-column">
@@ -41,6 +51,8 @@
 			int filasAfectadasCrear = 0;
 			int filasAfectadasEditar = 0;
 			boolean filasAfectadasBorrar = false;
+			Telefono telefonoEditar = null;
+			int errorContrasenia = 0;
 
 			int cantidadDeClientes = 3;
 
@@ -52,6 +64,9 @@
 			}
 			if (request.getAttribute("clienteEditar") != null) {
 				clienteEditar = (Usuario) request.getAttribute("clienteEditar");
+			}
+			if (request.getAttribute("telefonoEditar") != null) {
+				telefonoEditar = (Telefono) request.getAttribute("telefonoEditar");
 			}
 			if (request.getAttribute("listaLocalidades") != null) {
 				listaLoc = (List<Localidad>) request.getAttribute("listaLocalidades");
@@ -71,27 +86,48 @@
 			if (request.getAttribute("filasAfectadasBorrar") != null) {
 				filasAfectadasBorrar = Boolean.valueOf(request.getAttribute("filasAfectadasBorrar").toString());
 			}
+			if (request.getAttribute("errorContrasenia") != null) {
+				errorContrasenia = (Integer) (request.getAttribute("errorContrasenia"));
+			}
 			%>
-			<%if(filasAfectadasCrear!=0){ %>
-			<div class="alert alert-success alert-dismissible fade show" role="alert">
-			  Cliente Creado Exitosamente!
-			  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			<%
+			if (filasAfectadasCrear != 0) {
+			%>
+			<div class="alert alert-success alert-dismissible fade show"
+				role="alert">
+				Cliente Creado Exitosamente!
+				<button type="button" class="btn-close" data-bs-dismiss="alert"
+					aria-label="Close"></button>
 			</div>
-			<%} %>
-			<%if(filasAfectadasBorrar){ %>
-			<div class="alert alert-success alert-dismissible fade show" role="alert">
-			  Se cambio exitosamente el estado del Cliente!
-			  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			<%
+			}
+			%>
+			<%
+			if (filasAfectadasBorrar) {
+			%>
+			<div class="alert alert-success alert-dismissible fade show"
+				role="alert">
+				Se cambio exitosamente el estado del Cliente!
+				<button type="button" class="btn-close" data-bs-dismiss="alert"
+					aria-label="Close"></button>
 			</div>
-			<%} %>
-			<%if(filasAfectadasEditar!=0){ %>
-			<div class="alert alert-success alert-dismissible fade show" role="alert">
-			  Cliente Editado Exitosamente!
-			  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			<%
+			}
+			%>
+			<%
+			if (filasAfectadasEditar != 0) {
+			%>
+			<div class="alert alert-success alert-dismissible fade show"
+				role="alert">
+				Cliente Editado Exitosamente!
+				<button type="button" class="btn-close" data-bs-dismiss="alert"
+					aria-label="Close"></button>
 			</div>
-			<%} %>
+			<%
+			}
+			%>
 			<h1>Gestion Clientes</h1>
-			
+
 			<div class="centrar-row">
 				<select name="ddlFiltro" id="filtro">
 					<option value="todos">TODOS</option>
@@ -99,8 +135,9 @@
 					<option value="filtrarPorUsuario">Usuario</option>
 					<option value="filtrarPorNombre">Nombre</option>
 					<option value="filtrarPorApellido">Apellido</option>
-				</select>
-				<label id="tituloFiltro"></label> <input id="inputFiltro" name="inputFiltro"/> <input type="submit" name="filtrar" value="Filtrar">
+				</select> <label id="tituloFiltro"></label> <input id="inputFiltro"
+					name="inputFiltro" /> <input type="submit" name="filtrar"
+					value="Filtrar">
 				<script>
 					function getCookie(cookieName) {
 						  let cookie = {};
@@ -259,21 +296,33 @@
 					%>
 				</tbody>
 			</table>
-			</form>
-			<%
-			if (listaCli != null) {
-				for (int i = 0; i < Math.ceil((float) listaCli.size() / cantidadDeClientes); i++) {
-			%>
-			<a href="/TPINT_GRUPO_6_LAB4/ServeletClientes?paginar=<%=i + 1%>"><%=i + 1%></a>
-			<%
-			}
-			}
-			%>
-			<%
-			if (clienteEditar == null) {
-			%>
-			<form method="POST" action="/TPINT_GRUPO_6_LAB4/ServeletClientes"
+		</form>
+		<%
+		if (listaCli != null) {
+			for (int i = 0; i < Math.ceil((float) listaCli.size() / cantidadDeClientes); i++) {
+		%>
+		<a href="/TPINT_GRUPO_6_LAB4/ServeletClientes?paginar=<%=i + 1%>"><%=i + 1%></a>
+		<%
+		}
+		}
+		%>
+		<%
+		if (clienteEditar == null) {
+		%>
+		<form method="POST" action="/TPINT_GRUPO_6_LAB4/ServeletClientes"
 			class="centrar-column">
+			<%
+			if (errorContrasenia == 1) {
+			%>
+			<div class="alert alert-danger alert-dismissible fade show"
+				role="alert">
+				Error! las contraseñas no coinciden
+				<button type="button" class="btn-close" data-bs-dismiss="alert"
+					aria-label="Close"></button>
+			</div>
+			<%
+			}
+			%>
 			<h2>Creacion de Cliente</h2>
 			<div class="centrar-row">
 				<div class="centrar-column container-fields">
@@ -291,7 +340,15 @@
 						<b>Usuario</b> <input type="text" name="txtUsuario" required>
 					</div>
 					<div>
-						<b>Contraseña</b> <input type="password" name="txtContrasenia" required>
+						<b>Contraseña</b> <input type="password" name="txtContrasenia"
+							id="contrasenia" required>
+
+					</div>
+					<div>
+						<b>Repetir Contraseña</b> <input type="password"
+							name="txtRepetirContrasenia" id="repetirContrasenia" required
+							onfocusout="comprobarClave()">
+
 					</div>
 					<div>
 						<b>Nombre</b> <input type="text" name="txtNombre" required>
@@ -309,7 +366,8 @@
 						</select>
 					</div>
 					<div>
-						<b>Fecha de Nacimiento</b> <input type="date" name="txtFechaNac" required>
+						<b>Fecha de Nacimiento</b> <input type="date" name="txtFechaNac"
+							required>
 					</div>
 					<div>
 						<b>Nacionalidad</b> <select name="txtNacionalidad" required>
@@ -349,10 +407,13 @@
 						<b>Email</b> <input type="email" name="txtEmail" required>
 					</div>
 					<div>
-						<b>Estado</b> <input type="checkbox" name="txtEstado" >
+						<b>Telefono</b> <input name="txtTelefono" type="number" required>
 					</div>
 					<div>
-						<b>Admin?</b> <input type="checkbox" name="txtAdmin" >
+						<b>Estado</b> <input type="checkbox" name="txtEstado">
+					</div>
+					<div>
+						<b>Admin?</b> <input type="checkbox" name="txtAdmin">
 					</div>
 					<input type="text" hidden name="txtCantCuentas" value="0">
 				</div>
@@ -372,11 +433,11 @@
 					</div>
 					<div>
 						<b>DNI</b> <input name="txtDni" type="number"
-							value="<%=clienteEditar.getNroDni()%>">
+							value="<%=clienteEditar.getNroDni()%>" required>
 					</div>
 					<div>
 						<b>CUIL</b> <input name=txtCuil type="number"
-							value="<%=clienteEditar.getNroCuil()%>">
+							value="<%=clienteEditar.getNroCuil()%>" required>
 					</div>
 					<div>
 						<b>Usuario</b> <input name="txtUsuario"
@@ -385,20 +446,26 @@
 					</div>
 					<div>
 						<b>Contraseña</b> <input type="password" name="txtContrasenia"
-							value="<%=clienteEditar.getPassword()%>">
+							id="repetirContrasenia" value="<%=clienteEditar.getPassword()%>"
+							required>
+					</div>
+					<div>
+						<b>Repetir contraseña</b> <input type="password" id="contrasenia"
+							value="<%=clienteEditar.getPassword()%>" required
+							onfocusout="comprobarClave()" name="txtRepetirContrasenia">
 					</div>
 					<div>
 						<b>Nombre</b> <input name="txtNombre" type="text"
-							value="<%=clienteEditar.getNombre()%>">
+							value="<%=clienteEditar.getNombre()%>" required>
 					</div>
 					<div>
 						<b>Apellido</b> <input name="txtApellido" type="text"
-							value="<%=clienteEditar.getApellido()%>">
+							value="<%=clienteEditar.getApellido()%>" required>
 					</div>
 				</div>
 				<div class="centrar-column container-fields">
 					<div>
-						<b>Sexo</b> <select name="txtSexo">
+						<b>Sexo</b> <select name="txtSexo" required>
 							<option
 								<%String sexoMasculino = "";
 if (clienteEditar.getSexo().equals("Masculino")) {
@@ -426,10 +493,10 @@ if (clienteEditar.getSexo().equals("Otro")) {
 						Date dbDate = new Date(date);
 						%>
 						<b>Fecha de Nacimiento</b> <input type="date" name="txtFechaNac"
-							value="<%=dbDate%>">
+							value="<%=dbDate%>" required>
 					</div>
 					<div>
-						<b>Nacionalidad</b> <select name="txtNacionalidad">
+						<b>Nacionalidad</b> <select name="txtNacionalidad" required>
 							<%
 							for (Nacionalidad n : listaNac) {
 							%>
@@ -446,7 +513,7 @@ if (clienteEditar.getIdNacionalidad().getIdNacionalidad() == n.getIdNacionalidad
 						</select>
 					</div>
 					<div>
-						<b>Localidad</b> <select name="txtLocalidad">
+						<b>Localidad</b> <select name="txtLocalidad" required>
 							<%
 							for (Localidad l : listaLoc) {
 							%>
@@ -464,15 +531,19 @@ if (clienteEditar.getIdLocalidad().getIdLocalidad() == l.getIdLocalidad()) {
 					</div>
 					<div>
 						<b>Calle</b> <input name="txtCalle" type="text"
-							value="<%=clienteEditar.getCalle()%>">
+							value="<%=clienteEditar.getCalle()%>" required>
 					</div>
 					<div>
 						<b>Altura</b> <input name="txtAltura" type="number"
-							value="<%=clienteEditar.getAltura()%>">
+							value="<%=clienteEditar.getAltura()%>" required>
 					</div>
 					<div>
 						<b>Email</b> <input name="txtEmail" type="email"
-							value="<%=clienteEditar.getEmail()%>">
+							value="<%=clienteEditar.getEmail()%>" required>
+					</div>
+					<div>
+						<b>Telefono</b> <input name="txtTelefono" type="number"
+							value="<%=telefonoEditar.getNroTelefono()%>" required>
 					</div>
 					<div>
 						<b>Estado</b> <input type="checkbox" name="txtEstado"
@@ -501,6 +572,15 @@ if (clienteEditar.isEsAdmin()) {
 			%>
 		</form>
 	</div>
+	<script>
+	function comprobarClave(){
+	    clave1 = document.getElementById("contrasenia")
+	    clave2 = document.getElementById("repetirContrasenia")
+
+	    if (clave1.value !== clave2.value)
+	       alert("Las dos claves son distintas...\nIntente nuevamente :c "+clave1.value+" "+clave2.value,"CUIDADO!")
+	}
+	</script>
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
 		integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
