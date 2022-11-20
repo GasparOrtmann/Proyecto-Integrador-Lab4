@@ -17,32 +17,25 @@ import iDao.iDaoPrestamo;
 
 public class DaoPrestamo implements iDaoPrestamo{
 
-	/*	 USE `bdbanco`;
-	DROP procedure IF EXISTS `SP_agregarPrestamo`;
-	
-	DELIMITER $$
-	USE `bdbanco`$$
-	CREATE PROCEDURE `SP_agregarPrestamo` (IN pId int, IN pIdUsu int, IN monto float,IN cuotaValor float, IN cantCuota int, IN fechaAlta varchar(10))
-	BEGIN
-	INSERT INTO Prestamos (IdPrestamo,IdUsuario,MontoPrestado,MontoTotalAdeudado,ImporteCuotaFija,CantidadCuotas,CuotasAdeudadas,CuotasPagas,FechaAlta,Estado) 
-					values (pId,pIdUsu,monto,null,cuotaValor,cantCuota,null,null,fechaAlta,'Pendiente');
-	END$$
-	
-	DELIMITER ;*/
 	
 	public Boolean agregarPrestamo(Prestamo prestamo) {
+		
+		
+		//SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy"); 
+		//Date fecha = formato.parse("23/11/2015");
 		
 		Connection cn = Conexion.getConexion().getSQLConexion();
 		try {
 			int filaAfectada=0;
-			CallableStatement cst = cn.prepareCall("CALL SP_agregarPrestamo(?,?,?,?,?,?)");
+			CallableStatement cst = cn.prepareCall("CALL SP_agregarPrestamo(?,?,?,?,?,?,?)");
 			
 			cst.setInt(1,prestamo.getIdPrestamo());
 			cst.setInt(2,prestamo.getIdUsuario());
 			cst.setFloat(3,prestamo.getMontoPrestamo());
 			cst.setFloat(4,prestamo.getImporteCuotaFija());
 			cst.setFloat(5,prestamo.getCantidadCuotas());
-			cst.setString(6,prestamo.getFechaAlta());
+			cst.setInt(6, prestamo.getIdCuenta());
+			cst.setString(7,prestamo.getFechaAlta());
 
 			cst.executeUpdate();
 			filaAfectada=cst.getUpdateCount();
@@ -101,10 +94,11 @@ public class DaoPrestamo implements iDaoPrestamo{
 				int cantCuotas = rs.getInt(6);
 				int cuotDeuda=rs.getInt(7);
 				int cuotPagas=rs.getInt(8);
-				String fechaAlta=rs.getString(9);
-				String estado=rs.getString(10);
+				int idCta=rs.getInt(9);
+				String fechaAlta=rs.getString(10);
+				String estado=rs.getString(11);
 
-				lstPrestamos.add(new Prestamo(idP, idU, montoP, montoPAdeu, cuotaFija, cantCuotas, cuotDeuda,cuotPagas,fechaAlta,estado));
+				lstPrestamos.add(new Prestamo(idP, idU, montoP, montoPAdeu, cuotaFija, cantCuotas, cuotDeuda,cuotPagas,idCta,fechaAlta,estado));
 			}
 
 		} catch (SQLException e) {

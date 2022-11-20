@@ -75,6 +75,8 @@ public class ServletPrestamos extends HttpServlet {
 		
 		
 		
+		
+		
 	}
 
 	
@@ -94,6 +96,7 @@ public class ServletPrestamos extends HttpServlet {
 			 prestamo.setMontoPrestamo(Float.parseFloat(miSession.getAttribute("montoSolicitado").toString()));
 			 prestamo.setImporteCuotaFija(Float.parseFloat(miSession.getAttribute("cuotaFija").toString()));
 			 prestamo.setCantidadCuotas( Integer.parseInt(miSession.getAttribute("cantCuotas").toString()));
+			 prestamo.setIdCuenta(Integer.parseInt(miSession.getAttribute("idCuentaAcreditacion").toString()));
 			 prestamo.setFechaAlta(fechaSolicitud);
 			 
 			 Boolean confirmacionPrestamo=false;

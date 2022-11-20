@@ -35,7 +35,7 @@
 										List<Cuenta> lstCuentasUsuario = (List<Cuenta>)miSession.getAttribute("lstCuentasUsuario");
 										for(Cuenta cuenta:lstCuentasUsuario){
 						 			 %>
-									<option value="<%=cuenta.getIdCuenta()%> - <%=cuenta.getCBU() %>"><%=cuenta.getIdCuenta()%> - <%=cuenta.getCBU() %></option>
+									<option value="<%=cuenta.getIdCuenta()%>"><%=cuenta.getIdCuenta()%> - <%=cuenta.getCBU() %></option>
 									<%
 									}
 									}

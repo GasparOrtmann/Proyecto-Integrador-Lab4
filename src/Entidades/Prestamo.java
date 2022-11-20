@@ -9,6 +9,7 @@ public class Prestamo {
 	int cantidadCuotas;
 	int cuotasAdeudadas;
 	int cuotasPagas;
+	int idCuenta;
 	String fechaAlta;
 	String estado;
 	
@@ -72,13 +73,19 @@ public class Prestamo {
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
+	public int getIdCuenta() {
+		return idCuenta;
+	}
+	public void setIdCuenta(int idCuenta) {
+		this.idCuenta = idCuenta;
+	}
 	
 	public Prestamo() {
 		
 		
 	}
 	public Prestamo(int idP, int idU, float montoP, float montoPAdeu, float cuotaFija, int cantCuotas, int cuotDeuda,
-			int cuotPagas, String fechaAlta2, String estado2) {
+			int cuotPagas,int idCta, String fechaAlta2, String estado2) {
 		
 		this.idUsuario=idU;
 		this.idPrestamo=idP;
@@ -88,8 +95,10 @@ public class Prestamo {
 		this.cantidadCuotas=cantCuotas;
 		this.cuotasAdeudadas=cuotDeuda;
 		this.cuotasPagas=cuotPagas;
+		this.idCuenta=idCta;
 		this.fechaAlta=fechaAlta2;
 		this.estado=estado2;
 	}
+
 	
 }

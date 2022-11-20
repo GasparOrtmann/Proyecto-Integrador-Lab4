@@ -19,7 +19,7 @@
 
 <div style="position: absolute;top:150px;left:400px;">
 
-<form class="centrar-column">
+<form method="post" action="/TPINT_GRUPO_6_LAB4/ServletPrestamos" class="centrar-column">
 		<h1>PRESTAMOS</h1>
 		<div class="centrar-row">
 			<label>Filtros:</label> <input /> <input type="submit"
@@ -37,6 +37,7 @@
 					<td>Cuotas</td>
 					<td>Adeudadas</td>
 					<td>Pagas</td>
+					<td>Cuenta</td>
 					<td>Fecha</td>
 					<td>Estado</td>
 				</thead>
@@ -46,6 +47,7 @@
 				
 				if(lstPrestamos!=null){
 					for(Prestamo p : lstPrestamos){
+						
 				%>
 				<tr>
 					<td><%=p.getIdPrestamo()%></td>
@@ -56,12 +58,12 @@
 					<td><%=p.getCantidadCuotas()%></td>
 					<td><%=p.getCuotasAdeudadas()%></td>
 					<td><%=p.getCuotasPagas()%></td>
+					<td><%=p.getIdCuenta()%></td>
 					<td><%=p.getFechaAlta()%></td>
 					<td><%=p.getEstado()%></td>
 				</tr>
-				<%
+				<%	
 					}
-				}
 				%>
 			</tbody>
 		</table>
@@ -75,42 +77,39 @@
 		Filtrar por cliente: <input type="text" name="txtFiltro"> <input type="submit" name="btnFiltrar" value="Filtrar"><br/>
 		<br>
 		<table class="table table-secondary table-striped">
+			<tbody>
 				<thead class="table-dark">
-					<th>Ciente</th>
-					<th>Cuenta</th>
-					<th>Monto</th>
-					<th>Cuotas</th>
-					<th></th>
-					<th></th>
+					<td>Ciente</td>
+					<td>Cuenta</td>
+					<td>Monto</td>
+					<td>Cuotas</td>
+					<td>Autorizar</td>
+					<td>Rechazar</td>
 				</thead>
+				<% if(lstPrestamos!=null){
+					
+					for(Prestamo p : lstPrestamos){
+						
+						if(p.getEstado().equalsIgnoreCase("Pendiente")){
+				%>
 				<tr>
-					<td>Cliente x</td>
-					<td>Cuenta 1</td>
-					<td>$150000</td>
-					<td>72</td>
-					<td><input type="submit" value="&#10004"></td>
-					<td><input type="submit" value="&#10006"></td>
+					<td><%=p.getIdUsuario()%></td>
+					<td><%=p.getIdCuenta()%></td>
+					<td><%=p.getMontoPrestamo()%></td>
+					<td><%=p.getCantidadCuotas()%></td>
+					<td><input type="submit" value="&#10004" name="btnAutorizar"></td>
+					<td><input type="submit" value="&#10006" name="btnRechazar"></td>
 				</tr>
-					<tr>
-					<td>Cliente 2</td>
-					<td>Cuenta 2</td>
-					<td>$150000</td>
-					<td>12</td>
-					<td><input type="submit" value="&#10004"></td>
-					<td><input type="submit" value="&#10006"></td>
-				</tr>
-					<tr>
-					<td>Cliente 3</td>
-					<td>Cuenta 2</td>
-					<td>$12000</td>
-					<td>18</td>
-					<td><input type="submit" value="&#10004"></td>
-					<td><input type="submit" value="&#10006"></td>
-				</tr>
+				<%
+				}	
+				}
+				}
+				}
+				%>
+				</tbody>
 		</table>
 		</div>
-		<br/>
-		<input type="submit" value="CONFIRMAR">
+		<br/>		
 	</form>
 </div>
 
