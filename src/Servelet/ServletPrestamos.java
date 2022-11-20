@@ -83,11 +83,12 @@ public class ServletPrestamos extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		HttpSession miSession = request.getSession();  
+		NegocioPrestamo pneg = new NegocioPrestamo();
 		
 		if(request.getParameter("btnAceptarPrestamo")!=null) {
 			
 			 String fechaSolicitud = DateTimeFormatter.ofPattern("dd/MM/yyyy").format(LocalDateTime.now());
-			 NegocioPrestamo pneg = new NegocioPrestamo();
+			 //NegocioPrestamo pneg = new NegocioPrestamo();
 			 Prestamo prestamo = new Prestamo();
 			 Usuario u = (Usuario)miSession.getAttribute("usuarioIngresado");
 			 
@@ -113,7 +114,20 @@ public class ServletPrestamos extends HttpServlet {
 
 		}
 		
+		if(request.getParameter("btnAutorizar")!=null) {
+			
+			 Prestamo prestamo = new Prestamo();
+			 String fechaAlta= DateTimeFormatter.ofPattern("dd/MM/yyyy").format(LocalDateTime.now());
+			 
+			
+		}
 		
+		
+		if(request.getParameter("btnRechazar")!=null) {
+			
+			
+			
+		}
 		
 	}
 
