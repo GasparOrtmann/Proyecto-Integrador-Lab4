@@ -39,4 +39,31 @@ public class NegocioMovimientos implements iNegocioMovimientos{
 		
 		return false;
 	}
+
+	@Override
+	public int cantMovimientosUsuario(int idUsuario) {
+		DaoMovimientos daoMo = new DaoMovimientos();
+		return daoMo.cantMovimientosUsuario(idUsuario);
+	}
+
+	@Override
+	public int cantMovimientosCuenta(int idCuenta) {
+		DaoMovimientos daoMo = new DaoMovimientos();
+		return daoMo.cantMovimientosCuenta(idCuenta);
+	}
+
+	@Override
+	public Boolean agregarMovimiento(Movimiento m) {
+		DaoMovimientos daoMo = new DaoMovimientos();
+		if(daoMo.agregarMovimiento(m)) {
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public int proxId() {
+		DaoMovimientos daoMo = new DaoMovimientos();
+		return daoMo.proxId();
+	}
 }

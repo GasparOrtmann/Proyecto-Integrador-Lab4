@@ -41,22 +41,28 @@ public class ServeletClientes extends HttpServlet {
 		
 		HttpSession miSession = request.getSession(); 
 		
+		iNegocioMovimientos negMo = new NegocioMovimientos();
+		iNegocioCuentas negCu = new NegocioCuentas();
+		NegocioClientes negCli = new NegocioClientes();
+		
 		if(request.getParameter("TraerCuentasUsuario")!=null) {
 			
 			//HttpSession miSession = request.getSession(); 
 			
 			if(miSession.getAttribute("usuarioIngresado")!=null) {
 			
-				NegocioCuentas ncta = new NegocioCuentas();
-				NegocioMovimientos negMo = new NegocioMovimientos();
 				Usuario usuarioLogueado = (Usuario)miSession.getAttribute("usuarioIngresado");
-				List<Cuenta> lstCuentasUsuario= ncta.traerCuentasUsuario(usuarioLogueado.getIdUsuario());
+				List<Cuenta> lstCuentasUsuario= negCu.traerCuentasUsuario(usuarioLogueado.getIdUsuario());
 				miSession.setAttribute("lstCuentasUsuario", lstCuentasUsuario);
 				int idUsuario = usuarioLogueado.getIdUsuario();
-				List<Cuenta> lista = ncta.traerCuentasUsuario(idUsuario);
+				List<Cuenta> lista = negCu.traerCuentasUsuario(idUsuario);
 				request.setAttribute("listaCuentas", lista);
 				List<Movimiento> listaHistorial = negMo.traerHistorial(idUsuario);
 				request.setAttribute("listaHistorial", listaHistorial);
+				int cantMovimientosUsuario = negMo.cantMovimientosUsuario(idUsuario);
+				request.setAttribute("cantMovimientosUsuario", cantMovimientosUsuario);
+				int cantCuentas = negCu.cantCuentasUsuario(idUsuario);
+				request.setAttribute("cantCuentas", cantCuentas);
 				RequestDispatcher rd=request.getRequestDispatcher("/Cliente/InicioUsuario.jsp");  
 				rd.forward(request, response);
 			}
@@ -64,7 +70,6 @@ public class ServeletClientes extends HttpServlet {
 		}
 		
 		if(request.getParameter("TraerListadoClientes")!=null) {
-			NegocioClientes negCli = new NegocioClientes();
 			int proximoId = negCli.traerProxId();
 			List<Usuario> lista=negCli.traerLista();
 			NegocioNacionalidad negNac = new NegocioNacionalidad();
@@ -80,7 +85,6 @@ public class ServeletClientes extends HttpServlet {
 		}
 		if(request.getParameter("paginar")!=null) {
 			int pagina=Integer.valueOf(request.getParameter("paginar").toString());
-			NegocioClientes negCli = new NegocioClientes();
 			int proximoId = negCli.traerProxId();
 			javax.servlet.http.Cookie[] cookies = request.getCookies();
 			String textoFiltro=null;
@@ -132,18 +136,20 @@ public class ServeletClientes extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException { 
 		
+		iNegocioMovimientos negMo = new NegocioMovimientos();
+		iNegocioCuentas negCu = new NegocioCuentas();
+		IUsuarioNegocio uneg = new UsuarioNegocio();
+		NegocioClientes negCli = new NegocioClientes();
+		NegocioTelefono negTel = new NegocioTelefono();
+		
 	if(request.getParameter("btnIniciarSesion")!=null) {
 			
 			String usuario = request.getParameter("txtUsuario");
 			String contrasenia  = request.getParameter("txtContrasenia");
 			
-			IUsuarioNegocio uneg = new UsuarioNegocio();
 			Usuario usuarioIngresado = uneg.traerUsuario(usuario, contrasenia);
 				
-			iNegocioCuentas negCu = new NegocioCuentas();
 			int idUsuario = usuarioIngresado.getIdUsuario();
-			
-			iNegocioMovimientos negMo = new NegocioMovimientos();
 			
 			HttpSession miSession= request.getSession(true);
 			miSession.setAttribute("usuarioIngresado", usuarioIngresado);
@@ -160,6 +166,10 @@ public class ServeletClientes extends HttpServlet {
 					request.setAttribute("listaCuentas", lista);
 					List<Movimiento> listaHistorial = negMo.traerHistorial(idUsuario);
 					request.setAttribute("listaHistorial", listaHistorial);
+					int cantMovimientosUsuario = negMo.cantMovimientosUsuario(idUsuario);
+					request.setAttribute("cantMovimientosUsuario", cantMovimientosUsuario);
+					int cantCuentas = negCu.cantCuentasUsuario(idUsuario);
+					request.setAttribute("cantCuentas", cantCuentas);
 					RequestDispatcher rd=request.getRequestDispatcher("/Cliente/InicioUsuario.jsp");  
 					rd.forward(request, response);	
 				} 
@@ -172,7 +182,6 @@ public class ServeletClientes extends HttpServlet {
 		}
 	
 		if(request.getParameter("btnVerHistorial")!=null) {
-			iNegocioMovimientos negMo = new NegocioMovimientos();
 			HttpSession miSession= request.getSession(true);
 			Usuario usuarioLogueado = (Usuario)miSession.getAttribute("usuarioIngresado");
 			int idCuenta = Integer.parseInt(request.getParameter("btnVerHistorial"));
@@ -181,6 +190,12 @@ public class ServeletClientes extends HttpServlet {
 			int idUsuario = usuarioLogueado.getIdUsuario();
 			List<Movimiento> listaHistorial = negMo.traerHistorial(idUsuario);
 			request.setAttribute("listaHistorial", listaHistorial);
+			int cantMovimientosUsuario = negMo.cantMovimientosUsuario(idUsuario);
+			request.setAttribute("cantMovimientosUsuario", cantMovimientosUsuario);
+			int cantCuentas = negCu.cantCuentasUsuario(idUsuario);
+			request.setAttribute("cantCuentas", cantCuentas);
+			int cantMovimientosCuentas = negMo.cantMovimientosCuenta(idCuenta);
+			request.setAttribute("cantMovimientosCuentas", cantMovimientosCuentas);
 			RequestDispatcher rd=request.getRequestDispatcher("/Cliente/InicioUsuario.jsp");  
 			rd.forward(request, response);	
 			System.out.println(idCuenta);
@@ -190,22 +205,22 @@ public class ServeletClientes extends HttpServlet {
 			HttpSession miSession= request.getSession(true);
 			Usuario usuarioLogueado = (Usuario)miSession.getAttribute("usuarioIngresado");
 			miSession.setAttribute("usuarioIngresado", usuarioLogueado);
-			NegocioCuentas ncta = new NegocioCuentas();
-			NegocioMovimientos negMo = new NegocioMovimientos();
-			
-			List<Cuenta> lstCuentasUsuario= ncta.traerCuentasUsuario(usuarioLogueado.getIdUsuario());
+			List<Cuenta> lstCuentasUsuario= negCu.traerCuentasUsuario(usuarioLogueado.getIdUsuario());
 			miSession.setAttribute("lstCuentasUsuario", lstCuentasUsuario);
 			int idUsuario = usuarioLogueado.getIdUsuario();
-			List<Cuenta> lista = ncta.traerCuentasUsuario(idUsuario);
+			List<Cuenta> lista = negCu.traerCuentasUsuario(idUsuario);
 			request.setAttribute("listaCuentas", lista);
 			List<Movimiento> listaHistorial = negMo.traerHistorial(idUsuario);
 			request.setAttribute("listaHistorial", listaHistorial);
+			int cantMovimientosUsuario = negMo.cantMovimientosUsuario(idUsuario);
+			request.setAttribute("cantMovimientosUsuario", cantMovimientosUsuario);
+			int cantCuentas = negCu.cantCuentasUsuario(idUsuario);
+			request.setAttribute("cantCuentas", cantCuentas);
 			RequestDispatcher rd=request.getRequestDispatcher("/Cliente/InicioUsuario.jsp");  
 			rd.forward(request, response);
 		}
 		
 		if(request.getParameter("btnEliminar")!=null) {
-			NegocioClientes negCli = new NegocioClientes();
 			int proximoId = negCli.traerProxId();
 			boolean filasAfectadas= negCli.eliminarCliente(request.getParameter("idModificar"));
 			javax.servlet.http.Cookie[] cookies = request.getCookies();
@@ -254,8 +269,7 @@ public class ServeletClientes extends HttpServlet {
 			rd.forward(request, response);
 		}
 		if(request.getParameter("btnEditar")!=null) {
-			NegocioClientes negCli = new NegocioClientes();
-			NegocioTelefono negTel = new NegocioTelefono();
+			
 			int proximoId = negCli.traerProxId();
 			Usuario traerCliente = negCli.traerCliente(request.getParameter("idModificar"));
 			Telefono traerTelefono = negTel.traerTelefonoCliente(traerCliente.getIdUsuario());
@@ -306,8 +320,6 @@ public class ServeletClientes extends HttpServlet {
 			rd.forward(request, response);
 		}
 		if(request.getParameter("btnEditarUsuario")!=null) {
-			NegocioClientes negCli = new NegocioClientes();
-			NegocioTelefono negTel = new NegocioTelefono();
 			int proximoId = negCli.traerProxId();
 			boolean estadoEsAdmin = false;
 			boolean estadoEstado = false;
@@ -399,8 +411,6 @@ public class ServeletClientes extends HttpServlet {
 			rd.forward(request, response);
 		}
 		if(request.getParameter("btnCrearUsuario")!=null) {
-			NegocioClientes negCli = new NegocioClientes();
-			NegocioTelefono negTel = new NegocioTelefono();
 			boolean estadoEsAdmin = false;
 			boolean estadoEstado = false;
 			if(request.getParameter("txtAdmin")!=null) {
@@ -491,7 +501,6 @@ public class ServeletClientes extends HttpServlet {
 			rd.forward(request, response);
 		}
 		if(request.getParameter("filtrar")!=null) {
-			NegocioClientes negCli = new NegocioClientes();
 			int proximoId = negCli.traerProxId();
 			javax.servlet.http.Cookie[] cookies = request.getCookies();
 			String textoFiltro=null;

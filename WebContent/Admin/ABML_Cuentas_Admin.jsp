@@ -6,6 +6,7 @@
 	<%@page import="Entidades.TipoCuenta"%>
 	<%@page import="Entidades.Cuenta"%>
 	<%@page import="java.util.List"%>
+	<%@page import="java.util.ArrayList"%>
 	<%@page import="java.text.SimpleDateFormat"%>
 	<%@page import="java.text.ParsePosition"%>
 	<%@page import="java.sql.Date"%>
@@ -37,6 +38,8 @@
 	Boolean cuentaAgregada = false;
 	Boolean limiteCuentas = false;
 	Boolean tieneLetras;
+	int cantidadDeCuentas = 3;
+	int proximaPagina = 1;
 	
 	if (request.getAttribute("cuentaEditar") != null) {
 		cuentaEditar = (Cuenta) request.getAttribute("cuentaEditar");
@@ -55,6 +58,9 @@
 	}
 	if (request.getAttribute("limiteCuentas") != null){
 		limiteCuentas = Boolean.valueOf(request.getAttribute("limiteCuentas").toString());
+	}
+	if (request.getAttribute("proximaPagina") != null) {
+		proximaPagina = Integer.valueOf(request.getAttribute("proximaPagina").toString());
 	}
 	if(request.getAttribute("tieneLetras")!= null)
 	{
@@ -108,28 +114,41 @@
 			<tbody>
 				<%
 					if(listaCu != null){
-					for (Cuenta c : listaCu) {
+						ArrayList<Cuenta> copiaListaPaginada = (ArrayList<Cuenta>) listaCu;
+						for (int i = 0; i < copiaListaPaginada.size(); i++) {
+							if (i >= (proximaPagina * cantidadDeCuentas) - cantidadDeCuentas
+							&& i <= proximaPagina * cantidadDeCuentas - 1) {
 					%>
 					<tr>
 						<td><input class="border-0 bg-transparent pe-none"
-							name="getIdCuenta" value="<%=c.getIdCuenta()%>"></td>
-						<td><%=c.getIdUsuario() %></td>
-						<td><%=c.getIdTipoCuenta().getIdTipoCuenta() %></td>
-						<td><%=c.getCBU() %></td>
-						<td><%=c.getSaldo() %></td>
-						<td><%=c.getFechaAlta()%></td>
-						<td><%=c.isEstado() %></td>
-						<form method="post" action="/TPINT_GRUPO_6_LAB4/ServletCuentas?getIdCuenta=<%=c.getIdCuenta()%>">
+							name="getIdCuenta" value="<%=copiaListaPaginada.get(i).getIdCuenta()%>"></td>
+						<td><%=copiaListaPaginada.get(i).getIdUsuario() %></td>
+						<td><%=copiaListaPaginada.get(i).getIdTipoCuenta().getIdTipoCuenta() %></td>
+						<td><%=copiaListaPaginada.get(i).getCBU() %></td>
+						<td><%=copiaListaPaginada.get(i).getSaldo() %></td>
+						<td><%=copiaListaPaginada.get(i).getFechaAlta()%></td>
+						<td><%=copiaListaPaginada.get(i).isEstado() %></td>
+						<form method="post" action="/TPINT_GRUPO_6_LAB4/ServletCuentas?getIdCuenta=<%=copiaListaPaginada.get(i).getIdCuenta()%>">
 						<td><input type="submit" name="btnEditar" value="Editar"></td>
 						<td><input type="submit" name="btnEliminar" value="Eliminar"></td>
 						</form>
 					</tr>
 					<%
-					}}
+					}}}
 					%>
 			</tbody>
 		</table>
 		</form>
+		<%
+		if (listaCu != null) {
+			for (int i = 0; i < Math.ceil((float) listaCu.size() / cantidadDeCuentas); i++) {
+		%>
+		<a href="/TPINT_GRUPO_6_LAB4/ServletCuentas?paginar=<%=i + 1%>"><%=i + 1%></a>
+		<%
+		}
+		}
+		%>
+		
 		<%
 			if (cuentaEditar == null) {
 			%>

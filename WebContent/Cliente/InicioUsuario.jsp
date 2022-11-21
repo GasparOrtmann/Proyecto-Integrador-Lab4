@@ -27,6 +27,8 @@
 	List<Cuenta> listaCuentas = null;
 	List<Movimiento> listaMovimientos = null;
 	List<Movimiento> listaHistorial = null;
+	int cantMovimientosUsuario = 0;
+	int cantCuentas = 0;
 	
 	if (request.getAttribute("listaCuentas") != null) {
 		listaCuentas = (List<Cuenta>) request.getAttribute("listaCuentas");
@@ -37,13 +39,19 @@
 	if (request.getAttribute("listaHistorial") != null) {
 		listaHistorial = (List<Movimiento>) request.getAttribute("listaHistorial");
 	}
+	if (request.getAttribute("cantMovimientosUsuario") != null) {
+		cantMovimientosUsuario = Integer.valueOf(request.getAttribute("cantMovimientosUsuario").toString());
+	}
+	if (request.getAttribute("cantCuentas") != null) {
+		cantCuentas = Integer.valueOf(request.getAttribute("cantCuentas").toString());
+	}
 	%>
 		
 		<div class="containerContentData">
 			<div class="containerCuentas">
 			
 			<%
-			if(listaCuentas != null){ %>
+			if(listaCuentas != null && cantCuentas != 0){ %>
 				<div class="card-header">
 				<div class="card-header-container">
 					<h3 class="card-header-title">Tus cuentas</h3>
@@ -63,14 +71,20 @@
 					</div>
 				</div>
 				<%
-				}}
+				}}else{
+					if(listaCuentas != null && cantCuentas == 0){
 				%>
+				<div class="card-header">
+					<div class="card-header-container">
+						<h3 class="card-header-title">No tienes cuentas aún.</h3>
+					</div>
+				</div>
+				<%}} %>
 				<div>
 			<%
 			if(listaMovimientos!=null){
 				int idCuenta = Integer.parseInt(request.getParameter("btnVerHistorial"));
 				%>
-				
 				<div class="card-header">
 				
 				<div class="card-header-container" style="margin-right: auto;">
@@ -116,6 +130,7 @@
 			</div>
 			<%
 			if(listaHistorial!=null){
+				if(cantMovimientosUsuario!=0){
 				for (Movimiento h : listaHistorial){
 			%> 
 				<div class="containerActividadIndividual">
@@ -128,9 +143,13 @@
 						<label><%=h.getFecha() %></label>
 					</div>
 				</div>
-				<%
-				}}
-				%>
+				<% }}else{ %>
+					<div class="containerActividadIndividual">
+						<div class="movimiento">
+						<label style="font-weight: bolder;">No tienes movimientos aún.</label>
+						</div>
+					</div>
+				<%}}%>
 			</div>
 			</div>
 			</form>

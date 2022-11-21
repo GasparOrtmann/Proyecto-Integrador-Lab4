@@ -1,9 +1,12 @@
 package Dao;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +18,41 @@ import Entidades.TipoMovimiento;
 import iDao.iDaoMovimientos;
 
 public class DaoMovimientos implements iDaoMovimientos{
+	/*
+	USE `bdbanco`;
+	DROP procedure IF EXISTS `SP_agregarMovimiento`;
+
+	DELIMITER $$
+	USE `bdbanco`$$
+	CREATE PROCEDURE `SP_agregarMovimiento` (IN sIdM int, IN sTM int, IN sIdC int, IN sFecha varchar(10), IN sImporte float, IN sDetalle varchar(40))
+	BEGIN
+		INSERT INTO movimientos (IdMovimiento, IdTipoMovimiento, IdCuenta, Fecha, Importe, Detalle) values (sIdM,sTM,sIdC,sFecha,sImporte,sDetalle);
+	END$$
+
+	DELIMITER ;
+	*/
+	@Override
+	public Boolean agregarMovimiento(Movimiento m) {
+	Connection cn = Conexion.getConexion().getSQLConexion();
+	String fechaSolicitud = DateTimeFormatter.ofPattern("dd/MM/yyyy").format(LocalDateTime.now());
+	try {
+			int filaAfectada=0;
+			CallableStatement cst = cn.prepareCall("CALL SP_agregarMovimiento(?,?,?,?,?,?)");
+			cst.setInt(1,m.getIdMovimiento());
+			cst.setInt(2,m.getIdTipoMovimiento().getIdTipoMovimiento());
+			cst.setInt(3,m.getIdCuenta().getIdCuenta());
+			cst.setString(4,fechaSolicitud);
+			cst.setFloat(5,m.getImporte());
+			cst.setString(6,m.getDetalle());
+			cst.executeUpdate();
+			filaAfectada=cst.getUpdateCount();
+			cn.commit();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}
+	return true;
+	}
 	
 	@Override
 	public String traerTipoMovimiento (int Id) {
@@ -64,7 +102,9 @@ public class DaoMovimientos implements iDaoMovimientos{
 	public List<Movimiento> traerHistorial(int idUsuario){
 		Connection cnn = Conexion.getConexion().getSQLConexion();
 		List<Movimiento> lstTrans = new ArrayList<Movimiento>();
-		String query = "SELECT IdMovimiento, IdTipoMovimiento, movimientos.IdCuenta, Fecha, Importe, Detalle FROM movimientos INNER JOIN cuentas ON movimientos.IdCuenta=cuentas.IdCuenta  WHERE cuentas.IdUsuario="+idUsuario+" ORDER BY Fecha DESC;";
+		String query = "SELECT IdMovimiento, IdTipoMovimiento, movimientos.IdCuenta, Fecha, Importe, Detalle "
+				+ "FROM movimientos INNER JOIN cuentas ON movimientos.IdCuenta=cuentas.IdCuenta  "
+				+ "WHERE cuentas.IdUsuario="+idUsuario+" ORDER BY Fecha DESC;";
 		PreparedStatement pst;
 		try {
 			pst = cnn.prepareStatement(query);
@@ -86,7 +126,48 @@ public class DaoMovimientos implements iDaoMovimientos{
 		return lstTrans;
 	}
 	
+	@Override
+	public int cantMovimientosUsuario(int idUsuario) {
+		Connection cnn = Conexion.getConexion().getSQLConexion();
+		String query = "SELECT COUNT(IdMovimiento) AS movimientos FROM movimientos"
+				+ " INNER JOIN cuentas ON movimientos.IdCuenta=cuentas.IdCuenta WHERE "
+				+ "cuentas.IdUsuario="+idUsuario+" AND cuentas.Estado=1";
+		Integer cantMovimientosUsuario = 0;
+
+		PreparedStatement pst;
+		try {
+			pst = cnn.prepareStatement(query);
+			ResultSet rs = pst.executeQuery();
+			rs.next();
+			cantMovimientosUsuario = rs.getInt("movimientos");
+		}
+
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return cantMovimientosUsuario;
+	}
 	
+	@Override
+	public int cantMovimientosCuenta(int idCuenta) {
+		Connection cnn = Conexion.getConexion().getSQLConexion();
+		String query = "SELECT COUNT(IdMovimiento) AS movimientos FROM movimientos INNER JOIN cuentas "
+				+ "ON movimientos.IdCuenta=cuentas.IdCuenta WHERE cuentas.IdCuenta="+idCuenta+" AND cuentas.Estado=1";
+		Integer cantMovimientosCuenta = 0;
+
+		PreparedStatement pst;
+		try {
+			pst = cnn.prepareStatement(query);
+			ResultSet rs = pst.executeQuery();
+			rs.next();
+			cantMovimientosCuenta = rs.getInt("movimientos");
+		}
+
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return cantMovimientosCuenta;
+	}
 	
 	@Override
 	public int cantTransacciones() {

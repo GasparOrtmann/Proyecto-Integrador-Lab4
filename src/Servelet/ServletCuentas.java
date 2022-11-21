@@ -41,8 +41,22 @@ public class ServletCuentas extends HttpServlet {
 			RequestDispatcher rd =  request.getRequestDispatcher("/Admin/ABML_Cuentas_Admin.jsp");  
 			rd.forward(request, response);
 		}
-	}
 
+	if(request.getParameter("paginar")!=null) {
+		int pagina=Integer.valueOf(request.getParameter("paginar").toString());
+		int proximoId = negCu.traerProxId();
+		request.setAttribute("proximoId", proximoId);
+		request.setAttribute("proximaPagina", pagina);
+		List<Cuenta> lista=negCu.traerLista();
+		request.setAttribute("listaCuentas", lista);
+		List<TipoCuenta> listaTiposCuenta = negTC.traerTiposCuentas();
+		request.setAttribute("listaTiposCuentas", listaTiposCuenta);
+		RequestDispatcher rd =  request.getRequestDispatcher("/Admin/ABML_Cuentas_Admin.jsp");  
+		rd.forward(request, response);
+	}
+	
+	}
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		iNegocioCuentas negCu = new NegocioCuentas();

@@ -10,4 +10,8 @@ public interface iNegocioMovimientos {
 	List<Movimiento> traerHistorial(int idUsuario);
 	int cantTransacciones();
 	Boolean generarTransferncia(int cuentaOrigen,int cuentaDestino,float monto);
+	int cantMovimientosUsuario(int idUsuario);
+	int cantMovimientosCuenta(int idCuenta);
+	int proxId();
+	Boolean agregarMovimiento(Movimiento m);
 }

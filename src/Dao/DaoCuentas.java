@@ -6,14 +6,22 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
 import Entidades.Cuenta;
+import Entidades.Movimiento;
 import Entidades.TipoCuenta;
+import Entidades.TipoMovimiento;
+import Negocio.NegocioMovimientos;
 import iDao.iDaoCuentas;
+import iNegocio.iNegocioMovimientos;
 
 public class DaoCuentas implements iDaoCuentas{
+	
+	iNegocioMovimientos negMo = new NegocioMovimientos();
 	
 	@Override
 	public List<Cuenta> traerLista() {
@@ -64,6 +72,7 @@ public class DaoCuentas implements iDaoCuentas{
 	String dia = c.getFechaAlta().substring(8,10);
 	String fechaAlta = dia+"/"+mes+"/"+anio;
 	String estado = "";
+	String fechaSolicitud = DateTimeFormatter.ofPattern("dd/MM/yyyy").format(LocalDateTime.now());
 	if(c.isEstado()) {
 		estado="1";
 	}else {
@@ -82,8 +91,10 @@ public class DaoCuentas implements iDaoCuentas{
 			cst.executeUpdate();
 			filaAfectada=cst.getUpdateCount();
 			cn.commit();
-			System.out.println(filaAfectada);
-			
+			int idMov = negMo.proxId();
+			TipoMovimiento tm = new TipoMovimiento(1,"Alta de Cuenta");
+			Movimiento m = new Movimiento(idMov,tm,c,fechaSolicitud,10000,"Alta de Cuenta");
+			negMo.agregarMovimiento(m);
 		} catch (SQLException e) {
 			
 			e.printStackTrace();
@@ -117,7 +128,6 @@ public class DaoCuentas implements iDaoCuentas{
 		String dia = c.getFechaAlta().substring(8,10);
 		String fechaAlta = dia+"/"+mes+"/"+anio;
 		String estado = "";
-		System.out.println(fechaAlta);
 		if(c.isEstado()) {
 			estado="1";
 		}else {
@@ -211,16 +221,6 @@ public class DaoCuentas implements iDaoCuentas{
 				String fechaAlta = rs.getString(6);
 				boolean estado = rs.getBoolean(7);
 				lstCuenta.add(new Cuenta(idC, idU, idTC, CBU, saldo, fechaAlta, estado));
-				/*
-				c.setIdCuenta(rs.getInt(1));
-				c.setIdUsuario(rs.getInt(2));
-				c.setIdTipoCuenta(new TipoCuenta(rs.getInt(3), traerTipoCuenta(rs.getInt(3))));
-				c.setCBU(rs.getString(4));
-				c.setSaldo(rs.getFloat(5));
-				c.setFechaAlta(rs.getString(6));
-				c.setEstado(rs.getBoolean(7));
-				lstCuenta.add(c);
-				*/
 			}
 
 		} catch (SQLException e) {
@@ -232,7 +232,7 @@ public class DaoCuentas implements iDaoCuentas{
 	@Override
 	public int cantCuentasUsuario(int idU) {
 		Connection cnn = Conexion.getConexion().getSQLConexion();
-		String query = "SELECT COUNT(IdUsuario) as cant FROM cuentas WHERE IdUsuario="+idU;
+		String query = "SELECT COUNT(IdUsuario) as cant FROM cuentas WHERE IdUsuario="+idU+" AND Estado=1";
 		PreparedStatement pst;
 		int cant = 0;
 		try {

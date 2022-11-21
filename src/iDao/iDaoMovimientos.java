@@ -21,4 +21,9 @@ public interface iDaoMovimientos {
 	int restarSaldo(int idCuenta,float monto);
 	int proxId();
 	String buscarNombre(int id);
+
+	int cantMovimientosUsuario(int idUsuario);
+
+	int cantMovimientosCuenta(int idCuenta);
+	Boolean agregarMovimiento(Movimiento m);
 }
