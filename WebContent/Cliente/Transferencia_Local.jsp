@@ -25,7 +25,7 @@
 <%@include file="MasterPageCliente.jsp"%>
 
 <div style="position: absolute;top:150px;left:400px;">
-<form method="post" action="/TPINT_GRUPO_6_LAB4/ServletMovimientos" class="centrar-column">
+<form method="post" action="/TPINT_GRUPO_6_LAB4/ServletMovimientosLocales" class="centrar-column">
 <%List<Cuenta> listaCu = null; 
 
 %><h1>Tranferencias Locales</h1><% 

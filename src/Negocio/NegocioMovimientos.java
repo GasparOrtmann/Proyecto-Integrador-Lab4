@@ -66,4 +66,10 @@ public class NegocioMovimientos implements iNegocioMovimientos{
 		DaoMovimientos daoMo = new DaoMovimientos();
 		return daoMo.proxId();
 	}
+
+	@Override
+	public String buscarUsuario(String cbu) {
+		DaoMovimientos daoMo = new DaoMovimientos();
+		return daoMo.buscarNombre(cbu);
+	}
 }

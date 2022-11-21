@@ -14,4 +14,5 @@ public interface iNegocioMovimientos {
 	int cantMovimientosCuenta(int idCuenta);
 	int proxId();
 	Boolean agregarMovimiento(Movimiento m);
+	String buscarUsuario(String cbu);
 }

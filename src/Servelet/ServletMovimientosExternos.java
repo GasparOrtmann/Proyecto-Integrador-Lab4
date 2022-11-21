@@ -18,17 +18,18 @@ import Negocio.NegocioMovimientos;
 import iNegocio.iNegocioCuentas;
 import iNegocio.iNegocioMovimientos;
 
+
 /**
- * Servlet implementation class ServletMovimientos
+ * Servlet implementation class ServletMovimientosExternos
  */
-@WebServlet("/ServletMovimientos")
-public class ServletMovimientos extends HttpServlet {
+@WebServlet("/ServletMovimientosExternos")
+public class ServletMovimientosExternos extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ServletMovimientos() {
+    public ServletMovimientosExternos() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -48,11 +49,11 @@ public class ServletMovimientos extends HttpServlet {
 					Usuario u = (Usuario)session.getAttribute("usuarioIngresado");
 					List<Cuenta> lista=negCu.FiltrarPorUsuario(String.valueOf(u.getIdUsuario()), true);
 					request.setAttribute("listaCuentas", lista);
-					RequestDispatcher rd =  request.getRequestDispatcher("/Cliente/Transferencia_Local.jsp");  
+					RequestDispatcher rd =  request.getRequestDispatcher("/Cliente/Transferencia_Cliente.jsp");  
 					rd.forward(request, response);
 				}
 				else {
-					RequestDispatcher rd =  request.getRequestDispatcher("/Cliente/Transferencia_Local.jsp");  
+					RequestDispatcher rd =  request.getRequestDispatcher("/Cliente/Transferencia_Cliente.jsp");  
 					rd.forward(request, response);
 				}
 					
@@ -64,13 +65,12 @@ public class ServletMovimientos extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
 		if(request.getParameter("btnTransferir")!= null)
 		{
 			iNegocioMovimientos neg = new NegocioMovimientos();
 			
 			String origen = request.getParameter("ddlOrigen");
-			String destino = request.getParameter("ddlDestino");
+			String destino = request.getParameter("txtCBU");
 			String monto = request.getParameter("txtMonto");
 			
 			System.out.println("o: "+origen+" d: "+destino+" $:"+monto);
@@ -79,9 +79,38 @@ public class ServletMovimientos extends HttpServlet {
 				request.setAttribute("TransferenciaOk", true);
 			}
 			;
-			RequestDispatcher rd =  request.getRequestDispatcher("/Cliente/Transferencia_Local.jsp");  
+			RequestDispatcher rd =  request.getRequestDispatcher("/Cliente/Transferencia_Cliente.jsp");  
 			rd.forward(request, response);
 		}
+		
+		if(request.getParameter("btnBuscar")!=null)
+		{
+			iNegocioMovimientos neg = new NegocioMovimientos();
+			iNegocioCuentas negCu = new NegocioCuentas();
+			
+			String nombre = neg.buscarUsuario(request.getParameter("txtBuscar"));
+			
+			String cbu = request.getParameter("txtBuscar");
+			
+			request.setAttribute("cbuAtransferir", cbu);
+			request.setAttribute("usuarioAtransferir", nombre);
+			
+			HttpSession session = request.getSession();
+			
+			if(session.getAttribute("usuarioIngresado")!=null)
+			{
+				Usuario u = (Usuario)session.getAttribute("usuarioIngresado");
+				List<Cuenta> lista=negCu.FiltrarPorUsuario(String.valueOf(u.getIdUsuario()), true);
+				request.setAttribute("listaCuentas", lista);
+			}
+			
+			RequestDispatcher rd =  request.getRequestDispatcher("/Cliente/Transferencia_Cliente.jsp");  
+			rd.forward(request, response);
+		}
+		
+		
+
+	
 	}
 
 }
