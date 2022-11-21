@@ -73,8 +73,8 @@ public class ServletMovimientos extends HttpServlet {
 			String destino = request.getParameter("ddlDestino");
 			String monto = request.getParameter("txtMonto");
 			
-			System.out.println(origen+destino+monto);
-			if(neg.generarTransferncia(Integer.valueOf(origen), Integer.valueOf(destino),Float.valueOf(monto))==true)
+			System.out.println("o: "+origen+" d: "+destino+" $:"+monto);
+			if(neg.generarTransferncia(origen,destino,Float.valueOf(monto))==true)
 			{
 				request.setAttribute("TransferenciaOk", true);
 			}
@@ -82,7 +82,6 @@ public class ServletMovimientos extends HttpServlet {
 			RequestDispatcher rd =  request.getRequestDispatcher("/Cliente/Transferencia_Local.jsp");  
 			rd.forward(request, response);
 		}
-	
 	}
 
 }

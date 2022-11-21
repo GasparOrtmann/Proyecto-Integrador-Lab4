@@ -9,7 +9,7 @@ public interface iNegocioMovimientos {
 	String traerTipoMovimiento(int Id);
 	List<Movimiento> traerHistorial(int idUsuario);
 	int cantTransacciones();
-	Boolean generarTransferncia(int cuentaOrigen,int cuentaDestino,float monto);
+	Boolean generarTransferncia(String cbuOrigen, String cbuDestino,float monto);
 	int cantMovimientosUsuario(int idUsuario);
 	int cantMovimientosCuenta(int idCuenta);
 	int proxId();

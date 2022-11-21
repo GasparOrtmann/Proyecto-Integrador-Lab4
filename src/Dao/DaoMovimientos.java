@@ -190,16 +190,16 @@ public class DaoMovimientos implements iDaoMovimientos{
 	}
 	
 	@Override
-	public int movimientoPositivo(int cuentaOrigen, int cuentaDestino,float monto) {
+	public int movimientoPositivo(String cbuOrigen, String cbuDestino,float monto) {
 		Connection cn = Conexion.getConexion().getSQLConexion();
 		int proxId=proxId();
 		
-		String nombre = buscarNombre(cuentaOrigen);
-		String query = "INSERT INTO movimientos(IdMovimiento,IdTipoMovimiento,IdCuenta,Fecha,importe,Detalle)"
-						+"VALUES ("+proxId+",4,"+cuentaDestino+",CURRENT_DATE(),"+monto+",'Recibiste $"+monto+" de "+nombre+"')";
+		String nombre = buscarNombre(cbuOrigen);
+		String query = "INSERT INTO movimientos(IdMovimiento,IdTipoMovimiento,IdCuenta,Fecha,importe,Detalle) "
+						+"SELECT "+proxId+",4,(SELECT IdCuenta FROM cuentas WHERE CBU = "+cbuDestino+"),CURRENT_DATE(),"+monto+",'Recibiste $"+monto+" de "+nombre+"'";
 		
 		int filas=0;
-			filas+=sumarSaldo(cuentaDestino,monto);
+			filas+=sumarSaldo(cbuDestino,monto);
 			
 		if(filas==1)
 		{
@@ -220,16 +220,16 @@ public class DaoMovimientos implements iDaoMovimientos{
 	}
 
 	@Override
-	public int movimientoNegativo(int cuentaOrigen, int cuentaDestino,float monto) {
+	public int movimientoNegativo(String cbuOrigen, String cbuDestino,float monto) {
 		Connection cn = Conexion.getConexion().getSQLConexion();
 		int proxId=proxId();
 		
-		String nombre = buscarNombre(cuentaDestino);
-		String query = "INSERT INTO movimientos(IdMovimiento,IdTipoMovimiento,IdCuenta,Fecha,importe,Detalle)"
-						+"VALUES ("+proxId+",4,"+cuentaOrigen+",CURRENT_DATE(),"+monto+",'Enviaste $"+monto+" a "+nombre+"')";
+		String nombre = buscarNombre(cbuDestino);
+		String query = "INSERT INTO movimientos(IdMovimiento,IdTipoMovimiento,IdCuenta,Fecha,importe,Detalle) "
+						+"SELECT "+proxId+",4,(SELECT IdCuenta FROM cuentas WHERE CBU = "+cbuOrigen+"),CURRENT_DATE(),"+monto+",'Enviaste $"+monto+" a "+nombre+"'";
 		
 		int filas=0;
-			filas+=restarSaldo(cuentaOrigen,monto);
+			filas+=restarSaldo(cbuOrigen,monto);
 			
 		if(filas==1)
 		{
@@ -250,11 +250,11 @@ public class DaoMovimientos implements iDaoMovimientos{
 	}
 
 	@Override
-	public int generarTransferncia(int cuentaOrigen, int cuentaDestino, float monto) {
+	public int generarTransferncia(String cbuOrigen, String cbuDestino,float monto) {
 			
 		int filas=0;
-			filas+=movimientoNegativo(cuentaOrigen,cuentaDestino,monto);
-			filas+=movimientoPositivo(cuentaDestino,cuentaDestino,monto);
+			filas+=movimientoNegativo(cbuOrigen,cbuDestino,monto);
+			filas+=movimientoPositivo(cbuOrigen,cbuDestino,monto);
 		
 		return filas;
 	}
@@ -280,9 +280,9 @@ public class DaoMovimientos implements iDaoMovimientos{
 	}
 
 	@Override
-	public int sumarSaldo(int idCuenta, float monto) {
+	public int sumarSaldo(String cbu, float monto) {
 		Connection cn = Conexion.getConexion().getSQLConexion();
-		String query = "UPDATE cuentas SET saldo = (saldo+"+monto+") WHERE IdCuenta ="+idCuenta;
+		String query = "UPDATE cuentas SET saldo = (saldo+"+monto+") WHERE CBU ="+cbu;
 		
 		int filas=0;
 		try 
@@ -300,9 +300,9 @@ public class DaoMovimientos implements iDaoMovimientos{
 	}
 
 	@Override
-	public int restarSaldo(int idCuenta, float monto) {
+	public int restarSaldo(String cbu, float monto) {
 		Connection cn = Conexion.getConexion().getSQLConexion();
-		String query = "UPDATE cuentas SET saldo = (saldo-"+monto+") WHERE IdCuenta ="+idCuenta;
+		String query = "UPDATE cuentas SET saldo = (saldo-"+monto+") WHERE CBU ="+cbu;
 		
 		int filas=0;
 		try 
@@ -319,11 +319,11 @@ public class DaoMovimientos implements iDaoMovimientos{
 		return filas;
 	}
 	@Override
-	public String buscarNombre(int id) {
+	public String buscarNombre(String cbu) {
 		Connection cnn = Conexion.getConexion().getSQLConexion();
 		
 		String query = "SELECT Nombre as Nombre,Apellido as Apellido FROM usuarios INNER JOIN cuentas on usuarios.IdUsuario = cuentas.IdUsuario " + 
-				"WHERE IdCuenta="+id;
+				"WHERE CBU="+cbu;
 		String nombre="";
 		String apellido="";
 		

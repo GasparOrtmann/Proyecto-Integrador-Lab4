@@ -51,7 +51,7 @@ if(request.getAttribute("TransferenciaOk")!=null)
 						i++;
 					%>	
 					
-					<option value="<%=c.getIdCuenta()%>">Cuenta<%=i %></option> 
+					<option value="<%=c.getCBU()%>">CBU: <%=c.getCBU()%></option> 
 				
 					<%}%>
 					</select>
@@ -72,8 +72,10 @@ if(request.getAttribute("TransferenciaOk")!=null)
 						i++;
 					%>	
 					
-					<option value="<%=c.getIdCuenta()%>">Cuenta<%=i %></option>
-					<%}%>
+					<option value="<%=c.getCBU()%>">CBU: <%=c.getCBU()%></option>
+					<%}
+					
+					%>
 					</select>
 				<%
 				}%>
