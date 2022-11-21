@@ -116,9 +116,23 @@ public class ServletPrestamos extends HttpServlet {
 		
 		if(request.getParameter("btnAutorizar")!=null) {
 			
-			 Prestamo prestamo = new Prestamo();
 			 String fechaAlta= DateTimeFormatter.ofPattern("dd/MM/yyyy").format(LocalDateTime.now());
+			 int idPrestamo = (int) request.getAttribute("idPrestamo");
 			 
+			 Boolean autorizacionPrestamo=false;
+			 
+			 if(idPrestamo!=0) {
+				 
+				 if(pneg.autorizarPrestamo(idPrestamo, fechaAlta)) {  
+					 autorizacionPrestamo=true;
+				 } else {
+					 autorizacionPrestamo=false;
+				 }
+			 }
+
+			 request.setAttribute("autorizacionPrestamo",autorizacionPrestamo);
+			 RequestDispatcher rd=request.getRequestDispatcher("/Cliente/SolicitarPrestamo.jsp");  
+			 rd.forward(request, response);
 			
 		}
 		

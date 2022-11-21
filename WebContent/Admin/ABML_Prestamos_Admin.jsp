@@ -19,7 +19,7 @@
 
 <div style="position: absolute;top:150px;left:400px;">
 
-<form method="post" action="/TPINT_GRUPO_6_LAB4/ServletPrestamos" class="centrar-column">
+
 		<h1>PRESTAMOS</h1>
 		<div class="centrar-row">
 			<label>Filtros:</label> <input /> <input type="submit"
@@ -76,9 +76,11 @@
 		<br/>
 		Filtrar por cliente: <input type="text" name="txtFiltro"> <input type="submit" name="btnFiltrar" value="Filtrar"><br/>
 		<br>
+		<form method="post" action="/TPINT_GRUPO_6_LAB4/ServletPrestamos">
 		<table class="table table-secondary table-striped">
 			<tbody>
 				<thead class="table-dark">
+					<td>Prestamo</td>
 					<td>Ciente</td>
 					<td>Cuenta</td>
 					<td>Monto</td>
@@ -93,12 +95,31 @@
 						if(p.getEstado().equalsIgnoreCase("Pendiente")){
 				%>
 				<tr>
+					<td><%request.setAttribute("idPrestamo",p.getIdPrestamo());%><%=p.getIdPrestamo()%></td>
 					<td><%=p.getIdUsuario()%></td>
 					<td><%=p.getIdCuenta()%></td>
 					<td><%=p.getMontoPrestamo()%></td>
 					<td><%=p.getCantidadCuotas()%></td>
 					<td><input type="submit" value="&#10004" name="btnAutorizar"></td>
 					<td><input type="submit" value="&#10006" name="btnRechazar"></td>
+					
+					<% if(request.getParameter("btnAutorizar")!=null && request.getAttribute("autorizacionPrestamo")!=null) {
+						
+					
+					Boolean autorizacion= (Boolean)request.getAttribute("autorizacionPrestamo");
+					if(autorizacion){ %>
+						 <div class="alert alert-success  alert-dismissible fade show" style="width:auto;"role="alert">
+						  	El prestamo quedo correctamente derivado para su aprobación.
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+						</div>  
+					<% } %>
+					<% if(!autorizacion){%>
+					 <div class="alert alert-danger alert-dismissible fade show" style="width:auto;"role="alert">
+						  	El prestamo no puedo procesarse, reintente en unos minutos.
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>
+						
+					<% } }%>
 				</tr>
 				<%
 				}	
@@ -108,9 +129,9 @@
 				%>
 				</tbody>
 		</table>
+			</form>
 		</div>
 		<br/>		
-	</form>
 </div>
 
 

@@ -153,6 +153,35 @@ USE `bdbanco`;
 	END$$
 
 	DELIMITER ;
+    
+USE `bdbanco`;
+	DROP procedure IF EXISTS `SP_autorizarPrestamo`;
+
+	DELIMITER $$
+	USE `bdbanco`$$
+	CREATE PROCEDURE `SP_autorizarPrestamo` (IN _idPrestamo int, IN _fechaAlta varchar(10))
+
+	BEGIN
+
+		DECLARE  _cuotaMes int DEFAULT 0;
+        DECLARE _fchaVtoStringMes varchar(10) DEFAULT _fechaAlta;
+
+		UPDATE prestamos
+		SET MontoTotalAdeudado = (((((CantidadCuotas/12)*85)*MontoPrestamo)/100)+MontoPrestamo),CuotasAdeudadas = CantidadCuotas,CuotasPagas= 0, FechaAlta=_fechaAlta , Estado= 'Aprobado'
+		WHERE IdPrestamo = _idPrestamo;
+
+		WHILE _cuotaMes < (SELECT CantidadCuotas FROM Prestamos WHERE IdPrestamo = _idPrestamo) DO  
+        
+			SET _fchaVtoStringMes = (DATE_FORMAT(DATE_ADD(STR_TO_DATE(_fchaVtoStringMes, '%d/%m/%Y'), INTERVAL 1 MONTH) , '%d/%m/%Y')) ;
+			SET _cuotaMes=(_cuotaMes+1);
+            
+          INSERT INTO cuotas (NroCuota, IdPrestamo,FechaPago,FechaVto) values (_cuotaMes,_idPrestamo,null,_fchaVtoStringMes);
+        END WHILE;
+        
+	END
+	$$
+	DELIMITER ;
+
 
 INSERT INTO nacionalidades (IdNacionalidad, Nacionalidad)
 SELECT 1, 'Argentina' UNION

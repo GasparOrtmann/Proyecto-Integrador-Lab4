@@ -18,12 +18,38 @@ import iDao.iDaoPrestamo;
 public class DaoPrestamo implements iDaoPrestamo{
 
 	
+	@Override
+	public Boolean autorizarPrestamo(int idPrestamo, String fechaAlta) {
+		Connection cn = Conexion.getConexion().getSQLConexion();
+		try {
+			int filaAfectada=0;
+			CallableStatement cst = cn.prepareCall("CALL SP_autorizarPrestamo(?,?)");
+			
+			//SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy"); 
+			//Date fecha = formato.parse("23/11/2015");
+			
+			cst.setInt(1,idPrestamo);
+			cst.setString(2,fechaAlta);
+
+			cst.executeUpdate();
+			filaAfectada=cst.getUpdateCount();
+			cn.commit();
+			System.out.println(filaAfectada);
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+			
+			return false;
+		}
+	
+		return true;
+	}
+	
+	
 	public Boolean agregarPrestamo(Prestamo prestamo) {
 		
-		
-		//SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy"); 
-		//Date fecha = formato.parse("23/11/2015");
-		
+
 		Connection cn = Conexion.getConexion().getSQLConexion();
 		try {
 			int filaAfectada=0;
@@ -238,5 +264,6 @@ public class DaoPrestamo implements iDaoPrestamo{
 		}
 		return prestamosSegunEstado;
 	}
-	
+
+
 }
