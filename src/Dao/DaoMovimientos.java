@@ -109,58 +109,18 @@ public class DaoMovimientos implements iDaoMovimientos{
 	}
 	
 	@Override
-	public int movimientoPositivo(int idCuenta, float monto) {
-		Connection cn = Conexion.getConexion().getSQLConexion();
-		String query = "UPDATE cuentas SET saldo = (saldo+"+monto+") WHERE IdCuenta ="+idCuenta;
-		
-		int filas=0;
-		try 
-		{
-			Statement st = (Statement) cn.createStatement();
-			 filas =st.executeUpdate(query);
-			 cn.commit();
-		}catch(SQLException e)
-		{
-			e.printStackTrace();
-		}
-		
-		
-		return filas;
-	}
-
-	@Override
-	public int movimientoNegativo(int idCuenta, float monto) {
-		Connection cn = Conexion.getConexion().getSQLConexion();
-		String query = "UPDATE cuentas SET saldo = (saldo-"+monto+") WHERE IdCuenta ="+idCuenta;
-		
-		int filas=0;
-		try 
-		{
-			Statement st = (Statement) cn.createStatement();
-			 filas =st.executeUpdate(query);
-			 cn.commit();
-		}catch(SQLException e)
-		{
-			e.printStackTrace();
-		}
-		
-		
-		return filas;
-	}
-
-	@Override
-	public int generarTransferncia(int cuentaOrigen, int cuentaDestino, float monto) {
-			
+	public int movimientoPositivo(int cuentaOrigen, int cuentaDestino,float monto) {
 		Connection cn = Conexion.getConexion().getSQLConexion();
 		int proxId=proxId();
+		
+		String nombre = buscarNombre(cuentaOrigen);
 		String query = "INSERT INTO movimientos(IdMovimiento,IdTipoMovimiento,IdCuenta,Fecha,importe,Detalle)"
-						+"VALUES ("+proxId+",4,"+cuentaOrigen+",CURRENT_DATE(),"+monto+",'transferencia')";
+						+"VALUES ("+proxId+",4,"+cuentaDestino+",CURRENT_DATE(),"+monto+",'Recibiste $"+monto+" de "+nombre+"')";
 		
 		int filas=0;
-			filas+=movimientoNegativo(cuentaOrigen,monto);
-			filas+=movimientoPositivo(cuentaDestino,monto);
+			filas+=sumarSaldo(cuentaDestino,monto);
 			
-		if(filas==2)
+		if(filas==1)
 		{
 			try
 			{
@@ -174,6 +134,46 @@ public class DaoMovimientos implements iDaoMovimientos{
 			}
 		}
 	
+		
+		return filas;
+	}
+
+	@Override
+	public int movimientoNegativo(int cuentaOrigen, int cuentaDestino,float monto) {
+		Connection cn = Conexion.getConexion().getSQLConexion();
+		int proxId=proxId();
+		
+		String nombre = buscarNombre(cuentaDestino);
+		String query = "INSERT INTO movimientos(IdMovimiento,IdTipoMovimiento,IdCuenta,Fecha,importe,Detalle)"
+						+"VALUES ("+proxId+",4,"+cuentaOrigen+",CURRENT_DATE(),"+monto+",'Enviaste $"+monto+" a "+nombre+"')";
+		
+		int filas=0;
+			filas+=restarSaldo(cuentaOrigen,monto);
+			
+		if(filas==1)
+		{
+			try
+			{
+				Statement st = (Statement) cn.createStatement();
+				filas += st.executeUpdate(query);
+				cn.commit();
+				
+			}catch(SQLException e)
+			{
+				e.printStackTrace();
+			}
+		}
+	
+		
+		return filas;
+	}
+
+	@Override
+	public int generarTransferncia(int cuentaOrigen, int cuentaDestino, float monto) {
+			
+		int filas=0;
+			filas+=movimientoNegativo(cuentaOrigen,cuentaDestino,monto);
+			filas+=movimientoPositivo(cuentaDestino,cuentaDestino,monto);
 		
 		return filas;
 	}
@@ -196,5 +196,68 @@ public class DaoMovimientos implements iDaoMovimientos{
 			e.printStackTrace();
 		}
 		return id+1;
+	}
+
+	@Override
+	public int sumarSaldo(int idCuenta, float monto) {
+		Connection cn = Conexion.getConexion().getSQLConexion();
+		String query = "UPDATE cuentas SET saldo = (saldo+"+monto+") WHERE IdCuenta ="+idCuenta;
+		
+		int filas=0;
+		try 
+		{
+			Statement st = (Statement) cn.createStatement();
+			 filas =st.executeUpdate(query);
+			 cn.commit();
+		}catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+		
+		
+		return filas;
+	}
+
+	@Override
+	public int restarSaldo(int idCuenta, float monto) {
+		Connection cn = Conexion.getConexion().getSQLConexion();
+		String query = "UPDATE cuentas SET saldo = (saldo-"+monto+") WHERE IdCuenta ="+idCuenta;
+		
+		int filas=0;
+		try 
+		{
+			Statement st = (Statement) cn.createStatement();
+			 filas =st.executeUpdate(query);
+			 cn.commit();
+		}catch(SQLException e)
+		{
+			e.printStackTrace();
+		}
+		
+		
+		return filas;
+	}
+	@Override
+	public String buscarNombre(int id) {
+		Connection cnn = Conexion.getConexion().getSQLConexion();
+		
+		String query = "SELECT Nombre as Nombre,Apellido as Apellido FROM usuarios INNER JOIN cuentas on usuarios.IdUsuario = cuentas.IdUsuario " + 
+				"WHERE IdCuenta="+id;
+		String nombre="";
+		String apellido="";
+		
+		PreparedStatement pst;
+		try {
+			pst = cnn.prepareStatement(query);
+			ResultSet rs = pst.executeQuery();
+			rs.next();
+			
+				nombre = rs.getString("Nombre");
+				apellido = rs.getString("Apellido");
+			}
+		catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return nombre+" "+apellido;
 	}
 }

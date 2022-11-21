@@ -14,8 +14,11 @@ public interface iDaoMovimientos {
 	
 	int cantTransacciones();
 	
-	int movimientoPositivo(int idCuenta,float monto);
-	int movimientoNegativo(int idCuenta,float monto);
+	int movimientoPositivo(int cuentaOrigen, int cuentaDestino,float monto);
+	int movimientoNegativo(int cuentaOrigen, int cuentaDestino,float monto);
 	int generarTransferncia(int cuentaOrigen,int cuentaDestino,float monto);
+	int sumarSaldo(int idCuenta,float monto);
+	int restarSaldo(int idCuenta,float monto);
 	int proxId();
+	String buscarNombre(int id);
 }

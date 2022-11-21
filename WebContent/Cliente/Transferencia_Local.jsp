@@ -42,7 +42,8 @@ if(request.getAttribute("TransferenciaOk")!=null)
 	<div>
 		<div>
 		<label>Desde:</label>
-				<% if(listaCu != null)
+				<%
+				if(listaCu != null)
 				{
 					int i=0;
 					%><select name="ddlOrigen"><%
@@ -50,11 +51,13 @@ if(request.getAttribute("TransferenciaOk")!=null)
 						i++;
 					%>	
 					
-					<option value="<%=c.getIdCuenta()%>">Cuenta<%=i %></option>
+					<option value="<%=c.getIdCuenta()%>">Cuenta<%=i %></option> 
+				
 					<%}%>
 					</select>
 				<%
 				}%>
+				
 		</div>
 	</div>
 	<br>
