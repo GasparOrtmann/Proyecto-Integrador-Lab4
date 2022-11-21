@@ -61,10 +61,10 @@ public class DaoMovimientos implements iDaoMovimientos{
 	}
 	
 	@Override
-	public List<Movimiento> traerHistorial(){
+	public List<Movimiento> traerHistorial(int idUsuario){
 		Connection cnn = Conexion.getConexion().getSQLConexion();
 		List<Movimiento> lstTrans = new ArrayList<Movimiento>();
-		String query = "SELECT * FROM movimientos ORDER BY Fecha DESC";
+		String query = "SELECT IdMovimiento, IdTipoMovimiento, movimientos.IdCuenta, Fecha, Importe, Detalle FROM movimientos INNER JOIN cuentas ON movimientos.IdCuenta=cuentas.IdCuenta  WHERE cuentas.IdUsuario="+idUsuario+" ORDER BY Fecha DESC;";
 		PreparedStatement pst;
 		try {
 			pst = cnn.prepareStatement(query);
@@ -85,6 +85,9 @@ public class DaoMovimientos implements iDaoMovimientos{
 		}
 		return lstTrans;
 	}
+	
+	
+	
 	@Override
 	public int cantTransacciones() {
 		Connection cnn = Conexion.getConexion().getSQLConexion();

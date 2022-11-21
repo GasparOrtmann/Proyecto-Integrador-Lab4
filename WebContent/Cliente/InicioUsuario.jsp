@@ -2,6 +2,7 @@
 	<%@page import="Entidades.Cuenta"%>
 	<%@page import="Entidades.Movimiento"%>
 	<%@page import="java.util.List"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -107,7 +108,7 @@
 		</table>
 		</div>
 			</div>
-			<div class="containerActividad">
+			<div class="containerActividad" style="overflow-y: scroll;">
 			<div class="card-header">
 				<div class="card-header-container">
 					<h3 class="card-header-title">Tu actividad</h3>
@@ -116,7 +117,7 @@
 			<%
 			if(listaHistorial!=null){
 				for (Movimiento h : listaHistorial){
-			%>
+			%> 
 				<div class="containerActividadIndividual">
 					<div class="movimiento">
 					<label style="font-weight: bolder;"><%=h.getIdTipoMovimiento().getTipoMovimiento() %> (Cuenta <%=h.getIdCuenta().getIdCuenta() %>)</label>

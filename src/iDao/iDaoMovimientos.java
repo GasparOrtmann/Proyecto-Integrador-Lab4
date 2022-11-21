@@ -10,7 +10,7 @@ public interface iDaoMovimientos {
 
 	String traerTipoMovimiento(int Id);
 
-	List<Movimiento> traerHistorial();
+	List<Movimiento> traerHistorial(int idUsuario);
 	
 	int cantTransacciones();
 	

@@ -21,9 +21,9 @@ public class NegocioMovimientos implements iNegocioMovimientos{
 	}
 
 	@Override
-	public List<Movimiento> traerHistorial() {
+	public List<Movimiento> traerHistorial(int idUsuario) {
 		DaoMovimientos daoMo = new DaoMovimientos();
-		return daoMo.traerHistorial();
+		return daoMo.traerHistorial(idUsuario);
 	}
 
 	public int cantTransacciones() {

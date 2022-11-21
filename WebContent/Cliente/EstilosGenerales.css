@@ -144,12 +144,11 @@ body{
     display: flex;
 }
 
-.card-header__title {
-    font-size: 18px;
+.card-header-title {
     font-weight: 600;
     line-height: 1.2857142857;
     padding-right: 5.4px;
-    
+    color:white;
 }
 
 .table{

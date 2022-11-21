@@ -144,7 +144,7 @@
 					<label>CBU</label> <input type="number" name="txtCBU" required>
 				</div>
 				<div>
-					<label>Saldo</label> <input class="pe-none border-0 bg-transparent" type="text" name="txtSaldo" value="10000">
+					<label>Saldo: $</label><input class="pe-none border-0 bg-transparent" type="text" name="txtSaldo" value="10000">
 				</div>
 				<div>
 					<label>Fecha Alta</label> <input type="date" name="inputFecha" required>

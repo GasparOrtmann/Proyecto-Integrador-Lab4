@@ -43,7 +43,7 @@
 					<% } %>
 					</form>
 					<ul class="list-unstyled ps-0">
-							<li class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"><a href="/TPINT_GRUPO_6_LAB4/ServeletClientes?TraerCuentasUsuario=1" style="color: white;">INICIO</a></li>
+							<li class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed"><a href="/TPINT_GRUPO_6_LAB4/ServeletClientes?TraerCuentasUsuario=1" style="color: white;text-decoration: none;">INICIO</a></li>
 						<li class="border-top my-3"></li>
 						<li class="mb-1">
 							<button class="btn btn-toggle d-inline-flex align-items-center rounded border-0 collapsed" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">PRESTAMOS</button>
