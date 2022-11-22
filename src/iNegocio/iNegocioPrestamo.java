@@ -10,6 +10,7 @@ public interface iNegocioPrestamo {
 	int  traerProxId();
 	List<Prestamo> traerListaPrestamos();
 	Boolean autorizarPrestamo(int idPrestamo, String fechaAlta);
+	Boolean rechazarPrestamo(int idPrestamo, String fechaAlta);
 	
 	int cantPrestamos();
 	float gananciaPorInteres(String fechaInicioFormateada,String fechaFinFormateada);

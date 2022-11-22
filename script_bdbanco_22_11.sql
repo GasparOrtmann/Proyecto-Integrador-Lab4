@@ -198,7 +198,23 @@ USE `bdbanco`;
 	END
 	$$
 	DELIMITER ;
+    
+USE `bdbanco`;
+	DROP procedure IF EXISTS `SP_rechazarPrestamo`;
 
+	DELIMITER $$
+	USE `bdbanco`$$
+	CREATE PROCEDURE `SP_rechazarPrestamo` (IN _idPrestamo int, IN _fechaAlta varchar(10))
+
+	BEGIN
+        
+		UPDATE prestamos
+		SET Estado= 'Rechazado'
+		WHERE IdPrestamo = _idPrestamo;
+
+	END
+	$$
+	DELIMITER ;
 
 INSERT INTO nacionalidades (IdNacionalidad, Nacionalidad)
 SELECT 1, 'Argentina' UNION

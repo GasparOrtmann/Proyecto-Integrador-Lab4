@@ -103,21 +103,6 @@
 					<td><input type="submit" value="&#10004" name="btnAutorizar"></td>
 					<td><input type="submit" value="&#10006" name="btnRechazar"></td>
 					</form>
-					<% if(request.getParameter("btnAutorizar")!=null && request.getAttribute("autorizacionPrestamo")!=null) {
-					Boolean autorizacion= (Boolean)request.getAttribute("autorizacionPrestamo");
-					if(autorizacion){ %>
-						 <div class="alert alert-success  alert-dismissible fade show" style="width:auto;"role="alert">
-						  	El prestamo quedo correctamente derivado para su aprobación.
-						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-						</div>  
-					<% } %>
-					<% if(!autorizacion){%>
-					 <div class="alert alert-danger alert-dismissible fade show" style="width:auto;"role="alert">
-						  	El prestamo no puedo procesarse, reintente en unos minutos.
-					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-					</div>
-						
-					<% } }%>
 				</tr>
 				<%
 				}	
@@ -127,7 +112,42 @@
 				%>
 				</tbody>
 		</table>
-			
+			<% if(request.getParameter("btnAutorizar")!=null && request.getAttribute("autorizacionPrestamo")!=null) {
+					
+						Boolean autorizacion= (Boolean)request.getAttribute("autorizacionPrestamo");
+					if(autorizacion){
+					%>
+						 <div class="alert alert-success  alert-dismissible fade show" style="width:auto;"role="alert">
+						  	El prestamo fue correctamente aprobado.
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+						</div>  
+					<% } %>
+					<% if(!autorizacion){
+					%>
+					 <div class="alert alert-danger alert-dismissible fade show" style="width:auto;"role="alert">
+						  	El prestamo no puedo aprobarse.
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>
+						
+					<% } }%>
+					<% if(request.getParameter("btnRechazar")!=null && request.getAttribute("rechazarPrestamo")!=null) {
+					
+						Boolean rechazo= (Boolean)request.getAttribute("rechazarPrestamo");
+					if(rechazo){
+					%>
+						 <div class="alert alert-success  alert-dismissible fade show" style="width:auto;"role="alert">
+						  	El prestamo fue correctamente rechazado.
+						<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+						</div>  
+					<% } %>
+					<% if(!rechazo){
+					%>
+					 <div class="alert alert-danger alert-dismissible fade show" style="width:auto;"role="alert">
+						  	El prestamo no puedo rechazarse.
+					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+					</div>
+						
+					<% } }%>
 		</div>
 		<br/>		
 </div>

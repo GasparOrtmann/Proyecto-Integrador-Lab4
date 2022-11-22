@@ -130,7 +130,8 @@ public class ServletPrestamos extends HttpServlet {
 						 autorizacionPrestamo=false;
 					 }
 				 }
-	
+				 
+				
 				 request.setAttribute("autorizacionPrestamo",autorizacionPrestamo);
 				 RequestDispatcher rd=request.getRequestDispatcher("/Admin/ABML_Prestamos_Admin.jsp");  
 				 rd.forward(request, response);
@@ -138,9 +139,26 @@ public class ServletPrestamos extends HttpServlet {
 		
 		
 		
-		if(request.getParameter("btnRechazar")!=null) {
+		if(request.getParameter("btnRechazar")!=null && request.getParameter("getIdPrestamo")!=null) {
 			
-			
+			 String fechaAlta= DateTimeFormatter.ofPattern("dd/MM/yyyy").format(LocalDateTime.now());
+			 int idPrestamo = Integer.parseInt(request.getParameter("getIdPrestamo"));
+			 
+			 Boolean rechazarPrestamo=false;
+			 
+			 if(idPrestamo!=0) {
+				 
+				 if(pneg.rechazarPrestamo(idPrestamo, fechaAlta)) {  
+					 
+					 rechazarPrestamo=true;
+				 } else {
+					 rechazarPrestamo=false;
+				 }
+			 }
+
+			 request.setAttribute("rechazarPrestamo",rechazarPrestamo);
+			 RequestDispatcher rd=request.getRequestDispatcher("/Admin/ABML_Prestamos_Admin.jsp");  
+			 rd.forward(request, response);
 			
 		}
 		

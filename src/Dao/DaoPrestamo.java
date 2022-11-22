@@ -46,10 +46,34 @@ public class DaoPrestamo implements iDaoPrestamo{
 		return true;
 	}
 	
+	@Override
+	public Boolean rechazarPrestamo(int idPrestamo, String fechaAlta) {
+		Connection cn = Conexion.getConexion().getSQLConexion();
+		try {
+			int filaAfectada=0;
+			CallableStatement cst = cn.prepareCall("CALL SP_rechazarPrestamo(?,?)");
+			
+			cst.setInt(1,idPrestamo);
+			cst.setString(2,fechaAlta);
+
+			cst.executeUpdate();
+			filaAfectada=cst.getUpdateCount();
+			cn.commit();
+			System.out.println(filaAfectada);
+			
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+			
+			return false;
+		}
 	
+		return true;
+	}
+
+	@Override
 	public Boolean agregarPrestamo(Prestamo prestamo) {
 		
-
 		Connection cn = Conexion.getConexion().getSQLConexion();
 		try {
 			int filaAfectada=0;
@@ -265,5 +289,7 @@ public class DaoPrestamo implements iDaoPrestamo{
 		return prestamosSegunEstado;
 	}
 
+
+	
 
 }

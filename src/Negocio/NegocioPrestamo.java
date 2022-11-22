@@ -22,6 +22,18 @@ public class NegocioPrestamo implements iNegocioPrestamo {
 	}
 	
 	@Override
+	public Boolean rechazarPrestamo(int idPrestamo, String fechaAlta) {
+
+		if(pdao.rechazarPrestamo(idPrestamo, fechaAlta)) {
+			
+			return true;
+			
+		}
+		return false;
+	}
+
+	
+	@Override
 	public Boolean autorizarPrestamo(int idPrestamo, String fechaAlta) {
 		
 		if(pdao.autorizarPrestamo(idPrestamo, fechaAlta)) {
@@ -75,6 +87,7 @@ public class NegocioPrestamo implements iNegocioPrestamo {
 		return prestamosSegunEstado;
 	}
 
+	
 
 
 }
