@@ -216,6 +216,74 @@ USE `bdbanco`;
 	$$
 	DELIMITER ;
 
+DELIMITER $$
+	CREATE TRIGGER tr_crearUsuario BEFORE INSERT ON usuarios
+	FOR EACH ROW
+	BEGIN
+		IF (exists(SELECT 1 FROM usuarios WHERE Usuario=NEW.Usuario) && exists(SELECT 1 FROM usuarios WHERE NroDni=NEW.NroDni) && exists(SELECT 1 FROM usuarios WHERE NroCuil=NEW.NroCuil))THEN
+			INSERT INTO usuarios (IdUsuario,EsAdmin,Usuario,Contrasenia,Nombre,Apellido,Sexo,FechaNacimiento,Calle,Altura,Email,NroCuil,NroDni,Estado,CantidadCuentas,IdNacionalidad,IdLocalidad)
+			VALUES (NEW.IdUsuario,NEW.EsAdmin,NEW.Usuario,NEW.Contrasenia,NEW.Nombre,NEW.Apellido,NEW.Sexo,NEW.FechaNacimiento,NEW.Calle,NEW.Altura,NEW.Email,NEW.NroCuil,NEW.NroDni,NEW.Estado,NEW.CantidadCuentas,NEW.IdNacionalidad,NEW.IdLocalidad);
+		END IF;
+	END$$;
+DELIMITER ;
+
+DELIMITER $$
+	CREATE TRIGGER tr_modificarUsuario BEFORE UPDATE ON usuarios
+	FOR EACH ROW
+	BEGIN
+		IF (exists(SELECT 1 FROM usuarios WHERE Usuario=NEW.Usuario) && exists(SELECT 1 FROM usuarios WHERE NroDni=NEW.NroDni) && exists(SELECT 1 FROM usuarios WHERE NroCuil=NEW.NroCuil))THEN
+			UPDATE usuarios SET
+            IdUsuario = NEW.IdUsuario,
+            EsAdmin = NEW.EsAdmin,
+            Usuario = NEW.Usuario,
+            Contrasenia = NEW.Contrasenia,
+            Nombre = NEW.Nombre,
+            Apellido = NEW.Apellido,
+            Sexo = NEW.Sexo,
+            FechaNacimiento = NEW.FechaNacimiento,
+            Calle = NEW.Calle,
+            Altura = NEW.Altura,
+            Email = NEW.Email,
+            NroCuil = NEW.NroCuil,
+            NroDni = NEW.NroDni,
+            Estado = NEW.Estado,
+            CantidadCuentas = NEW.CantidadCuentas,
+            IdNacionalidad = NEW.IdNacionalidad,
+            IdLocalidad = NEW.IdLocalidad
+			WHERE IdUsuario = NEW.IdUsuario;
+		END IF;
+	END$$;
+DELIMITER ;
+
+DELIMITER $$
+CREATE TRIGGER tr_crearCuenta BEFORE INSERT ON cuentas
+	FOR EACH ROW
+	BEGIN
+		IF (exists(SELECT 1 FROM cuentas WHERE IdCuenta=NEW.IdCuenta) && exists(SELECT 1 FROM cuentas WHERE IdUsuario=NEW.IdUsuario) && exists(SELECT 1 FROM cuentas WHERE CBU=NEW.CBU))THEN
+			INSERT INTO cuentas (IdCuenta,IdUsuario,IdTipoCuenta,CBU,Saldo,FechaAlta,Estado)
+			VALUES (NEW.IdCuenta,NEW.IdUsuario,NEW.IdTipoCuenta,NEW.CBU,NEW.Saldo,NEW.FechaAlta,NEW.Estado);
+	END IF;
+END$$;
+DELIMITER ;
+
+DELIMITER $$
+	CREATE TRIGGER tr_modificarCuenta BEFORE UPDATE ON cuentas
+	FOR EACH ROW
+	BEGIN
+		IF (exists(SELECT 1 FROM cuentas WHERE IdCuenta=NEW.IdCuenta) && exists(SELECT 1 FROM cuentas WHERE IdUsuario=NEW.IdUsuario) && exists(SELECT 1 FROM cuentas WHERE CBU=NEW.CBU))THEN
+			UPDATE cuentas SET
+            IdCuenta = NEW.IdCuenta,
+            IdUsuario = NEW.IdUsuario,
+            IdTipoCuenta = NEW.IdTipoCuenta,
+            CBU = NEW.CBU,
+            Saldo = NEW.Saldo,
+            FechaAlta = NEW.FechaAlta,
+            Estado = NEW.Estado
+			WHERE IdCuenta=NEW.IdCuenta;
+		END IF;
+	END$$;
+DELIMITER ;
+
 INSERT INTO nacionalidades (IdNacionalidad, Nacionalidad)
 SELECT 1, 'Argentina' UNION
 SELECT 2, 'Brasilera' UNION
@@ -244,21 +312,53 @@ SELECT 4, 0, 'malena', '12345', 'Malena','Constancio', 'Femenino', '14/11/2022',
 SELECT 5, 0, 'santi', '12345', 'Santiago','Britos', 'Masculino', '14/11/2022', 'Calle', 1000, 'santiago@gmail.com', '20434444440', '43444444', 1,1,1,1 UNION
 SELECT 6, 0, 'agus', '12345', 'Agustin','Rojas', 'Masculino', '14/11/2022', 'Calle', 1000, 'agustin@gmail.com', '20435555550', '43555555', 1,1,1,1;
 
+INSERT INTO telefonos (NroTelefono, IdUsuario, Estado)
+SELECT '1168082459',2,1 UNION
+SELECT '1148111117',3,1 UNION
+SELECT '1149512322',4,1 UNION
+SELECT '1142477949',5,1 UNION
+SELECT '1147600660',6,1;
+
 INSERT INTO tipos_cuenta (IdTipoCuenta, TipoCuenta)
 SELECT 1, 'Cuenta Corriente' UNION
 SELECT 2, 'Caja de Ahorro';
 
 INSERT INTO cuentas (IdCuenta, IdUsuario, IdTipoCuenta, CBU, Saldo, FechaAlta, Estado)
 SELECT 1,2,1,'83609888111000445766', 20000, '14/11/2022', 1 UNION
-SELECT 2,3,1,'53406442111000416747', 30000, '14/11/2022', 1 UNION
-SELECT 3,4,1,'17435149111000329362', 40000, '14/11/2022', 1 UNION
-SELECT 4,5,1,'45680069111000732191', 25000, '14/11/2022', 1 UNION
-SELECT 5,6,1,'64929389111000507162', 10000, '14/11/2022', 1;
-
-
+SELECT 2,3,1,'53406442111000416747', 30000, '17/10/2022', 1 UNION
+SELECT 3,4,2,'17435149111000329362', 40000, '08/10/2022', 1 UNION
+SELECT 4,5,1,'45680069111000732191', 25000, '11/11/2022', 1 UNION
+SELECT 5,6,1,'59089117111000734217', 25000, '20/11/2022', 1 UNION
+SELECT 6,2,2,'10578207111000679567', 20000, '21/09/2022', 1 UNION
+SELECT 7,3,1,'95379281111000789519', 30000, '22/11/2022', 1 UNION
+SELECT 8,4,2,'17435149111000329362', 40000, '19/10/2022', 1 UNION
+SELECT 9,5,1,'19956475111000235074', 25000, '04/11/2022', 1 UNION
+SELECT 10,6,2,'14986763111000296305', 25000, '10/10/2022', 1 UNION
+SELECT 11,2,1,'90443183111000884080', 20000, '14/11/2022', 1 UNION
+SELECT 12,3,2,'47727281111000149377', 30000, '21/10/2022', 1 UNION
+SELECT 13,4,1,'12058048111000484647', 40000, '14/10/2022', 1 UNION
+SELECT 14,5,2,'24709022111000580989', 25000, '11/11/2022', 1 UNION
+SELECT 15,6,1,'61312289111000994657', 25000, '22/10/2022', 1;
 
 INSERT INTO tipos_movimiento (IdTipoMovimiento, TipoMovimiento)
 SELECT 1, 'Alta de cuenta' UNION
 SELECT 2, 'Alta de préstamo' UNION
 SELECT 3, 'Pago de préstamo' UNION
 SELECT 4, 'Transferencia';
+
+INSERT INTO movimientos (IdMovimiento, IdTipoMovimiento, IdCuenta, Fecha, Importe, Detalle)
+SELECT 1,1,1,'14/11/2022',20000,'Alta de cuenta' UNION
+SELECT 2,1,2,'17/10/2022',30000,'Alta de cuenta' UNION
+SELECT 3,1,3,'08/10/2022',40000,'Alta de cuenta' UNION
+SELECT 4,1,4,'11/11/2022',25000,'Alta de cuenta' UNION
+SELECT 5,1,5,'20/11/2022',25000,'Alta de cuenta' UNION
+SELECT 6,1,6,'21/09/2022',20000,'Alta de cuenta' UNION
+SELECT 7,1,7,'22/11/2022',30000,'Alta de cuenta' UNION
+SELECT 8,1,8,'19/10/2022',40000,'Alta de cuenta' UNION
+SELECT 9,1,9,'04/11/2022',25000,'Alta de cuenta' UNION
+SELECT 10,1,10,'10/10/2022',25000,'Alta de cuenta' UNION
+SELECT 11,1,11,'14/11/2022',20000,'Alta de cuenta' UNION
+SELECT 12,1,12,'21/10/2022',30000,'Alta de cuenta' UNION
+SELECT 13,1,13,'14/10/2022',40000,'Alta de cuenta' UNION
+SELECT 14,1,14,'11/11/2022',25000,'Alta de cuenta' UNION
+SELECT 15,1,15,'22/10/2022',25000,'Alta de cuenta';
