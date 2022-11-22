@@ -42,7 +42,7 @@
 	Cuenta cuentaEditar = null;
 	List<Cuenta> listaCu = null;
 	List<TipoCuenta> listaTipos = null;
-	int filasModificadasEditar = 0;
+	int filasModificadasEditar = 2;
 	boolean filasAfectadasEliminar = false;
 	Boolean cuentaAgregada = false;
 	Boolean limiteCuentas = false;
@@ -96,6 +96,12 @@
 	<%if(filasModificadasEditar == 1){ %>
 		<div class="alert alert-success alert-dismissible fade show" role="alert">
 		  Se editó correctamente la cuenta!
+		  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+	<%} %>
+	<%if(filasModificadasEditar == 0){ %>
+		<div class="alert alert-danger alert-dismissible fade show" role="alert">
+		  Ya existe una cuenta con esos datos!
 		  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 		</div>
 	<%} %>

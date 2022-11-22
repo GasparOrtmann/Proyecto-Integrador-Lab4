@@ -49,7 +49,7 @@
 			int proximoId = 0;
 			int proximaPagina = 1;
 			int filasAfectadasCrear = 0;
-			int filasAfectadasEditar = 0;
+			int filasAfectadasEditar = 2;
 			boolean filasAfectadasBorrar = false;
 			Telefono telefonoEditar = null;
 			int errorContrasenia = 0;
@@ -115,11 +115,23 @@
 			}
 			%>
 			<%
-			if (filasAfectadasEditar != 0) {
+			if (filasAfectadasEditar == 1) {
 			%>
 			<div class="alert alert-success alert-dismissible fade show"
 				role="alert">
 				Cliente Editado Exitosamente!
+				<button type="button" class="btn-close" data-bs-dismiss="alert"
+					aria-label="Close"></button>
+			</div>
+			<%
+			}
+			%>
+			<%
+			if (filasAfectadasEditar == 0) {
+			%>
+			<div class="alert alert-danger alert-dismissible fade show"
+				role="alert">
+				Ese cliente ya existe o hubo un error al crearlo!
 				<button type="button" class="btn-close" data-bs-dismiss="alert"
 					aria-label="Close"></button>
 			</div>
