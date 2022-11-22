@@ -16,7 +16,15 @@
 <body>
 
 <%@include file="MasterPageAdmin.jsp"%>
-
+	<%
+		if(miSession.getAttribute("tipoDeUsuario")!=null && miSession.getAttribute("usuarioIngresado")!=null){
+			if((Boolean)miSession.getAttribute("tipoDeUsuario")==false){
+				response.sendRedirect("/TPINT_GRUPO_6_LAB4/Cliente/InicioUsuario.jsp");
+			}
+		}else{
+			response.sendRedirect("/TPINT_GRUPO_6_LAB4/Login.jsp");
+		}
+	%>
 <div style="position: absolute;top:150px;left:400px;">
 
 
