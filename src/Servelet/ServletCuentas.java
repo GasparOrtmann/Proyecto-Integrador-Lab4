@@ -98,7 +98,8 @@ public class ServletCuentas extends HttpServlet {
 		}
 		
 		if(request.getParameter("btnEliminar")!=null) {
-			negCu.eliminarCuenta(request.getParameter("getIdCuenta"));
+			boolean filasAfectadasEliminar = negCu.eliminarCuenta(request.getParameter("getIdCuenta"));
+			request.setAttribute("filasAfectadasEliminar", filasAfectadasEliminar);
 			List<Cuenta> lista=negCu.traerLista();
 			request.setAttribute("listaCuentas", lista);
 			RequestDispatcher rd =  request.getRequestDispatcher("/Admin/ABML_Cuentas_Admin.jsp");  

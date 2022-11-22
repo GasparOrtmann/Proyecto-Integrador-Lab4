@@ -43,6 +43,7 @@
 	List<Cuenta> listaCu = null;
 	List<TipoCuenta> listaTipos = null;
 	int filasModificadasEditar = 0;
+	boolean filasAfectadasEliminar = false;
 	Boolean cuentaAgregada = false;
 	Boolean limiteCuentas = false;
 	Boolean tieneLetras;
@@ -60,6 +61,9 @@
 	}
 	if (request.getAttribute("filasModificadasEditar") != null) {
 		filasModificadasEditar = Integer.valueOf(request.getAttribute("filasModificadasEditar").toString());
+	}
+	if (request.getAttribute("filasAfectadasEliminar") != null) {
+		filasAfectadasEliminar = Boolean.valueOf(request.getAttribute("filasAfectadasEliminar").toString());
 	}
 	if (request.getAttribute("cuentaAgregada") != null){
 		cuentaAgregada = Boolean.valueOf(request.getAttribute("cuentaAgregada").toString());
@@ -92,6 +96,12 @@
 	<%if(filasModificadasEditar == 1){ %>
 		<div class="alert alert-success alert-dismissible fade show" role="alert">
 		  Se editó correctamente la cuenta!
+		  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+	<%} %>
+	<%if(filasAfectadasEliminar){ %>
+		<div class="alert alert-success alert-dismissible fade show" role="alert">
+		  Se cambio exitosamente el estado del Cliente!
 		  <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 		</div>
 	<%} %>
