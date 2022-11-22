@@ -76,7 +76,6 @@
 		<br/>
 		Filtrar por cliente: <input type="text" name="txtFiltro"> <input type="submit" name="btnFiltrar" value="Filtrar"><br/>
 		<br>
-		<form method="post" action="/TPINT_GRUPO_6_LAB4/ServletPrestamos">
 		<table class="table table-secondary table-striped">
 			<tbody>
 				<thead class="table-dark">
@@ -95,17 +94,16 @@
 						if(p.getEstado().equalsIgnoreCase("Pendiente")){
 				%>
 				<tr>
-					<td><%request.setAttribute("idPrestamo",p.getIdPrestamo());%><%=p.getIdPrestamo()%></td>
+					<td><%=p.getIdPrestamo()%></td>
 					<td><%=p.getIdUsuario()%></td>
 					<td><%=p.getIdCuenta()%></td>
 					<td><%=p.getMontoPrestamo()%></td>
 					<td><%=p.getCantidadCuotas()%></td>
+					<form method="post" action="/TPINT_GRUPO_6_LAB4/ServletPrestamos?getIdPrestamo=<%=p.getIdPrestamo()%>">
 					<td><input type="submit" value="&#10004" name="btnAutorizar"></td>
 					<td><input type="submit" value="&#10006" name="btnRechazar"></td>
-					
+					</form>
 					<% if(request.getParameter("btnAutorizar")!=null && request.getAttribute("autorizacionPrestamo")!=null) {
-						
-					
 					Boolean autorizacion= (Boolean)request.getAttribute("autorizacionPrestamo");
 					if(autorizacion){ %>
 						 <div class="alert alert-success  alert-dismissible fade show" style="width:auto;"role="alert">
@@ -129,7 +127,7 @@
 				%>
 				</tbody>
 		</table>
-			</form>
+			
 		</div>
 		<br/>		
 </div>

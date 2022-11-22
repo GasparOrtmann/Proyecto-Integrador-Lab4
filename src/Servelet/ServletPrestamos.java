@@ -114,27 +114,28 @@ public class ServletPrestamos extends HttpServlet {
 
 		}
 		
-		if(request.getParameter("btnAutorizar")!=null) {
-			
-			 String fechaAlta= DateTimeFormatter.ofPattern("dd/MM/yyyy").format(LocalDateTime.now());
-			 int idPrestamo = (int) request.getAttribute("idPrestamo");
-			 
-			 Boolean autorizacionPrestamo=false;
-			 
-			 if(idPrestamo!=0) {
-				 
-				 if(pneg.autorizarPrestamo(idPrestamo, fechaAlta)) {  
-					 autorizacionPrestamo=true;
-				 } else {
-					 autorizacionPrestamo=false;
-				 }
-			 }
+		if(request.getParameter("btnAutorizar")!=null && request.getParameter("getIdPrestamo")!=null) {
 
-			 request.setAttribute("autorizacionPrestamo",autorizacionPrestamo);
-			 RequestDispatcher rd=request.getRequestDispatcher("/Cliente/SolicitarPrestamo.jsp");  
-			 rd.forward(request, response);
-			
-		}
+				 String fechaAlta= DateTimeFormatter.ofPattern("dd/MM/yyyy").format(LocalDateTime.now());
+				 int idPrestamo = Integer.parseInt(request.getParameter("getIdPrestamo"));
+				 
+				 Boolean autorizacionPrestamo=false;
+				 
+				 if(idPrestamo!=0) {
+					 
+					 if(pneg.autorizarPrestamo(idPrestamo, fechaAlta)) {  
+						 
+						 autorizacionPrestamo=true;
+					 } else {
+						 autorizacionPrestamo=false;
+					 }
+				 }
+	
+				 request.setAttribute("autorizacionPrestamo",autorizacionPrestamo);
+				 RequestDispatcher rd=request.getRequestDispatcher("/Admin/ABML_Prestamos_Admin.jsp");  
+				 rd.forward(request, response);
+			}
+		
 		
 		
 		if(request.getParameter("btnRechazar")!=null) {
