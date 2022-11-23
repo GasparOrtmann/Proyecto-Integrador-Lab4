@@ -196,7 +196,7 @@ public class DaoMovimientos implements iDaoMovimientos{
 		
 		String nombre = buscarNombre(cbuOrigen);
 		String query = "INSERT INTO movimientos(IdMovimiento,IdTipoMovimiento,IdCuenta,Fecha,importe,Detalle) "
-						+"SELECT "+proxId+",4,(SELECT IdCuenta FROM cuentas WHERE CBU = "+cbuDestino+"),CURRENT_DATE(),"+monto+",'Recibiste $"+monto+" de "+nombre+"'";
+						+"SELECT "+proxId+",4,(SELECT IdCuenta FROM cuentas WHERE CBU = "+cbuDestino+"),(select date_format(curdate(), '%e/%c/%Y')),"+monto+",'Recibiste $"+monto+" de "+nombre+"'";
 		
 		int filas=0;
 			filas+=sumarSaldo(cbuDestino,monto);
@@ -226,7 +226,7 @@ public class DaoMovimientos implements iDaoMovimientos{
 		
 		String nombre = buscarNombre(cbuDestino);
 		String query = "INSERT INTO movimientos(IdMovimiento,IdTipoMovimiento,IdCuenta,Fecha,importe,Detalle) "
-						+"SELECT "+proxId+",4,(SELECT IdCuenta FROM cuentas WHERE CBU = "+cbuOrigen+"),CURRENT_DATE(),"+monto+",'Enviaste $"+monto+" a "+nombre+"'";
+						+"SELECT "+proxId+",4,(SELECT IdCuenta FROM cuentas WHERE CBU = "+cbuOrigen+"),(select date_format(curdate(), '%e/%c/%Y')),"+monto+",'Enviaste $"+monto+" a "+nombre+"'";
 		
 		int filas=0;
 			filas+=restarSaldo(cbuOrigen,monto);

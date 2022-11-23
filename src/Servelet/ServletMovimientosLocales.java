@@ -80,7 +80,7 @@ public class ServletMovimientosLocales extends HttpServlet {
 			{
 				request.setAttribute("TransferenciaOk", true);
 			}
-			;
+			
 			if(session.getAttribute("usuarioIngresado")!=null)
 			{
 				Usuario u = (Usuario)session.getAttribute("usuarioIngresado");
