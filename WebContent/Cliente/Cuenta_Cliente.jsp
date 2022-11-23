@@ -7,7 +7,8 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Mi Perfil</title>
-<link href="../styles.css" rel="stylesheet" type="text/css">
+<link href="Cliente/EstilosGenerales.css" rel="stylesheet"
+	type="text/css">
 </head>
 <body>
 
@@ -30,8 +31,10 @@
           			String apellido= (String) usuarioIngresado.getApellido();
           			String calle= (String) usuarioIngresado.getCalle();
           			int altura= (int) usuarioIngresado.getAltura();
+          			String dni = usuarioIngresado.getNroDni();
+          			String cuil = usuarioIngresado.getNroCuil();
           			
-          			String direc = calle+String.valueOf(altura);
+          			String direc = calle+" "+String.valueOf(altura);
           			%><div class="centrar-row">
           			<div>
           				<label>Nombre de Usuario: </label> <%= nUsuario 
@@ -39,6 +42,8 @@
           				%><br><label>Nombre: </label> <%= nombre 
           				%><br><label>Apellido: </label> <%= apellido 
           				%><br><label>Domicilio:</label> <%=direc %>
+          				<br><label>DNI:</label> <%=dni %>
+          				<br><label>CUIL:</label> <%=cuil %>
           			</div>
           		</div>
           			<% 
