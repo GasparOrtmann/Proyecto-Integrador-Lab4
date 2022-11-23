@@ -114,20 +114,32 @@
 						
 						function traerSaldo1(){
 							
-							var vcbu1 = <%=vcbu[0]%>;
-							var vcbu2 = <%=vcbu[1]%>;
-							var vcbu3 = <%=vcbu[2]%>;
-							var saldo = "nahsse";
+						
+						
+							var cbu = document.getElementById("ddlOrigen").value;
 							
-							var cbu = document.getElementById("ddlOrigen");
+							var a1 = <%= vcbu[0]%>
+							var a2 = <%= vcbu[1]%>
+							var a3 = <%= vcbu[2]%>
 							
-							if( cbu.localeCompare(vcbu1)== 0 ) saldo = <%= v[0]%>;
-							if( cbu.localeCompare(vcbu2)== 0 ) saldo = <%= v[1]%>;
-							if( cbu.localeCompare(vcbu3)== 0 ) saldo = <%= v[2]%>;
+							var dinero;
 							
+							if(a1 == cbu)
+								{
+										dinero = <%=v[0]%>;
+								}
+							if(a2 == cbu)
+							{
+									dinero = <%=v[1]%>;
+							}
+							if(a3 == cbu)
+							{
+									dinero = <%=v[2]%>;
+							}
 							
+					
 							
-							document.getElementById("saldoDisponible").innerHTML  ="saldo disponible: "+saldo;
+							document.getElementById("saldoDisponible").innerHTML  ="saldo disponible: "+ dinero;
 							
 							
 							}
