@@ -5,14 +5,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
-import Entidades.Cuenta;
 import Entidades.Prestamo;
-import Entidades.TipoCuenta;
+import Entidades.Usuario;
 import iDao.iDaoPrestamo;
 
 public class DaoPrestamo implements iDaoPrestamo{
@@ -101,7 +98,8 @@ public class DaoPrestamo implements iDaoPrestamo{
 	
 		return true;
 	}
-		
+	
+	@Override	
 	public int  traerProxId() {
 		Connection cnn = Conexion.getConexion().getSQLConexion();
 		
@@ -119,7 +117,8 @@ public class DaoPrestamo implements iDaoPrestamo{
 		}
 		return id+1;
 	}	
-		
+	
+	@Override
 	public List<Prestamo> traerListaPrestamos() {
 		
 		Connection cnn = Conexion.getConexion().getSQLConexion();
@@ -156,6 +155,46 @@ public class DaoPrestamo implements iDaoPrestamo{
 		}
 		return lstPrestamos;
 	}
+	
+	@Override
+	public List<Prestamo> traerListaMisPrestamos(Usuario u) {
+		Connection cnn = Conexion.getConexion().getSQLConexion();
+		
+		List<Prestamo> lstMisPrestamos = new ArrayList<Prestamo>();
+		
+		String query = "SELECT * FROM prestamos WHERE IdUsuario="+u.getIdUsuario();
+		PreparedStatement pst;
+		try {
+
+			pst = cnn.prepareStatement(query);
+			ResultSet rs = pst.executeQuery();
+
+			while (rs.next()) {
+				
+				int idP = rs.getInt(1);
+				int idU = rs.getInt(2);
+				float montoP= rs.getFloat(3);
+				float montoPAdeu= rs.getFloat(4);
+				float cuotaFija=rs.getFloat(5);
+				int cantCuotas = rs.getInt(6);
+				int cuotDeuda=rs.getInt(7);
+				int cuotPagas=rs.getInt(8);
+				int idCta=rs.getInt(9);
+				String fechaAlta=rs.getString(10);
+				String estado=rs.getString(11);
+
+				lstMisPrestamos.add(new Prestamo(idP, idU, montoP, montoPAdeu, cuotaFija, cantCuotas, cuotDeuda,cuotPagas,idCta,fechaAlta,estado));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return lstMisPrestamos;
+	}
+
+	
+	
+	
 	@Override
 	public int cantPrestamos() {
 		Connection cnn = Conexion.getConexion().getSQLConexion();
@@ -288,6 +327,7 @@ public class DaoPrestamo implements iDaoPrestamo{
 		}
 		return prestamosSegunEstado;
 	}
+
 
 
 	

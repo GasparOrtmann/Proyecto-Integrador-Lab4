@@ -11,6 +11,9 @@
 <!-- CSS only -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
 <script src="https://kit.fontawesome.com/2fcd49ae61.js" crossorigin="anonymous"></script>
+
+
+
 <title>Autorizacion de Prestamos</title>
 </head>
 <body>
@@ -34,8 +37,9 @@
 				value="Filtrar">
 		</div>
 		<br/>
-		<table class="table table-secondary table-striped">
-			<tbody>
+		<div style="overflow-y: scroll; height:200px;">
+		<table  id="tablaPrestamos" class="table table-secondary text-center table-striped" >
+			<tbody >
 				 <thead class="table-dark">
 					<td>Prestamo</td>
 					<td>Cliente</td>
@@ -75,6 +79,7 @@
 				%>
 			</tbody>
 		</table>
+		</div>
 		<br/>
 		<br/>
 		<br/>
@@ -84,7 +89,7 @@
 		<br/>
 		Filtrar por cliente: <input type="text" name="txtFiltro"> <input type="submit" name="btnFiltrar" value="Filtrar"><br/>
 		<br>
-		<table class="table table-secondary table-striped">
+		<table class="table table-secondary text-center table-striped">
 			<tbody>
 				<thead class="table-dark">
 					<td>Prestamo</td>

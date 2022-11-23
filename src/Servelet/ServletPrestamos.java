@@ -62,6 +62,7 @@ public class ServletPrestamos extends HttpServlet {
 			
 		}
 		
+		//ADMIN
 		if(request.getParameter("TraerListadoPrestamos")!=null) {
 			
 			NegocioPrestamo pneg = new NegocioPrestamo();
@@ -73,8 +74,18 @@ public class ServletPrestamos extends HttpServlet {
 			
 		}
 		
-		
-		
+		//CLIENTE
+		if(request.getParameter("TraerListadoMisPrestamos")!=null) {
+			
+			NegocioPrestamo pneg = new NegocioPrestamo();
+			Usuario usuarioLogueado = (Usuario)miSession.getAttribute("usuarioIngresado");
+			List<Prestamo> lstMisPrestamos = pneg.traerListaMisPrestamos(usuarioLogueado);
+			
+			request.setAttribute("lstMisPrestamos", lstMisPrestamos);
+			RequestDispatcher rd=request.getRequestDispatcher("/Cliente/MisPrestamos.jsp");  
+			rd.forward(request, response);
+			
+		}
 		
 		
 	}

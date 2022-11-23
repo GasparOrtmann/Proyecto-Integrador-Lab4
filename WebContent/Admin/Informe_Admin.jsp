@@ -99,7 +99,7 @@
 				Hasta: <input type="date" name="txtFechaFin" required><br></br>
 				<br>
 
-				<table class="table text-center table-hover">
+				<table class="table table-secondary table-striped text-center table-hover">
 					<thead class="table-dark">
 						<tr>
 							<th>Ganancia por interes</th>

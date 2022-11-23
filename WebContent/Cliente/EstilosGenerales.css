@@ -163,6 +163,10 @@ body{
   background-color: #363062;
   color: white;
 }
+
+.table td {
+  text-align: center;
+}
 /*-------------MASTERPAGE CLIENTE--------------------------------------------*/
 
 .navbarSuperior{

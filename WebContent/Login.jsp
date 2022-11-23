@@ -31,15 +31,7 @@
           <div class="form-outline mb-2">
             <input type="password" name="txtContrasenia" placeholder="********"  class="form-control form-control-lg" />
           </div>
-
-          <div class="d-flex justify-content-around align-items-center mb-2">
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="form1Example3" checked />
-              <label class="form-check-label" for="form1Example3"> Recordame </label>
-            </div>
-            <a href="#!">¿Olvidaste tu contraseña?</a>
-          </div>
-          <input type="submit" class="btn btn-secondary" name="btnIniciarSesion" style="margin-left:40%;margin-top:5px;value="INICIAR SESION"></input>
+          <input type="submit" class="btn btn-secondary" name="btnIniciarSesion" style="background-color:#827397;margin-left:40%;margin-top:5px;width:150px"value="INICIAR SESION"></input>
         </form>
       </div>
        	<% 	HttpSession miSession=request.getSession(); 

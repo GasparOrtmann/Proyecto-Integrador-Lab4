@@ -121,7 +121,7 @@
 				<br>
 			
 		</div>
-		<table class="table table-striped">
+		<table class="table table-secondary table-striped ">
 				<thead class="table-dark">
 				<tr>
 					<td>Cod Cuenta</td>

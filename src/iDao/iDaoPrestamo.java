@@ -3,6 +3,7 @@ package iDao;
 import java.util.List;
 
 import Entidades.Prestamo;
+import Entidades.Usuario;
 
 public interface iDaoPrestamo {
 
@@ -11,6 +12,7 @@ public interface iDaoPrestamo {
 	List<Prestamo> traerListaPrestamos();
 	Boolean autorizarPrestamo(int idPrestamo, String fechaAlta);
 	Boolean rechazarPrestamo(int idPrestamo, String fechaAlta);
+	List<Prestamo> traerListaMisPrestamos(Usuario u);
 	
 	
 	int cantPrestamos();

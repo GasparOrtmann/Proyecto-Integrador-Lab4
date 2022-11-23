@@ -4,6 +4,7 @@ import java.util.List;
 
 import Dao.DaoPrestamo;
 import Entidades.Prestamo;
+import Entidades.Usuario;
 import iNegocio.iNegocioPrestamo;
 
 public class NegocioPrestamo implements iNegocioPrestamo {
@@ -58,6 +59,14 @@ public class NegocioPrestamo implements iNegocioPrestamo {
 	}
 
 	@Override
+	public List<Prestamo> traerListaMisPrestamos(Usuario u) {
+		 List<Prestamo> lstMisPrestamos = pdao.traerListaMisPrestamos(u);
+			return lstMisPrestamos;
+	}
+	
+	
+	
+	@Override
 	public int cantPrestamos() {
 		int cantPrestamos = pdao.cantPrestamos();
 		return cantPrestamos;
@@ -86,6 +95,8 @@ public class NegocioPrestamo implements iNegocioPrestamo {
 		int[] prestamosSegunEstado = pdao.prestamosSegunEstado();
 		return prestamosSegunEstado;
 	}
+
+
 
 	
 
