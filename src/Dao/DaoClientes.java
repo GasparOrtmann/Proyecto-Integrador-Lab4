@@ -214,13 +214,13 @@ public class DaoClientes implements iDaoClientes {
 
 		Connection cn = Conexion.getConexion().getSQLConexion();
 		int filas = 0;
-
+		
 		try {
 			Statement st = (Statement) cn.createStatement();
 			filas = st.executeUpdate(query);
+			cn.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
-			;
 		}
 		return filas;
 	}

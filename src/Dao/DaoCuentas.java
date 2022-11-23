@@ -67,10 +67,6 @@ public class DaoCuentas implements iDaoCuentas{
 	@Override
 	public Boolean agregarCuenta(Cuenta c) {
 	Connection cn = Conexion.getConexion().getSQLConexion();
-	String anio = c.getFechaAlta().substring(0,4);
-	String mes = c.getFechaAlta().substring(5,7);
-	String dia = c.getFechaAlta().substring(8,10);
-	String fechaAlta = dia+"/"+mes+"/"+anio;
 	String estado = "";
 	String fechaSolicitud = DateTimeFormatter.ofPattern("dd/MM/yyyy").format(LocalDateTime.now());
 	if(c.isEstado()) {
@@ -86,7 +82,7 @@ public class DaoCuentas implements iDaoCuentas{
 			cst.setInt(3,c.getIdTipoCuenta().getIdTipoCuenta());
 			cst.setString(4,c.getCBU());
 			cst.setFloat(5,c.getSaldo());
-			cst.setString(6,fechaAlta);
+			cst.setString(6,fechaSolicitud);
 			cst.setBoolean(7,c.isEstado());
 			cst.executeUpdate();
 			filaAfectada=cst.getUpdateCount();

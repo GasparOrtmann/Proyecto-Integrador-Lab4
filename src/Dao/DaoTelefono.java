@@ -51,6 +51,7 @@ public class DaoTelefono implements iDaoTelefono{
 		try {
 			Statement st = (Statement) cn.createStatement();
 			filas = st.executeUpdate(query);
+			cn.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
 			;
@@ -75,6 +76,7 @@ public class DaoTelefono implements iDaoTelefono{
 		try {
 			Statement st = (Statement) cn.createStatement();
 			filas = st.executeUpdate(query);
+			cn.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
 			;
