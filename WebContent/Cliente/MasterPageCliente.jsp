@@ -28,7 +28,7 @@
 				action="/TPINT_GRUPO_6_LAB4/ServeletFuncionalidades">
 				<%
 				HttpSession sesion = request.getSession();
-				if (sesion.getAttribute("usuarioIngresado") != null) {
+				if ((Boolean)sesion.getAttribute("tipoDeUsuario") ==true) {
 				%>
 				<button type="submit" class="btn btn-secondary mr-4"
 					name="btnAdmin">

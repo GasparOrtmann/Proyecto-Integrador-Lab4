@@ -28,15 +28,15 @@
 </head>
 <body>
 	<%@include file="MasterPageAdmin.jsp"%>
-	
+
 	<%
-		if(miSession.getAttribute("tipoDeUsuario")!=null && miSession.getAttribute("usuarioIngresado")!=null){
-			if((Boolean)miSession.getAttribute("tipoDeUsuario")==false){
-				response.sendRedirect("/TPINT_GRUPO_6_LAB4/Cliente/InicioUsuario.jsp");
-			}
-		}else{
-			response.sendRedirect("/TPINT_GRUPO_6_LAB4/Login.jsp");
+	if (miSession.getAttribute("tipoDeUsuario") != null && miSession.getAttribute("usuarioIngresado") != null) {
+		if ((Boolean) miSession.getAttribute("tipoDeUsuario") == false) {
+			response.sendRedirect("/TPINT_GRUPO_6_LAB4/Cliente/InicioUsuario.jsp");
 		}
+	} else {
+		response.sendRedirect("/TPINT_GRUPO_6_LAB4/Login.jsp");
+	}
 	%>
 	<div style="position: absolute; top: 150px; left: 300px;">
 		<form method="POST" action="/TPINT_GRUPO_6_LAB4/ServeletClientes"
@@ -297,8 +297,29 @@
 							action="/TPINT_GRUPO_6_LAB4/ServeletClientes?idModificar=<%=copiaListaPaginada.get(i).getIdUsuario()%>">
 							<td><input class="btn btn-secondary" type="submit"
 								name="btnEditar" value="Editar"></td>
-							<td><input class="btn btn-secondary" type="submit"
-								name="btnEliminar" value="Eliminar"></td>
+							<td><button type="button" class="btn btn-secondary"
+									data-bs-toggle="modal" data-bs-target="#exampleModal">
+									Eliminar</button></td>
+							<!-- Modal -->
+							<div class="modal fade" id="exampleModal" tabindex="-1"
+								aria-labelledby="exampleModalLabel" aria-hidden="true">
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h1 class="modal-title fs-5" id="exampleModalLabel">Cuidado!</h1>
+											<button type="button" class="btn-close"
+												data-bs-dismiss="modal" aria-label="Close"></button>
+										</div>
+										<div class="modal-body">¿Estas seguro de querer borrar el registro?</div>
+										<div class="modal-footer">
+											<button type="button" class="btn btn-secondary"
+												data-bs-dismiss="modal">Close</button>
+											<input class="btn btn-danger" type="submit"
+												name="btnEliminar" value="Eliminar">
+										</div>
+									</div>
+								</div>
+							</div>
 						</form>
 					</tr>
 					<%
@@ -445,10 +466,12 @@
 					</div>
 					<div>
 						<b>DNI</b> <input name="txtDni" type="number"
+							class="pe-none border-0 bg-transparent"
 							value="<%=clienteEditar.getNroDni()%>" required>
 					</div>
 					<div>
 						<b>CUIL</b> <input name=txtCuil type="number"
+							class="pe-none border-0 bg-transparent"
 							value="<%=clienteEditar.getNroCuil()%>" required>
 					</div>
 					<div>
