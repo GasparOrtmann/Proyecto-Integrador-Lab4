@@ -59,7 +59,7 @@
 							char inicialNombre = nombre.charAt(0);
 							char inicialApellido = apellido.charAt(0);
 						%>
-						<form method="get" action="Cliente/Cuenta_Cliente.jsp">
+						<form method="get" action="/TPINT_GRUPO_6_LAB4/Cliente/Cuenta_Cliente.jsp">
 							<input type="submit" class="btnUser" style="color: white"
 								value="<%=inicialNombre + " " + inicialApellido%>"></input> <br>
 							<br> <a href="#"
