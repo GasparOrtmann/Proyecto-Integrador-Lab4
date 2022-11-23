@@ -24,17 +24,22 @@
 <title>Transferencia A Otra Cuenta</title>
 </head>
 <body>
-
+		 <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>	
+		<script type="text/javascript" src="/TPINT_GRUPO_6_LAB4/Cliente/transferencias.js"></script>
 <%@include file="MasterPageCliente.jsp"%>
 
 <div style="position: absolute;top:150px;left:400px;">
 	 <div>
-		<form method="post" action="/TPINT_GRUPO_6_LAB4/ServletMovimientosExternos" class="centrar-column">
+		
+		<form id=tform method="post" action="/TPINT_GRUPO_6_LAB4/ServletMovimientosExternos" class="centrar-column">
 			<h1>Hacer Transferencia</h1>
+			
 			<% 
 			List<Cuenta> listaCu = null; 
 			String usuarioAtransferir = null;
 			String cbuAtransferir = null;
+			
+			
 				if (request.getAttribute("listaCuentas") != null) {
 					listaCu = (List<Cuenta>) request.getAttribute("listaCuentas");
 				}
@@ -50,14 +55,19 @@
 				{
 					cbuAtransferir = (String)request.getAttribute("cbuAtransferir");
 				}
+			
+					
+				
 
 			%>
 			<div>
 				<div>
 					<br>
 					<label>CBU:</label> <br> <input type="text"
-						name="txtBuscar"> <input type="submit" value="Buscar"
+						 name="txtBuscar" > <input type="submit" value="Buscar"
 						name="btnBuscar"> <br> <br>
+						
+					
 				</div>
 			</div>
 			<div>
@@ -66,27 +76,71 @@
 						<label><%= usuarioAtransferir %></label> <br>
 					</div>
 					<div>
-						<input type="text" name="txtCBU" value="<%= cbuAtransferir%>"><br>
+						<input type="text" class="pe-none border-0 bg-transparent" name="txtCBU" value="<%= cbuAtransferir%>"><br>
 					</div>
 					<div>
 					<%	}%>
 					</div><br><br>
 					<div>
+					
+				
 						<%
 				if(listaCu != null)
 				{
-					int i=0;
-					%><select name="ddlOrigen"><%
-						for(Cuenta c : listaCu){
-						i++;
+	
+					
+					String v[]= new String[3];
+					String vcbu[]= new String[3];
+					%><select id="ddlOrigen" name="ddlOrigen" onchange="traerSaldo1()" ><%
+							
+					%><option value="0">Seleccione Cuenta:</option><% 	
+							int i=0;
+						for(Cuenta c : listaCu){							
+							
+							v[i]=String.valueOf(c.getSaldo());
+							vcbu[i]=c.getCBU();
+							i++;
+						
 					%>	
 					
 					<option value="<%=c.getCBU()%>">CBU: <%=c.getCBU()%></option> 
-				
-					<%}%>
+					
+					<%}
+					
+					%>
 					</select>
+						&nbsp&nbsp <p id="saldoDisponible"></p> <br><br>
+						<script >
+						
+						function traerSaldo1(){
+							
+							var vcbu1 = <%=vcbu[0]%>;
+							var vcbu2 = <%=vcbu[1]%>;
+							var vcbu3 = <%=vcbu[2]%>;
+							var saldo = "nahsse";
+							
+							var cbu = document.getElementById("ddlOrigen");
+							
+							if( cbu.localeCompare(vcbu1)== 0 ) saldo = <%= v[0]%>;
+							if( cbu.localeCompare(vcbu2)== 0 ) saldo = <%= v[1]%>;
+							if( cbu.localeCompare(vcbu3)== 0 ) saldo = <%= v[2]%>;
+							
+							
+							
+							document.getElementById("saldoDisponible").innerHTML  ="saldo disponible: "+saldo;
+							
+							
+							}
+						</script>
+					
+
 				<%
-				}%>	&nbsp&nbsp<label>Dinero disponible: $9999</label><br><br>
+				}%>	
+
+				
+				
+					
+				 <script src="/TPINT_GRUPO_6_LAB4/Cliente/transferencias.js"></script>
 					</div>
 					<div>
 						<input type="text" name="txtMonto"> <input
@@ -100,7 +154,7 @@
 
 
 	
-	
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous"></script>	
 </body>
 </html>

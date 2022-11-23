@@ -88,6 +88,8 @@ public class ServletMovimientosExternos extends HttpServlet {
 			iNegocioMovimientos neg = new NegocioMovimientos();
 			iNegocioCuentas negCu = new NegocioCuentas();
 			
+			
+			
 			String nombre = neg.buscarUsuario(request.getParameter("txtBuscar"));
 			
 			String cbu = request.getParameter("txtBuscar");
@@ -108,6 +110,41 @@ public class ServletMovimientosExternos extends HttpServlet {
 			rd.forward(request, response);
 		}
 		
+		if(request.getParameter("activar")!=null)
+		{
+			System.out.println("--- buscando saldo ---");
+			
+			iNegocioCuentas negCu = new NegocioCuentas();
+			HttpSession session = request.getSession();
+			float saldo=0;
+			
+			if(session.getAttribute("usuarioIngresado")!=null)
+			{
+				Usuario u = (Usuario)session.getAttribute("usuarioIngresado");
+				List<Cuenta> lista=negCu.FiltrarPorUsuario(String.valueOf(u.getIdUsuario()), true);
+				request.setAttribute("listaCuentas", lista);
+				
+				String origen = (String) request.getParameter("ddlOrigen");
+				
+				for(Cuenta c : lista)
+				{
+					System.out.println("leyendo lista");
+					if(c.getCBU().contentEquals(origen)==true)
+					{
+						
+						System.out.println("cuenta encontrada");
+						saldo = c.getSaldo();
+					}
+				}
+				request.setAttribute("dineroDisponible", saldo);
+				RequestDispatcher rd =  request.getRequestDispatcher("/Cliente/Transferencia_Cliente.jsp");  
+				rd.forward(request, response);
+				
+			}
+		
+			
+			
+		}
 		
 
 	

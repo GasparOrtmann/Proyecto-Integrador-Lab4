@@ -55,7 +55,7 @@ public class ServletMovimientosLocales extends HttpServlet {
 					RequestDispatcher rd =  request.getRequestDispatcher("/Cliente/Transferencia_Local.jsp");  
 					rd.forward(request, response);
 				}
-					
+				
 		
 			}
 	}
@@ -67,18 +67,27 @@ public class ServletMovimientosLocales extends HttpServlet {
 
 		if(request.getParameter("btnTransferir")!= null)
 		{
+			iNegocioCuentas negCu = new NegocioCuentas();
 			iNegocioMovimientos neg = new NegocioMovimientos();
-			
+			HttpSession session = request.getSession();
 			String origen = request.getParameter("ddlOrigen");
 			String destino = request.getParameter("ddlDestino");
 			String monto = request.getParameter("txtMonto");
-			
+		
 			System.out.println("o: "+origen+" d: "+destino+" $:"+monto);
+			
 			if(neg.generarTransferncia(origen,destino,Float.valueOf(monto))==true)
 			{
 				request.setAttribute("TransferenciaOk", true);
 			}
 			;
+			if(session.getAttribute("usuarioIngresado")!=null)
+			{
+				Usuario u = (Usuario)session.getAttribute("usuarioIngresado");
+				List<Cuenta> lista=negCu.FiltrarPorUsuario(String.valueOf(u.getIdUsuario()), true);
+				request.setAttribute("listaCuentas", lista);
+				
+			}
 			RequestDispatcher rd =  request.getRequestDispatcher("/Cliente/Transferencia_Local.jsp");  
 			rd.forward(request, response);
 		}
