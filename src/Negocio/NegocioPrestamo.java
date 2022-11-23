@@ -3,6 +3,7 @@ package Negocio;
 import java.util.List;
 
 import Dao.DaoPrestamo;
+import Entidades.Cuota;
 import Entidades.Prestamo;
 import Entidades.Usuario;
 import iNegocio.iNegocioPrestamo;
@@ -64,6 +65,15 @@ public class NegocioPrestamo implements iNegocioPrestamo {
 			return lstMisPrestamos;
 	}
 	
+	@Override
+	public List<Cuota> traerListaCuotas(Usuario u) {
+		 List<Cuota> lstCuotas = pdao.traerListaCuotas(u);
+			return lstCuotas;
+	}
+
+
+
+	
 	
 	
 	@Override
@@ -96,8 +106,7 @@ public class NegocioPrestamo implements iNegocioPrestamo {
 		return prestamosSegunEstado;
 	}
 
-
-
+	
 	
 
 

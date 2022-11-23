@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import Entidades.Cuota;
 import Entidades.Prestamo;
 import Entidades.Usuario;
 import iDao.iDaoPrestamo;
@@ -192,7 +193,41 @@ public class DaoPrestamo implements iDaoPrestamo{
 		return lstMisPrestamos;
 	}
 
-	
+	@Override
+	public List<Cuota> traerListaCuotas(Usuario u) {
+		
+		Connection cnn = Conexion.getConexion().getSQLConexion();
+		
+		List<Cuota> lstCuotas = new ArrayList<Cuota>();
+		
+		String query = "SELECT NroCuota,c.IdPrestamo,FechaPago,FechaVto FROM prestamos p\r\n" + 
+				"JOIN cuotas c ON p.IdPrestamo=c.IdPrestamo\r\n" + 
+				"WHERE p.IdUsuario ="+u.getIdUsuario();
+		
+		PreparedStatement pst;
+		
+		try {
+
+			pst = cnn.prepareStatement(query);
+			ResultSet rs = pst.executeQuery();
+
+			while (rs.next()) {
+				Prestamo p = new Prestamo();
+				int nroCuota = rs.getInt(1);
+				int idPrestamo =rs.getInt(2);
+				String fechaPago=rs.getString(3);
+				String fechaVto=rs.getString(4);
+
+				p.setIdPrestamo(idPrestamo);
+				lstCuotas.add(new Cuota(nroCuota,p,fechaPago,fechaVto));
+			}
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return lstCuotas;
+	}
+
 	
 	
 	@Override
@@ -327,6 +362,7 @@ public class DaoPrestamo implements iDaoPrestamo{
 		}
 		return prestamosSegunEstado;
 	}
+
 
 
 

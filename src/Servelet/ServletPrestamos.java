@@ -14,10 +14,15 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import Entidades.Cuenta;
+import Entidades.Cuota;
 import Entidades.Prestamo;
 import Entidades.Usuario;
 import Negocio.NegocioCuentas;
+import Negocio.NegocioCuota;
 import Negocio.NegocioPrestamo;
+import iNegocio.iNegocioCuentas;
+import iNegocio.iNegocioCuota;
+import iNegocio.iNegocioPrestamo;
 
 
 @WebServlet("/ServletPrestamos")
@@ -38,7 +43,7 @@ public class ServletPrestamos extends HttpServlet {
 			
 			if(miSession.getAttribute("usuarioIngresado")!=null) {
 			
-				NegocioCuentas ncta = new NegocioCuentas();
+				iNegocioCuentas ncta = new NegocioCuentas();
 				Usuario usuarioLogueado = (Usuario)miSession.getAttribute("usuarioIngresado");
 				List<Cuenta> lstCuentasUsuario= ncta.traerCuentasUsuario(usuarioLogueado.getIdUsuario());
 				miSession.setAttribute("lstCuentasUsuario", lstCuentasUsuario);
@@ -49,6 +54,8 @@ public class ServletPrestamos extends HttpServlet {
 		}
 		
 		if(request.getParameter("btnSimularPrestamo")!=null) {
+			
+			
 			
 			String montoSolicitado = request.getParameter("txtMontoPrestamo");
 			String cantCuotas = request.getParameter("ddlCuotas");
@@ -65,7 +72,7 @@ public class ServletPrestamos extends HttpServlet {
 		//ADMIN
 		if(request.getParameter("TraerListadoPrestamos")!=null) {
 			
-			NegocioPrestamo pneg = new NegocioPrestamo();
+			iNegocioPrestamo pneg = new NegocioPrestamo();
 			List<Prestamo> lstPrestamos = pneg.traerListaPrestamos();
 			
 			request.setAttribute("lstPrestamos", lstPrestamos);
@@ -77,11 +84,15 @@ public class ServletPrestamos extends HttpServlet {
 		//CLIENTE
 		if(request.getParameter("TraerListadoMisPrestamos")!=null) {
 			
-			NegocioPrestamo pneg = new NegocioPrestamo();
+			iNegocioPrestamo pneg = new NegocioPrestamo();
 			Usuario usuarioLogueado = (Usuario)miSession.getAttribute("usuarioIngresado");
+			
 			List<Prestamo> lstMisPrestamos = pneg.traerListaMisPrestamos(usuarioLogueado);
+			List<Cuota> lstCuotas = pneg.traerListaCuotas(usuarioLogueado);
+			
 			
 			request.setAttribute("lstMisPrestamos", lstMisPrestamos);
+			request.setAttribute("lstCuotas", lstCuotas);
 			RequestDispatcher rd=request.getRequestDispatcher("/Cliente/MisPrestamos.jsp");  
 			rd.forward(request, response);
 			
@@ -94,12 +105,13 @@ public class ServletPrestamos extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		HttpSession miSession = request.getSession();  
-		NegocioPrestamo pneg = new NegocioPrestamo();
+		iNegocioPrestamo pneg = new NegocioPrestamo();
+		iNegocioCuota ctaneg=new NegocioCuota();
 		
 		if(request.getParameter("btnAceptarPrestamo")!=null) {
 			
 			 String fechaSolicitud = DateTimeFormatter.ofPattern("dd/MM/yyyy").format(LocalDateTime.now());
-			 //NegocioPrestamo pneg = new NegocioPrestamo();
+			
 			 Prestamo prestamo = new Prestamo();
 			 Usuario u = (Usuario)miSession.getAttribute("usuarioIngresado");
 			 
@@ -170,6 +182,39 @@ public class ServletPrestamos extends HttpServlet {
 			 request.setAttribute("rechazarPrestamo",rechazarPrestamo);
 			 RequestDispatcher rd=request.getRequestDispatcher("/Admin/ABML_Prestamos_Admin.jsp");  
 			 rd.forward(request, response);
+			
+		}
+		
+		
+		if(request.getParameter("btnPagar")!=null) {
+			
+			int idPrestamo= Integer.parseInt(request.getParameter("idPrestamo"));
+			int nroCuota=Integer.parseInt(request.getParameter("nroCuota"));
+			
+			Prestamo prestamo = new Prestamo(idPrestamo);
+			
+			String fechaPago= DateTimeFormatter.ofPattern("dd/MM/yyyy").format(LocalDateTime.now());
+			Cuota cuota = new Cuota(prestamo,nroCuota);
+			
+			Boolean pagarCuota=false;
+			
+			if(ctaneg.pagarCuota(cuota, fechaPago)) {
+				
+				pagarCuota=true;
+				Usuario usuarioLogueado = (Usuario)miSession.getAttribute("usuarioIngresado");
+				
+				List<Prestamo> lstMisPrestamos = pneg.traerListaMisPrestamos(usuarioLogueado);
+				List<Cuota> lstCuotas = pneg.traerListaCuotas(usuarioLogueado);
+				request.setAttribute("lstMisPrestamos", lstMisPrestamos);
+				request.setAttribute("lstCuotas", lstCuotas);
+				
+				
+			} if(!ctaneg.pagarCuota(cuota, fechaPago)) {
+				pagarCuota=false;
+			}
+			request.setAttribute("pagarCuota", pagarCuota);
+			RequestDispatcher rd=request.getRequestDispatcher("/Cliente/MisPrestamos.jsp");  
+			rd.forward(request, response);
 			
 		}
 		

@@ -33,7 +33,17 @@ public class Cuota {
 		this.fechaPago = fechaPago;
 	}
 	
-	Cuota (Prestamo prestamo){
+	public Cuota (Prestamo prestamo, int nroCuota ){
 		this.prestamo=prestamo;
+		this.nroCuota=nroCuota;
+		
 	}
+	public Cuota(int nroCuota,Prestamo prestamo,String fechaPago,String fechaVto) {
+		this.nroCuota = nroCuota;
+		this.prestamo = prestamo;
+		this.fechaPago = fechaPago;
+		this.fechaVto = fechaVto;
+	}
+	
+	
 }

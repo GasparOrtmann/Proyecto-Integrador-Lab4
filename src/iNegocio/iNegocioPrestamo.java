@@ -2,6 +2,7 @@ package iNegocio;
 
 import java.util.List;
 
+import Entidades.Cuota;
 import Entidades.Prestamo;
 import Entidades.Usuario;
 
@@ -19,4 +20,6 @@ public interface iNegocioPrestamo {
 	float montoPrestado(String fechaInicioFormateada,String fechaFinFormateada);
 	int[] prestamosCedidos(int anioSeleccionado);
 	int[] prestamosSegunEstado();
+	
+	List<Cuota> traerListaCuotas(Usuario usuarioLogueado);
 }

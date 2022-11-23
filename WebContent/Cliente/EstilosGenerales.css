@@ -152,9 +152,7 @@ body{
 }
 
 .table{
-	background-color: #E9D5CA;
-	padding: 15px;
-  	text-align: left;
+	background-color: #827397;
 	border-radius: 8px;
 	box-shadow: 0 8px 16px 0 rgb(0 0 0 / 10%);
 }
@@ -166,6 +164,16 @@ body{
 
 .table td {
   text-align: center;
+}
+
+
+.dataTables_wrapper .dataTables_filter input {
+    border: 1px solid #aaa;
+    border-radius: 3px;
+    padding: 5px;
+    background-color: transparent;
+    margin-left: 3px;
+    margin-bottom: 10px;
 }
 /*-------------MASTERPAGE CLIENTE--------------------------------------------*/
 

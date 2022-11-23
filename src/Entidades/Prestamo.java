@@ -99,6 +99,9 @@ public class Prestamo {
 		this.fechaAlta=fechaAlta2;
 		this.estado=estado2;
 	}
+	public Prestamo(int idPrestamo2) {
+		this.idPrestamo=idPrestamo2;
+	}
 
 	
 }

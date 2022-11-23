@@ -190,8 +190,8 @@ USE `bdbanco`;
         SET _idCuenta = (SELECT IdCuenta FROM prestamos WHERE IdPrestamo=_idPrestamo);
         SET _idMovimiento = (SELECT MAX(IdMovimiento) FROM movimientos);
         
-        IF _idMovimiento IS NULL THEN  INSERT INTO movimientos (IdMovimiento,IdTipoMovimiento,IdCuenta,Fecha,Importe,Detalle) VALUES (1,2,_idCuenta,_fechaAlta,_montoPrestamo,'Acreditación de prestamo');
-        ELSE  INSERT INTO movimientos (IdMovimiento,IdTipoMovimiento,IdCuenta,Fecha,Importe,Detalle) VALUES (_idMovimiento,2,_idCuenta,_fechaAlta,_montoPrestamo,'Acreditación de prestamo');
+        IF _idMovimiento IS NULL THEN  INSERT INTO movimientos (IdMovimiento,IdTipoMovimiento,IdCuenta,Fecha,Importe,Detalle) VALUES (1,2,_idCuenta,_fechaAlta,_montoPrestamo,'(+) Acreditación de prestamo');
+        ELSE  INSERT INTO movimientos (IdMovimiento,IdTipoMovimiento,IdCuenta,Fecha,Importe,Detalle) VALUES (_idMovimiento,2,_idCuenta,_fechaAlta,_montoPrestamo,'(+) Acreditación de prestamo');
         END IF;
        
         
@@ -215,6 +215,55 @@ USE `bdbanco`;
 	END
 	$$
 	DELIMITER ;
+
+USE `bdbanco`;
+	DROP procedure IF EXISTS `SP_pagarCuota`;
+
+	DELIMITER $$
+	USE `bdbanco`$$
+	CREATE PROCEDURE `SP_pagarCuota` (IN _idPrestamo int, IN _nroCuota int, IN _fechaPago varchar(10))
+
+	BEGIN
+        
+        DECLARE valorCuota float;
+        DECLARE saldoCuenta float;
+		DECLARE _idMovimiento int;
+
+        DECLARE _idCuenta int;
+        
+		SET saldoCuenta = (SELECT Saldo FROM prestamos p JOIN cuentas c ON p.IdCuenta=c.IdCuenta WHERE p.IdPrestamo = _idPrestamo);
+        SET valorCuota = (SELECT ImporteCuotaFija FROM prestamos WHERE IdPrestamo = _idPrestamo);
+        SET _idCuenta = (SELECT IdCuenta FROM prestamos WHERE IdPrestamo = _idPrestamo );
+        
+        IF(valorCuota<=saldoCuenta)THEN
+			
+            UPDATE cuotas
+			SET FechaPago= _fechaPago
+			WHERE IdPrestamo = _idPrestamo AND NroCuota=_nroCuota;
+
+			SET _idMovimiento = (SELECT MAX(IdMovimiento) FROM movimientos)+1;
+            
+			IF _idMovimiento IS NULL 
+            THEN  INSERT INTO movimientos (IdMovimiento,IdTipoMovimiento,IdCuenta,Fecha,Importe,Detalle) VALUES (1,3,_idCuenta,_fechaPago,valorCuota,'(-) Pago de cuota');
+			ELSE  INSERT INTO movimientos (IdMovimiento,IdTipoMovimiento,IdCuenta,Fecha,Importe,Detalle) VALUES (_idMovimiento,3,_idCuenta,_fechaPago,valorCuota,'(-) Pago de cuota');
+			END IF;
+            
+            UPDATE cuentas
+            SET Saldo = Saldo-valorCuota
+            WHERE IdCuenta=_idCuenta;
+            
+            UPDATE prestamos
+            SET CuotasAdeudadas = CuotasAdeudadas-1, CuotasPagas = CuotasPagas+1
+            WHERE IdPrestamo=_idPrestamo;
+             
+
+		END IF;
+
+	END
+	$$
+	DELIMITER ;
+
+
 
 DELIMITER $$
 	CREATE TRIGGER tr_crearUsuario BEFORE INSERT ON usuarios
