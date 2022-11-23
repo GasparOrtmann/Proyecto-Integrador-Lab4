@@ -136,7 +136,6 @@ public class DaoCuentas implements iDaoCuentas{
 		String query = "UPDATE cuentas SET"+
 						"  IdUsuario="+c.getIdUsuario()+
 						", IdTipoCuenta="+c.getIdTipoCuenta().getIdTipoCuenta()+
-						", CBU='"+c.getCBU()+"'"+
 						", Saldo="+c.getSaldo()+
 						", FechaAlta='"+fechaAlta+"'"+
 						", Estado="+estado+
@@ -232,7 +231,7 @@ public class DaoCuentas implements iDaoCuentas{
 	@Override
 	public int cantCuentasUsuario(int idU) {
 		Connection cnn = Conexion.getConexion().getSQLConexion();
-		String query = "SELECT COUNT(IdUsuario) as cant FROM cuentas WHERE IdUsuario="+idU+" AND Estado=1";
+		String query = "SELECT COUNT(IdUsuario) as cant FROM cuentas WHERE IdUsuario="+idU;
 		PreparedStatement pst;
 		int cant = 0;
 		try {

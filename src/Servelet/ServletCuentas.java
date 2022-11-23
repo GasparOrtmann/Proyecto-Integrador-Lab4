@@ -100,6 +100,8 @@ public class ServletCuentas extends HttpServlet {
 		if(request.getParameter("btnEliminar")!=null) {
 			boolean filasAfectadasEliminar = negCu.eliminarCuenta(request.getParameter("getIdCuenta"));
 			request.setAttribute("filasAfectadasEliminar", filasAfectadasEliminar);
+			List<TipoCuenta> listaTipos=negTC.traerTiposCuentas();
+			request.setAttribute("listaTiposCuentas", listaTipos);
 			List<Cuenta> lista=negCu.traerLista();
 			request.setAttribute("listaCuentas", lista);
 			RequestDispatcher rd =  request.getRequestDispatcher("/Admin/ABML_Cuentas_Admin.jsp");  
@@ -147,6 +149,8 @@ public class ServletCuentas extends HttpServlet {
 		
 		if(request.getParameter("Filtrar")!= null)
 		{
+			List<TipoCuenta> listaTipos=negTC.traerTiposCuentas();
+			request.setAttribute("listaTiposCuentas", listaTipos);
 			if(request.getParameter("txtFUsuario")!="") 
 			{
 				if(!request.getParameter("txtFUsuario").matches("[0-9 ]+"))

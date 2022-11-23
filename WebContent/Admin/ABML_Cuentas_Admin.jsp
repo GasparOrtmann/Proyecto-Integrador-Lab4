@@ -226,7 +226,7 @@
 					<label>Cod Usuario</label> <input type="text" name="txtCodUsuario" value="<%=cuentaEditar.getIdUsuario() %>" required>
 				</div>
 				<div>
-					<label>CBU</label> <input type="number" name="txtCBU" value="<%=cuentaEditar.getCBU() %>" required>
+					<label>CBU</label> <input class="pe-none border-0 bg-transparent" type="number" name="txtCBU" value="<%=cuentaEditar.getCBU() %>" required>
 				</div>
 				<div>
 					<label>Saldo</label> <input type="text" name="txtSaldo" value="<%=cuentaEditar.getSaldo() %>" required>

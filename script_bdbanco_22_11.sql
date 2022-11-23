@@ -228,34 +228,6 @@ DELIMITER $$
 DELIMITER ;
 
 DELIMITER $$
-	CREATE TRIGGER tr_modificarUsuario BEFORE UPDATE ON usuarios
-	FOR EACH ROW
-	BEGIN
-		IF (exists(SELECT 1 FROM usuarios WHERE Usuario=NEW.Usuario) && exists(SELECT 1 FROM usuarios WHERE NroDni=NEW.NroDni) && exists(SELECT 1 FROM usuarios WHERE NroCuil=NEW.NroCuil))THEN
-			UPDATE usuarios SET
-            IdUsuario = NEW.IdUsuario,
-            EsAdmin = NEW.EsAdmin,
-            Usuario = NEW.Usuario,
-            Contrasenia = NEW.Contrasenia,
-            Nombre = NEW.Nombre,
-            Apellido = NEW.Apellido,
-            Sexo = NEW.Sexo,
-            FechaNacimiento = NEW.FechaNacimiento,
-            Calle = NEW.Calle,
-            Altura = NEW.Altura,
-            Email = NEW.Email,
-            NroCuil = NEW.NroCuil,
-            NroDni = NEW.NroDni,
-            Estado = NEW.Estado,
-            CantidadCuentas = NEW.CantidadCuentas,
-            IdNacionalidad = NEW.IdNacionalidad,
-            IdLocalidad = NEW.IdLocalidad
-			WHERE IdUsuario = NEW.IdUsuario;
-		END IF;
-	END$$;
-DELIMITER ;
-
-DELIMITER $$
 CREATE TRIGGER tr_crearCuenta BEFORE INSERT ON cuentas
 	FOR EACH ROW
 	BEGIN
@@ -264,24 +236,6 @@ CREATE TRIGGER tr_crearCuenta BEFORE INSERT ON cuentas
 			VALUES (NEW.IdCuenta,NEW.IdUsuario,NEW.IdTipoCuenta,NEW.CBU,NEW.Saldo,NEW.FechaAlta,NEW.Estado);
 	END IF;
 END$$;
-DELIMITER ;
-
-DELIMITER $$
-	CREATE TRIGGER tr_modificarCuenta BEFORE UPDATE ON cuentas
-	FOR EACH ROW
-	BEGIN
-		IF (exists(SELECT 1 FROM cuentas WHERE IdCuenta=NEW.IdCuenta) && exists(SELECT 1 FROM cuentas WHERE IdUsuario=NEW.IdUsuario) && exists(SELECT 1 FROM cuentas WHERE CBU=NEW.CBU))THEN
-			UPDATE cuentas SET
-            IdCuenta = NEW.IdCuenta,
-            IdUsuario = NEW.IdUsuario,
-            IdTipoCuenta = NEW.IdTipoCuenta,
-            CBU = NEW.CBU,
-            Saldo = NEW.Saldo,
-            FechaAlta = NEW.FechaAlta,
-            Estado = NEW.Estado
-			WHERE IdCuenta=NEW.IdCuenta;
-		END IF;
-	END$$;
 DELIMITER ;
 
 INSERT INTO nacionalidades (IdNacionalidad, Nacionalidad)
