@@ -138,7 +138,7 @@
 					<% if(!autorizacion){
 					%>
 					 <div class="alert alert-danger alert-dismissible fade show" style="width:auto;"role="alert">
-						  	El prestamo no puedo aprobarse.
+						  	El prestamo no pudo aprobarse.
 					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 					</div>
 						
@@ -156,7 +156,7 @@
 					<% if(!rechazo){
 					%>
 					 <div class="alert alert-danger alert-dismissible fade show" style="width:auto;"role="alert">
-						  	El prestamo no puedo rechazarse.
+						  	El prestamo no pudo rechazarse.
 					<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
 					</div>
 						

@@ -149,7 +149,8 @@ public class ServletPrestamos extends HttpServlet {
 					 if(pneg.autorizarPrestamo(idPrestamo, fechaAlta)) {  
 						 
 						 autorizacionPrestamo=true;
-					 } else {
+						 
+					 } if(!pneg.autorizarPrestamo(idPrestamo, fechaAlta)) {
 						 autorizacionPrestamo=false;
 					 }
 				 }
@@ -186,7 +187,7 @@ public class ServletPrestamos extends HttpServlet {
 		}
 		
 		
-		if(request.getParameter("btnPagar")!=null) {
+		if(request.getParameter("btnPagar")!=null && request.getParameter("nroCuota")!=null) {
 			
 			int idPrestamo= Integer.parseInt(request.getParameter("idPrestamo"));
 			int nroCuota=Integer.parseInt(request.getParameter("nroCuota"));
@@ -196,11 +197,11 @@ public class ServletPrestamos extends HttpServlet {
 			String fechaPago= DateTimeFormatter.ofPattern("dd/MM/yyyy").format(LocalDateTime.now());
 			Cuota cuota = new Cuota(prestamo,nroCuota);
 			
-			Boolean pagarCuota=false;
+			Boolean pagarCuota=ctaneg.pagarCuota(cuota, fechaPago);
 			
-			if(ctaneg.pagarCuota(cuota, fechaPago)) {
+			if(pagarCuota) {
 				
-				pagarCuota=true;
+				
 				Usuario usuarioLogueado = (Usuario)miSession.getAttribute("usuarioIngresado");
 				
 				List<Prestamo> lstMisPrestamos = pneg.traerListaMisPrestamos(usuarioLogueado);
@@ -209,8 +210,13 @@ public class ServletPrestamos extends HttpServlet {
 				request.setAttribute("lstCuotas", lstCuotas);
 				
 				
-			} if(!ctaneg.pagarCuota(cuota, fechaPago)) {
-				pagarCuota=false;
+			} if(!pagarCuota) {
+				
+				Usuario usuarioLogueado = (Usuario)miSession.getAttribute("usuarioIngresado");
+				List<Prestamo> lstMisPrestamos = pneg.traerListaMisPrestamos(usuarioLogueado);
+				List<Cuota> lstCuotas = pneg.traerListaCuotas(usuarioLogueado);
+				request.setAttribute("lstMisPrestamos", lstMisPrestamos);
+				request.setAttribute("lstCuotas", lstCuotas);
 			}
 			request.setAttribute("pagarCuota", pagarCuota);
 			RequestDispatcher rd=request.getRequestDispatcher("/Cliente/MisPrestamos.jsp");  

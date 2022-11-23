@@ -122,14 +122,13 @@
 				</form>
 				</tr>		
 				<%}else { 
-				estadoPago=c.getFechaPago();
+					estadoPago=c.getFechaPago();
 				%>	
 						<td><%=estadoPago%></td>
 						<td><%=c.getFechaVto()%></td>
 						<td></td>	
 				</tr>
-				<% }%>
-				<%	
+				<% }
 					}
 					}
 				%>
