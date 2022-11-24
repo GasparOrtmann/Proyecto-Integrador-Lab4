@@ -150,7 +150,7 @@ public class ServletPrestamos extends HttpServlet {
 						 
 						 autorizacionPrestamo=true;
 						 
-					 } if(!pneg.autorizarPrestamo(idPrestamo, fechaAlta)) {
+					 } else {
 						 autorizacionPrestamo=false;
 					 }
 				 }

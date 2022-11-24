@@ -22,10 +22,6 @@ public class DaoPrestamo implements iDaoPrestamo{
 		try {
 			int filaAfectada=0;
 			CallableStatement cst = cn.prepareCall("CALL SP_autorizarPrestamo(?,?)");
-			
-			//SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy"); 
-			//Date fecha = formato.parse("23/11/2015");
-			
 			cst.setInt(1,idPrestamo);
 			cst.setString(2,fechaAlta);
 
@@ -37,7 +33,6 @@ public class DaoPrestamo implements iDaoPrestamo{
 		} catch (SQLException e) {
 			
 			e.printStackTrace();
-			
 			return false;
 		}
 	

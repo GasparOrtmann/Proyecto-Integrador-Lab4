@@ -17,8 +17,8 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
-<link href="../styles.css" rel="stylesheet" type="text/css">
+<title>Transferencias Locales</title>
+<link href="Cliente/EstilosGenerales.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 

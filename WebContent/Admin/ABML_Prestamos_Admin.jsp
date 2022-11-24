@@ -125,9 +125,8 @@
 				%>
 				</tbody>
 		</table>
-			<% if(request.getParameter("btnAutorizar")!=null && request.getAttribute("autorizacionPrestamo")!=null) {
-					
-						Boolean autorizacion= (Boolean)request.getAttribute("autorizacionPrestamo");
+			        <% if(request.getParameter("btnAutorizar")!=null && request.getAttribute("autorizacionPrestamo")!=null) {
+						Boolean autorizacion=(Boolean)request.getAttribute("autorizacionPrestamo");
 					if(autorizacion){
 					%>
 						 <div class="alert alert-success  alert-dismissible fade show" style="width:auto;"role="alert">
@@ -145,7 +144,7 @@
 					<% } }%>
 					<% if(request.getParameter("btnRechazar")!=null && request.getAttribute("rechazarPrestamo")!=null) {
 					
-						Boolean rechazo= (Boolean)request.getAttribute("rechazarPrestamo");
+						Boolean rechazo=(Boolean)request.getAttribute("rechazarPrestamo");
 					if(rechazo){
 					%>
 						 <div class="alert alert-success  alert-dismissible fade show" style="width:auto;"role="alert">

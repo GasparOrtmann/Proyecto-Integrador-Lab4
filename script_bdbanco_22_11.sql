@@ -164,7 +164,7 @@ USE `bdbanco`;
 
 	BEGIN
 
-		DECLARE  _cuotaMes int DEFAULT 0;
+				DECLARE  _cuotaMes int DEFAULT 0;
         DECLARE _fchaVtoStringMes varchar(10) DEFAULT _fechaAlta;
 		DECLARE _saldo float; 
         DECLARE _montoPrestamo float;
@@ -188,13 +188,8 @@ USE `bdbanco`;
         UPDATE cuentas SET Saldo=_totalSaldo WHERE IdCuenta = (SELECT IdCuenta FROM prestamos WHERE IdPrestamo=_idPrestamo);
         
         SET _idCuenta = (SELECT IdCuenta FROM prestamos WHERE IdPrestamo=_idPrestamo);
-        SET _idMovimiento = (SELECT MAX(IdMovimiento) FROM movimientos);
-        
-        IF _idMovimiento IS NULL THEN  INSERT INTO movimientos (IdMovimiento,IdTipoMovimiento,IdCuenta,Fecha,Importe,Detalle) VALUES (1,2,_idCuenta,_fechaAlta,_montoPrestamo,'(+) Acreditación de prestamo');
-        ELSE  INSERT INTO movimientos (IdMovimiento,IdTipoMovimiento,IdCuenta,Fecha,Importe,Detalle) VALUES (_idMovimiento,2,_idCuenta,_fechaAlta,_montoPrestamo,'(+) Acreditación de prestamo');
-        END IF;
-       
-        
+        SET _idMovimiento = (SELECT MAX(IdMovimiento) FROM movimientos)+1;
+		INSERT INTO movimientos (IdMovimiento,IdTipoMovimiento,IdCuenta,Fecha,Importe,Detalle) VALUES (_idMovimiento,2,_idCuenta,_fechaAlta,_montoPrestamo,'(+) Acreditación de prestamo');
 	END
 	$$
 	DELIMITER ;
