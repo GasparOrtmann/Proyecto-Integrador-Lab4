@@ -76,7 +76,7 @@ public class DaoMovimientos implements iDaoMovimientos{
 	public List<Movimiento> traerLista(int idCuenta){
 		Connection cnn = Conexion.getConexion().getSQLConexion();
 		List<Movimiento> lstMovs = new ArrayList<Movimiento>();
-		String query = "SELECT * FROM movimientos WHERE IdCuenta="+idCuenta+" ORDER BY Fecha DESC";
+		String query = "SELECT * FROM movimientos WHERE IdCuenta="+idCuenta+" ORDER BY IdMovimiento DESC";
 		PreparedStatement pst;
 		try {
 			pst = cnn.prepareStatement(query);
@@ -104,7 +104,7 @@ public class DaoMovimientos implements iDaoMovimientos{
 		List<Movimiento> lstTrans = new ArrayList<Movimiento>();
 		String query = "SELECT IdMovimiento, IdTipoMovimiento, movimientos.IdCuenta, Fecha, Importe, Detalle "
 				+ "FROM movimientos INNER JOIN cuentas ON movimientos.IdCuenta=cuentas.IdCuenta  "
-				+ "WHERE cuentas.IdUsuario="+idUsuario+" ORDER BY Fecha DESC;";
+				+ "WHERE cuentas.IdUsuario="+idUsuario+" ORDER BY IdMovimiento DESC;";
 		PreparedStatement pst;
 		try {
 			pst = cnn.prepareStatement(query);
