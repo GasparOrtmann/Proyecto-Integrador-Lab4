@@ -65,40 +65,52 @@ public class ServletMovimientosExternos extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
 		if(request.getParameter("btnTransferir")!= null)
 		{
 			iNegocioMovimientos neg = new NegocioMovimientos();
+			HttpSession session = request.getSession();
+			iNegocioCuentas negCu = new NegocioCuentas();
 			
-			String origen = request.getParameter("ddlOrigen");
-			String destino = request.getParameter("txtCBU");
-			String monto = request.getParameter("txtMonto");
-			
-			System.out.println("o: "+origen+" d: "+destino+" $:"+monto);
-			if(neg.generarTransferncia(origen,destino,Float.valueOf(monto))==true)
+			if(session.getAttribute("usuarioIngresado")!=null)
 			{
-				request.setAttribute("TransferenciaOk", true);
+				Usuario u = (Usuario)session.getAttribute("usuarioIngresado");
+				List<Cuenta> lista=negCu.FiltrarPorUsuario(String.valueOf(u.getIdUsuario()), true);
+				request.setAttribute("listaCuentas", lista);
 			}
-			;
-			RequestDispatcher rd =  request.getRequestDispatcher("/Cliente/Transferencia_Cliente.jsp");  
-			rd.forward(request, response);
+			
+			if(request.getParameter("txtMonto")!=""&& request.getParameter("txtMonto").matches("[0-9 ]+")) 
+			{
+				
+					String origen = request.getParameter("ddlOrigen");
+					String destino = request.getParameter("txtCBU");
+					String monto = request.getParameter("txtMonto");
+					
+					System.out.println("o: "+origen+" d: "+destino+" $:"+monto);
+					
+						if(neg.generarTransferncia(origen,destino,Float.valueOf(monto))==true)
+							{
+								request.setAttribute("TransferenciaOk", true);
+							}
+					
+					RequestDispatcher rd =  request.getRequestDispatcher("/Cliente/Transferencia_Cliente.jsp");  
+					rd.forward(request, response);
+				
+			
+			}else {
+					RequestDispatcher rd =  request.getRequestDispatcher("/Cliente/Transferencia_Cliente.jsp");  
+					rd.forward(request, response);
+					
+					}
+		
 		}
 		
 		if(request.getParameter("btnBuscar")!=null)
 		{
+			HttpSession session = request.getSession();
 			iNegocioMovimientos neg = new NegocioMovimientos();
 			iNegocioCuentas negCu = new NegocioCuentas();
 			
-			
-			
-			String nombre = neg.buscarUsuario(request.getParameter("txtBuscar"));
-			
-			String cbu = request.getParameter("txtBuscar");
-			
-			request.setAttribute("cbuAtransferir", cbu);
-			request.setAttribute("usuarioAtransferir", nombre);
-			
-			HttpSession session = request.getSession();
-			
 			if(session.getAttribute("usuarioIngresado")!=null)
 			{
 				Usuario u = (Usuario)session.getAttribute("usuarioIngresado");
@@ -106,45 +118,32 @@ public class ServletMovimientosExternos extends HttpServlet {
 				request.setAttribute("listaCuentas", lista);
 			}
 			
-			RequestDispatcher rd =  request.getRequestDispatcher("/Cliente/Transferencia_Cliente.jsp");  
-			rd.forward(request, response);
-		}
-		
-		if(request.getParameter("activar")!=null)
-		{
-			System.out.println("--- buscando saldo ---");
-			
-			iNegocioCuentas negCu = new NegocioCuentas();
-			HttpSession session = request.getSession();
-			float saldo=0;
-			
-			if(session.getAttribute("usuarioIngresado")!=null)
+			if(request.getParameter("txtBuscar")!="" && request.getParameter("txtBuscar").matches("[0-9 ]+")) 
 			{
-				Usuario u = (Usuario)session.getAttribute("usuarioIngresado");
-				List<Cuenta> lista=negCu.FiltrarPorUsuario(String.valueOf(u.getIdUsuario()), true);
-				request.setAttribute("listaCuentas", lista);
 				
-				String origen = (String) request.getParameter("ddlOrigen");
+			
+			
+			
+				String nombre = neg.buscarUsuario(request.getParameter("txtBuscar"));
 				
-				for(Cuenta c : lista)
-				{
-					System.out.println("leyendo lista");
-					if(c.getCBU().contentEquals(origen)==true)
-					{
-						
-						System.out.println("cuenta encontrada");
-						saldo = c.getSaldo();
-					}
-				}
-				request.setAttribute("dineroDisponible", saldo);
+				String cbu = request.getParameter("txtBuscar");
+				
+				request.setAttribute("cbuAtransferir", cbu);
+				request.setAttribute("usuarioAtransferir", nombre);
+				
 				RequestDispatcher rd =  request.getRequestDispatcher("/Cliente/Transferencia_Cliente.jsp");  
 				rd.forward(request, response);
 				
+			}else{
+				RequestDispatcher rd =  request.getRequestDispatcher("/Cliente/Transferencia_Cliente.jsp");  
+				rd.forward(request, response);
 			}
+		}
+		
 		
 			
 			
-		}
+		
 		
 
 	
