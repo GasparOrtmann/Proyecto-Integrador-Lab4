@@ -45,7 +45,13 @@
 				}
 				if(request.getAttribute("TransferenciaOk")!=null)
 					{
-								%><div class="centrar-row">Transferencia generada con exito!</div><%
+					%><div class="alert alert-success alert-dismissible fade show"
+								role="alert">
+								Transferencia generada con exito!
+								<button type="button" class="btn-close" data-bs-dismiss="alert"
+									aria-label="Close"></button>
+					  </div>
+			 		<%
 					}
 				if(request.getAttribute("usuarioAtransferir")!=null)
 				{
@@ -60,6 +66,16 @@
 				
 
 			%>
+			<%if (request.getAttribute("tieneLetras")!=null) {
+	%>
+			<div class="alert alert-danger alert-dismissible fade show"
+				role="alert">
+				Ingrese solo numeros
+				<button type="button" class="btn-close" data-bs-dismiss="alert"
+					aria-label="Close"></button>
+			</div>
+			
+		<%	}%>
 			<div>
 				<div>
 					<br>
@@ -155,7 +171,7 @@
 				 <script src="/TPINT_GRUPO_6_LAB4/Cliente/transferencias.js"></script>
 					</div>
 					<div>
-						<input type="text" name="txtMonto"> <input
+						<input type="text" name="txtMonto" > <input
 							type="submit" value="Transferir" name="btnTransferir">
 					</div>
 				</div>

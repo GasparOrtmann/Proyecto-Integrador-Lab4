@@ -52,6 +52,7 @@ public class ServletMovimientosLocales extends HttpServlet {
 					rd.forward(request, response);
 				}
 				else {
+					request.setAttribute("tieneLetras", 1);
 					RequestDispatcher rd =  request.getRequestDispatcher("/Cliente/Transferencia_Local.jsp");  
 					rd.forward(request, response);
 				}
@@ -94,6 +95,7 @@ public class ServletMovimientosLocales extends HttpServlet {
 			}
 			else
 			{
+				request.setAttribute("tieneLetras", 1);
 				RequestDispatcher rd =  request.getRequestDispatcher("/Cliente/Transferencia_Local.jsp");  
 				rd.forward(request, response);
 			}

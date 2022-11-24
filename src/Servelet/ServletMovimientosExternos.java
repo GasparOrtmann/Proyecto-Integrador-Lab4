@@ -98,6 +98,7 @@ public class ServletMovimientosExternos extends HttpServlet {
 				
 			
 			}else {
+					request.setAttribute("tieneLetras", 1);
 					RequestDispatcher rd =  request.getRequestDispatcher("/Cliente/Transferencia_Cliente.jsp");  
 					rd.forward(request, response);
 					
@@ -135,6 +136,7 @@ public class ServletMovimientosExternos extends HttpServlet {
 				rd.forward(request, response);
 				
 			}else{
+				request.setAttribute("tieneLetras", 1);
 				RequestDispatcher rd =  request.getRequestDispatcher("/Cliente/Transferencia_Cliente.jsp");  
 				rd.forward(request, response);
 			}

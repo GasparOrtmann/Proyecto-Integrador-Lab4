@@ -33,7 +33,7 @@ public class NegocioMovimientos implements iNegocioMovimientos{
 	public Boolean generarTransferncia(String cbuOrigen, String cbuDestino,float monto) {
 		DaoMovimientos daoMo = new DaoMovimientos();
 		
-		if(daoMo.generarTransferncia(cbuOrigen,cbuDestino,monto)>0){
+		if(daoMo.generarTransferncia(cbuOrigen,cbuDestino,monto)==4){
 			return true;
 		}
 		
